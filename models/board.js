@@ -5,22 +5,19 @@ module.exports = function(sequelize, DataTypes) {
       autoIncrement: true,
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      comment: "게시글번호"
+      primaryKey: true
     },
     bt_no: {
       type: DataTypes.INTEGER,
       allowNull: true,
-      comment: "게시판 타입",
       references: {
         model: 'board_type',
         key: 'bt_no'
       }
     },
-    b_writer: {
+    u_id: {
       type: DataTypes.STRING(10),
       allowNull: true,
-      comment: "작성자",
       references: {
         model: 'users',
         key: 'u_id'
@@ -28,37 +25,31 @@ module.exports = function(sequelize, DataTypes) {
     },
     b_title: {
       type: DataTypes.STRING(10),
-      allowNull: false,
-      comment: "게시글 제목"
+      allowNull: false
     },
     b_content: {
       type: DataTypes.TEXT,
-      allowNull: false,
-      comment: "게시글 내용"
+      allowNull: false
     },
     b_reg_dt: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      comment: "게시글 생성날짜"
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
     b_mod_dt: {
       type: DataTypes.DATE,
       allowNull: true,
-      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP'),
-      comment: "게시글 수정날짜"
+      defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
     b_done: {
       type: DataTypes.TINYINT,
       allowNull: false,
-      defaultValue: 1,
-      comment: "게시글 삭제여부"
+      defaultValue: 1
     },
     b_cnt: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 0,
-      comment: "게시글 조회수"
+      defaultValue: 0
     }
   }, {
     sequelize,
@@ -74,10 +65,10 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "b_writer",
+        name: "u_id",
         using: "BTREE",
         fields: [
-          { name: "b_writer" },
+          { name: "u_id" },
         ]
       },
       {
