@@ -9,7 +9,7 @@ router.post('/', function (req, res, next) {
     res.render('index', {title: 'Express'});
 });
 router.get('/login', function (req, res, next) {
-    res.render('join');
+    res.render('login');
 });
 router.post('/login', function (req, res, next) {
     res.render('index', {title: 'Express'});
