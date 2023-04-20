@@ -3,6 +3,48 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+#login {
+  text-align: center;
+}
+
+#login h2 {
+  margin-top: 100px;
+  font-size: 26px;
+  margin-bottom: 40px;
+}
+
+#login label {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+#login input {
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+#login .login-input .id-input {
+  margin-left: 13px;
+}
+
+#login .login-input {
+  margin-top: 20px;
+}
+
+#login .btn {
+  padding: 10px 25px;
+  background-color: orange;
+
+  border: none;
+}
+
+#login .login-btn {
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+#login .join-btn,
+.forget-btn {
+  border-radius: 20px;
 }

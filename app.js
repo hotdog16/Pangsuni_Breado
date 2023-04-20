@@ -7,6 +7,7 @@ const nunjucks = require('nunjucks');
 const session = require('express-session');
 const dotenv = require('dotenv');
 const passport = require('passport');
+const sequelize = require('sequelize')
 
 dotenv.config();
 const indexRouter = require('./routes/index');
