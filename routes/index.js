@@ -3,22 +3,22 @@ const router = express.Router();
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+    res.render('main');
 });
 router.post('/', function (req, res, next) {
     res.render('index', {title: 'Express'});
 });
 router.get('/login', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+    res.render('join');
 });
 router.post('/login', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+    res.send('good!');
 });
 router.get('/join', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+    // res.render('main');
 });
 router.post('/join', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+    // res.send('good!');
 });
 router.get('/board', function (req, res, next) {
     res.render('index', {title: 'Express'});
