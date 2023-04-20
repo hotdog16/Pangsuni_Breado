@@ -1,45 +1,43 @@
 const express = require("express");
 const router = express.Router();
-
+const {createProduct, addProduct} = require('../controllers/product');
 /* GET home page. */
-<<<<<<< HEAD
+
 router.get("/main", function (req, res, next) {
-  res.render("index");
-=======
+    res.render("index");
+});
 router.get('/', function (req, res, next) {
     res.render('index');
->>>>>>> e543ca490c731d3cbd3d55c4668544b9256ecde7
+
 });
 router.post("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+    res.render("index", {title: "Express"});
 });
 router.get("/login", function (req, res, next) {
-  res.render("login");
+    res.render("login");
 });
 router.post("/login", function (req, res, next) {
-  res.render("index", { title: "Express" });
+    res.render("index", {title: "Express"});
 });
 router.get("/join", function (req, res, next) {
-  res.render("join", { title: "Express" });
+    res.render("join", {title: "Express"});
 });
 router.post("/join", function (req, res, next) {
-  res.render("index", { title: "Express" });
+    res.render("index", {title: "Express"});
 });
 router.get("/board", function (req, res, next) {
-  res.render("index", { title: "Express" });
+    res.render("index", {title: "Express"});
 });
 router.post("/board", function (req, res, next) {
-  res.render("index", { title: "Express" });
+    res.render("index", {title: "Express"});
 });
-<<<<<<< HEAD
+
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
+    res.render("index", {title: "Express"});
 });
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Express" });
-=======
-router.get('/product', function (req, res, next) {
-    res.render('product');
->>>>>>> e543ca490c731d3cbd3d55c4668544b9256ecde7
+    res.render("index", {title: "Express"});
 });
+router.get('/product', createProduct);
+router.post('/product', addProduct);
 module.exports = router;

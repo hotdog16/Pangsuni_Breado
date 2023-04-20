@@ -2,4 +2,24 @@
 
 {% block body %}
 <h1>dddd</h1>
-{% endblock %}
+<form method="post" action="/product">
+    <p><label>이름 : </label><input name="p_name" placeholder="이름을 꼭 입력해주세요!"></p>
+    <p><label>가격 : </label><input type="number" name="p_price" placeholder="가격을 꼭 입력해주세요!"></p>
+    <p><label>설명 : </label><textarea cols="100" rows="20" name="p_desc"></textarea></p>
+    <select name="s_no">
+        {% for s in store %}
+        <option data-id="{{s.s_no}}" value="{{s.s_no}}">
+            {{s.s_name}}
+        </option>
+        <!--    <h1>가게 번호 : {{s.s_no}}</h1>-->
+        <!--    <h1>가게 이름 : {{s.s_name}}</h1>-->
+        <!--{% for d in s %}-->
+        <!--<p>테스트!!!!!!!!!!!!1 : {{d}}</p>-->
+        <!--{% endfor %}-->
+
+        {% endfor %}
+    </select>
+    <p><label>이미지 : </label><input type="file" name="p_img"></p>
+    <p><button type="reset">취소</button><button type="submit">등록</button></p>
+</form>
+    {% endblock %}
