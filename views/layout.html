@@ -1,51 +1,48 @@
 <!DOCTYPE html>
 <html>
   <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }}</title>
-    <link rel='stylesheet' href='/stylesheets/index.css' />
-    <link rel='stylesheet' href='/stylesheets/main.css' />
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <div class="main-container">
-      <!-- header -->
-     <header id="header">
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>{{ title }}</title>
+      <link rel="stylesheet" href="/stylesheets/index.css" />
+      <link rel="stylesheet" href="/stylesheets/main.css" />
+      <link rel="stylesheet" href="/stylesheets/style.css" />
+    </head>
+    <body>
+      <div class="main-container">
+        <!-- header -->
+        <header id="header">
           <div class="search">
-              <p>검색창</p>  
-              <input type="text" class="search-form">
+            <p>검색창</p>
+            <input type="text" class="search-form" />
           </div>
           <div class="logo">
-              <a href="/main.html"><img src="./img/logo.png" alt=""></a> 
+            <a href="/main"><img src="./img/logo.png" alt="" /></a>
           </div>
           <div class="top-category">
-              <ul>
-                  <li><a href="/login">로그인</a></li>
-                  <li><a href="#">회원가입</a></li>
-                  <!-- <li><a href="#">관리자로그인</a></li> -->
-              </ul>
+            <ul>
+              <li><a href="/login">로그인</a></li>
+              <li><a href="/join">회원가입</a></li>
+              <!-- <li><a href="#">관리자로그인</a></li> -->
+            </ul>
           </div>
-     </header>
-     <!-- //header -->
+        </header>
+        <!-- //header -->
 
+        <ul id="nav">
+          <li><a href="bread">전국빵집</a></li>
+          <li><a href="inquiry">예약조회</a></li>
+          <li><a href="faq">FAQ</a></li>
+          <li><a href="notice">공지사항</a></li>
+        </ul>
 
-     <ul id="nav">
-      <li><a href="bread">전국빵집</a></li>
-      <li><a href="inquiry">예약조회</a></li>
-      <li><a href="faq">FAQ</a></li>
-      <li><a href="notice">공지사항</a></li>
-  
-     </ul>
-  
-
-    {% block body %}{% endblock %}
-     <!-- footer -->
- <footer id="footer">
-  footer
- </footer>
-  </body>
+        {% block body %}{% endblock %}
+        <!-- footer -->
+      </div>
+      <footer id="footer">footer</footer>
+    </body>
+  </html>
 </html>
