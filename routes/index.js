@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+router.get('/main', function (req, res, next) {
+    res.render('index');
 });
 router.post('/', function (req, res, next) {
     res.render('index', {title: 'Express'});
 });
 router.get('/login', function (req, res, next) {
-    res.render('index', {title: 'Express'});
+    res.render('login');
 });
 router.post('/login', function (req, res, next) {
     res.render('index', {title: 'Express'});
