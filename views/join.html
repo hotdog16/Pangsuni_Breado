@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PangsuniBreado</title>
+</head>
+<style>
+    input {
+        padding: 10px 20px;
+        border-radius: 10px;
+    }
+    .login-input{
+        margin-top: 20px;
+    }
+
+    .btn{
+        padding: 10px 25px;
+        background-color: orange;
+
+        border: none;
+    }
+
+    .login-btn{
+        border-radius: 5px;
+        margin-top: 20px;
+    }
+
+    .join-btn,.forget-btn{
+        border-radius: 20px;
+    }
+</style>
+<body>
+    <h2>로그인</h2>
+    <form action="/login">
+    <div class="login-input">
+        <label for="id">아이디</label>
+        <input type="text" placeholder="아이디를 입력하세요.">
+    </div>
+    <div class="login-input">
+        <label for="password">비밀번호</label>
+        <input type="password" placeholder="비밀번호를 입력하세요.">
+    </div>
+    <button id="login" type="sumit" class="btn login-btn">login</button>
+
+    <p>아직 회원이 아니세요?</p>
+    <button id="login" type="sumit" class="btn join-btn">회원가입 하러가기</button>
+    <p>아이디,비밀번호를 잊으셨나요?</p>
+    <button id="login" type="sumit" class="btn forget-btn">아이디/비밀번호 찾기</button>
+
+</form>
+
+</body>
+</html>
