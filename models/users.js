@@ -31,9 +31,9 @@ module.exports = function(sequelize, DataTypes) {
       unique: "u_email"
     },
     u_grade: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(5),
       allowNull: false,
-      defaultValue: 1
+      defaultValue: "일반회원"
     },
     u_reg_dt: {
       type: DataTypes.DATE,
