@@ -8,6 +8,12 @@ const session = require("express-session");
 const dotenv = require("dotenv");
 const passport = require("passport");
 const sequelize = require("sequelize");
+const multer = require('multer');
+const fs = require('fs');
+
+
+
+
 
 dotenv.config();
 const indexRouter = require("./routes/index");

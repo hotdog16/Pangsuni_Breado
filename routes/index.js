@@ -41,5 +41,5 @@ router.get("/", function (req, res, next) {
     res.render("index", {title: "Express"});
 });
 router.get('/product', createProduct);
-router.post('/product', addProduct);
+router.post('/product', singleUpload, addProduct);
 module.exports = router;
