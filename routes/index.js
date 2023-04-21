@@ -7,7 +7,7 @@ const path = require('path');
 const fs = require('fs');
 // const upload = multer({dest: '../public/images/'});
 /* GET home page. */
-const upload = express().upload();
+// const upload = express().upload();
 
 const router = express.Router();
 
