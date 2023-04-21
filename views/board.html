@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<h2>게시판</h2>
+빵수니 브래도를 찾아주셔서 감사합니다. 이용중
+궁금한 사항을 문의주시면 친절한 답변을 드립니다.
+<br><br>
+<form id ="board_form" action="/board" method="post">
+    <div class="input-group">
+    <label for ="writer">작성자---</label>
+        <input id="writer" type="text" name="writer">
+    </div>
+    <div class="input-group">
+        <label for ="board_title">제목------</label>
+        <input id="board_title" type="text" name="board_title">
+    </div>
+    <div class="input-group">
+        <label for ="board_content">내용------</label>
+        <input id="board_content" type="text" name="board_content">
+    </div>
+
+    <p><button type="submit">전송</button></p>
+
+    </div>
+</form>
+
+{% endblock %}
