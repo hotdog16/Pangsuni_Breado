@@ -28,9 +28,12 @@ router.get("/join", function (req, res, next) {
 });
 router.post("/join", addUser);
 router.get("/board", function (req, res, next) {
-    res.render("index", {title: "Express"});
+    res.render("board");
 });
 router.post("/board", function (req, res, next) {
+    // 과정
+    // db
+    // 결과
     res.render("index", {title: "Express"});
 });
 
