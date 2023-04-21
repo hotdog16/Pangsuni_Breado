@@ -10,16 +10,32 @@ const passport = require("passport");
 const sequelize = require("sequelize");
 const multer = require('multer');
 const fs = require('fs');
-
-
-
-
-
 dotenv.config();
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 
 const app = express();
+
+const upload = multer({
+  storage:multer.diskStorage({
+    destination(req,file,done){
+      done(null, 'public/images/');
+    },
+    filename(req,file,done){
+      const ext = path.extname(file.originalname);
+      done(null, path.basename(file.originalname, ext)+ext);
+    },
+  }),
+  limits:{fileSize: 5 * 1024 * 1024},
+});
+
+try{
+
+}catch (err) {
+  console.error('public/images 폴더가 없어서 폴더를 생성합니다!');
+  fs.mkdirSync('public/images');
+}
+
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
