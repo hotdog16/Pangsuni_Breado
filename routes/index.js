@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { createProduct, addProduct } = require("../controllers/product");
-const { addUser } = require("../controllers/user");
+const { addUser, login } = require("../controllers/user");
 /* GET home page. */
 
 router.get("/main", function (req, res, next) {
@@ -16,9 +16,8 @@ router.post("/", function (req, res, next) {
 router.get("/login", function (req, res, next) {
   res.render("login");
 });
-router.post("/login", function (req, res, next) {
-  res.render("index", { title: "Express" });
-});
+router.post("/login", login);
+
 router.get("/join", function (req, res, next) {
   res.render("join", { title: "Express" });
 });
