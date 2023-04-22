@@ -23,26 +23,36 @@ exports.addBoard  = async (req, res, next) => {
         next(e);
     }
 };
+// -----------아래 페이징처리가 안되면 복원-----------------------------------------
 exports.qnaList= async (req, res, next)=> {
     // console.log('컨트롤러에 들어옴');
     // console.log(req.body);
     try{
-        const ttt = await board.findAll();
+        const b_list = await board.findAll();
         console.log('게시글 시작 ============================');
-        console.log(ttt);
-        for(i in ttt){
+        console.log(b_list);
+        for(i in b_list){
             console.log(i);
         }
         console.log('게시글 끝 ============================');
         // const tt = 'test!!!!!!!!!!!!!!!!!!';
-        res.render("board",{list:ttt});
+        res.render("board",{list:b_list});
     }catch (err) {
         console.error(err);
         next(err);
     }
 }
+// ----------------------------------------------------
 
+
+
+
+
+
+
+
+// board.html / 게시글 처음에서 글쓰기 할때 누르는----------------------------------------------------
 exports.aaaaa= async (req, res, next)=> {
-    console.log('글쓰기에 들어온건가');
+    // console.log('글쓰기에 들어오는창');
     res.render('write');
 }
