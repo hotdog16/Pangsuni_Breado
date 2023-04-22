@@ -1,7 +1,8 @@
 const express = require("express");
-const {createProduct, addProduct, listProduct, modProduct} = require('../controllers/product');
+const {createProduct, addProduct, listProduct, modProduct, editProduct} = require('../controllers/product');
 const {addUser} = require("../controllers/user");
-const {singleUpload} = require('../middlewares/uploads');
+// const {singleUpload} = require('../middlewares/uploads');
+const {uerRegExp} = require('../middlewares/regExpCheck');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -11,14 +12,11 @@ const fs = require('fs');
 
 const router = express.Router();
 
-try{
+try {
     fs.readFileSync('')
-}catch (e) {
+} catch (e) {
     console.error('');
 }
-
-
-
 
 
 router.get("/main", function (req, res, next) {
@@ -58,8 +56,9 @@ router.get("/", function (req, res, next) {
     res.render("index", {title: "Express"});
 });
 router.get('/product', createProduct);
-router.post('/product',  addProduct);
+router.post('/product', uerRegExp, addProduct);
 router.get('/productList', listProduct);
 router.get('/modProduct/:p_no', modProduct);
+router.post('/modProduct/', uerRegExp, editProduct);
 // router.post('/product', singleUpload, addProduct);
 module.exports = router;
