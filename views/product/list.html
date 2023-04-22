@@ -1,0 +1,8 @@
+{% extends 'layout.html' %}
+{% block body %}
+<ol>
+    {% for p in products %}
+    <li>{{p.s_no_store.s_name}} - {{p.p_name}} - {{p.p_price}}원 <button><a href="/modProduct/{{p.p_no}}">수정</a></button><button>삭제</button></li>
+    {% endfor %}
+</ol>
+{% endblock %}

@@ -29,6 +29,17 @@ exports.login = (req, res, next) => {
   console.log("회원 :  ", User);
 };
 
+exports.login2 = (req, res, next) => {
+  const User = users.findOne({
+    where: { u_id: req.body.u_id, u_pwd: req.body.u_pwd },
+  });
+  console.log("회원 :  ", User);
+  res.setHeader('set')
+};
+
+
+
+
 // .then(() => {
 //     console.log(stores2);
 //     res.render('product', {store: stores2});

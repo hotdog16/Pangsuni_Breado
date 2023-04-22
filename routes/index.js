@@ -1,5 +1,5 @@
 const express = require("express");
-const {createProduct, addProduct} = require('../controllers/product');
+const {createProduct, addProduct, listProduct, modProduct} = require('../controllers/product');
 const {addUser} = require("../controllers/user");
 const {singleUpload} = require('../middlewares/uploads');
 const multer = require('multer');
@@ -59,5 +59,7 @@ router.get("/", function (req, res, next) {
 });
 router.get('/product', createProduct);
 router.post('/product',  addProduct);
+router.get('/productList', listProduct);
+router.get('/modProduct/:p_no', modProduct);
 // router.post('/product', singleUpload, addProduct);
 module.exports = router;
