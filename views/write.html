@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<form id ="board_form" action="/board" method="post">
+
+    <div class="input-group">
+        <label>작성자---</label>
+        <input name="u_id" value="kkk">
+    </div>
+    <div class="input-group">
+        <label>제목------</label>
+        <input name="b_title">
+    </div>
+    <div class="input-group">
+        <label>내용------</label>
+        <input name="b_content">
+    </div>
+
+    <p><button type="submit">전송</button></p>
+
+    </div>
+</form>
+{% endblock %}

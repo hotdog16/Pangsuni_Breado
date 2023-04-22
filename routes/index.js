@@ -1,6 +1,7 @@
 const express = require("express");
 const {createProduct, addProduct} = require('../controllers/product');
 const {addUser} = require("../controllers/user");
+const {addBoard, qnaList ,aaaaa} = require("../controllers/board");
 const {singleUpload} = require('../middlewares/uploads');
 const multer = require('multer');
 const path = require('path');
@@ -16,8 +17,6 @@ try{
 }catch (e) {
     console.error('');
 }
-
-
 
 
 
@@ -41,15 +40,9 @@ router.get("/join", function (req, res, next) {
     res.render("join", {title: "Express"});
 });
 router.post("/join", addUser);
-router.get("/board", function (req, res, next) {
-    res.render("board");
-});
-router.post("/board", function (req, res, next) {
-    // 과정
-    // db
-    // 결과
-    res.render("index", {title: "Express"});
-});
+router.get("/board", qnaList);
+router.post("/board", addBoard);
+router.get("/board/write", aaaaa);
 
 router.get("/", function (req, res, next) {
     res.render("index", {title: "Express"});
