@@ -4,11 +4,11 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const nunjucks = require("nunjucks");
-const session = require("express-session");
+// const session = require("express-session");
 const dotenv = require("dotenv");
-const passport = require("passport");
-const sequelize = require("sequelize");
-const multer = require('multer');
+// const passport = require("passport");
+// const sequelize = require("sequelize");
+// const multer = require('multer');
 const fs = require('fs');
 dotenv.config();
 const indexRouter = require("./routes/index");
@@ -18,18 +18,18 @@ const noticeRouter  = require("./routes/notice");
 
 const app = express();
 
-const upload = multer({
-  storage:multer.diskStorage({
-    destination(req,file,done){
-      done(null, 'public/images/');
-    },
-    filename(req,file,done){
-      const ext = path.extname(file.originalname);
-      done(null, path.basename(file.originalname, ext)+ext);
-    },
-  }),
-  limits:{fileSize: 5 * 1024 * 1024},
-});
+// const upload = multer({
+//   storage:multer.diskStorage({
+//     destination(req,file,done){
+//       done(null, 'public/images/');
+//     },
+//     filename(req,file,done){
+//       const ext = path.extname(file.originalname);
+//       done(null, path.basename(file.originalname, ext)+ext);
+//     },
+//   }),
+//   limits:{fileSize: 5 * 1024 * 1024},
+// });
 
 try{
 
