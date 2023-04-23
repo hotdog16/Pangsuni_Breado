@@ -24,10 +24,6 @@ body {
 
 }
 
-.qna-list-con:hover{
-    background: lightgray;
-}
-
 .qna-title-list {
     padding: 10px;
     background: lightgreen;
@@ -57,3 +53,17 @@ body {
 .b_title {
     width: 500px;
 }
+
+.qnabox {
+    width: 100%;
+    height: 100px;
+    display: none;
+}
+
+.qna-list-con:hover{
+    background: lightgray;
+}
+.test{
+    display: block;
+}
+

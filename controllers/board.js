@@ -56,17 +56,12 @@ exports.qnaList = async (req, res, next)=> {
         }
         console.log('게시글 끝 ============================');
         // const tt = 'test!!!!!!!!!!!!!!!!!!';
-        res.render("board",{list:b_list});
+        res.render("board/board",{list:b_list});
     }catch (err) {
         console.error(err);
         next(err);
     }
 }
-
-
-
-
-
 
 
 
