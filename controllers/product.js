@@ -4,7 +4,7 @@ exports.createProduct = (req, res) => {
     stores.findAll()
         .then((stores2) => {
             console.log(stores2);
-            res.render('product', {store: stores2});
+            res.render('product/add', {store: stores2});
         })
         .catch((err) => {
             res.send(err);
@@ -12,6 +12,18 @@ exports.createProduct = (req, res) => {
 }
 
 exports.addProduct = (req, res, next) => {
+    // let nameRegExp = /^[가-힣]{1,10}$/;
+    // let priceRegExp = /^[0-9]{1,4}$/;
+    // let name = req.body.p_name;
+    // let price = req.body.p_price;
+    // console.log('name : ',name);
+    // console.log('price : ',price);
+    // if (!nameRegExp.test(name)) {
+    //     return res.send('아이디 입력이 양식에 맞지 않습니다.');
+    // }
+    // if (!priceRegExp.test(price)) {
+    //     return res.send('가격 입력이 양식에 맞지 않습니다.');
+    // }
     if (req.body.p_desc === '') {
         req.body.p_desc = null;
     }
@@ -27,6 +39,7 @@ exports.addProduct = (req, res, next) => {
             s_no: req.body.s_no,
             p_img: req.body.p_img,
         });
+        // console.log('추가된다!!!');
         res.redirect('/product');
     } catch (e) {
         console.error(e);
@@ -48,7 +61,7 @@ exports.modProduct = async (req, res) => {
 
     products.findOne({where: {p_no: no1}})
         .then((product) => {
-            res.render('product/modProduct', {product});
+            res.render('product/modify', {product});
         })
         .catch((err) => {
             console.error(err);
@@ -64,13 +77,16 @@ exports.editProduct = async (req, res, next) => {
         req.body.p_img = null;
     }
     try {
-        await products.create({
-            p_no: null,
+        await products.update({
             p_name: req.body.p_name,
             p_price: req.body.p_price,
             p_desc: req.body.p_desc,
             s_no: req.body.s_no,
             p_img: req.body.p_img,
+        },{
+            where:{
+                p_no: req.body.p_no
+            }
         });
         res.redirect('/product');
     } catch (e) {
