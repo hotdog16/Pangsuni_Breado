@@ -2,6 +2,7 @@ const express = require("express");
 const {createProduct, addProduct} = require('../controllers/product');
 const {addUser} = require("../controllers/user");
 const {addBoard, qnaList ,aaaaa} = require("../controllers/board");
+const {notice} = require("../controllers/notice");
 const {singleUpload} = require('../middlewares/uploads');
 const multer = require('multer');
 const path = require('path');

@@ -23,8 +23,28 @@ exports.addBoard  = async (req, res, next) => {
         next(e);
     }
 };
-// -----------아래 페이징처리가 안되면 복원-----------------------------------------
-exports.qnaList= async (req, res, next)=> {
+// -----------아래 페이징처리가 안되면 복원하기-------------------
+// exports.qnaList = async (req, res, next)=> {
+//     // console.log('컨트롤러에 들어옴');
+//     // console.log(req.body);
+//     try{
+//         const b_list = await board.findAll();
+//         console.log('게시글 시작 ============================');
+//         console.log(b_list);
+//         for(i in b_list){
+//             console.log(i);
+//         }
+//         console.log('게시글 끝 ============================');
+//         // const tt = 'test!!!!!!!!!!!!!!!!!!';
+//         res.render("board",{list:b_list});
+//     }catch (err) {
+//         console.error(err);
+//         next(err);
+//     }
+// }
+// ----------여기까지 페이징처리가 안되면 복원하기----------
+
+exports.qnaList = async (req, res, next)=> {
     // console.log('컨트롤러에 들어옴');
     // console.log(req.body);
     try{
@@ -42,7 +62,6 @@ exports.qnaList= async (req, res, next)=> {
         next(err);
     }
 }
-// ----------------------------------------------------
 
 
 
@@ -51,7 +70,7 @@ exports.qnaList= async (req, res, next)=> {
 
 
 
-// board.html / 게시글 처음에서 글쓰기 할때 누르는----------------------------------------------------
+// board.html / 게시글 처음에서 글쓰기----------
 exports.aaaaa= async (req, res, next)=> {
     // console.log('글쓰기에 들어오는창');
     res.render('write');

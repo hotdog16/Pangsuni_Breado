@@ -17,6 +17,7 @@ exports.addBoard  = async (req, res, next) => {
         });
         console.log(req.body);
         res.send("공지사항등록완료!!");
+        res.redirect('/notice');
     } catch (e) {
         console.error(e);
         next(e);
