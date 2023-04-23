@@ -5,22 +5,21 @@
 {% endblock %}
 {% block body %}
 <div id="qna-border">
-    <h1>QNA:묻고답하기</h1>
-    <p>빵수니 브래두를 찾아주셔서 감사합니다.<br>
-       이용중 궁금한 사항을 문의주시면 친절한 답변을 드립니다.</p>
+    <h1>공지사항</h1>
+    <p>안녕하세요! 빵수니 브래두를 찾아주셔서 감사합니다.</p>
 <!--    <h1>list {{str}}</h1>-->
     <!--<form id ="board_form" action="/board" method="post">-->
-    <div class="qna-list">
-        <ul class="qna-title-list">
+    <div class="notice-list">
+        <ul class="notice-title-list">
             <li>No</li>
-            <li>작성자ID</li>
+            <li>관리자ID</li>
             <li>제목</li>
             <li>내용</li>
             <li>등록일</li>
             <li>조회수</li>
         </ul>
         {% for i in list %}
-        <ul class="qna-list-con">
+        <ul class="notice-list-con">
             <li>{{i.b_no}}</li>
             <li>{{i.u_id}}</li>
             <li>{{i.b_title}}</li>
@@ -32,7 +31,6 @@
         {% endfor %}
 
     </div>
-    </div>
-<button><a href = "/board/write">글쓰기</a></button>
+</div>
 
 {% endblock %}
