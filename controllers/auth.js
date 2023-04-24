@@ -3,11 +3,13 @@ const passport = require("passport");
 const { Sequelize } = require("sequelize");
 const { users } = require("../models");
 
+
 exports.join = async (req, res, next) => {
-  const { u_id, u_pwd, u_name, u_tel, u_email, u_grade } = req.body;
+  const { u_id, u_pwd,u_name,u_tel,u_email } = req.body;
   console.log("req.body ,,, auth.js", req.body);
   try {
-    const exUser = await users.findOne({ where: { u_id: u_id } });
+    const exUser = await users.findOne({ where: { u_id :u_id} });
+
     if (exUser) {
       return res.redirect("/join?error=exist");
     }

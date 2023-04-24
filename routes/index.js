@@ -1,16 +1,21 @@
 const express = require("express");
 const { createProduct, addProduct, listProduct, modProduct, editProduct } = require("../controllers/product");
+
 const { uerRegExp } = require("../middlewares/regExpCheck");
 const { addBoard, qnaList, aaaaa } = require("../controllers/board");
 const { notice } = require("../controllers/notice");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-
 const { join, login, logout } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
 const { mypage, mypageUpdate } = require("../controllers/mypage");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
+const {addBoard, qnaList, aaaaa} = require("../controllers/board");
+
 
 const router = express.Router();
 

@@ -1,7 +1,7 @@
 {% extends 'layout.html' %} {% block body %}
 <div id="join">
   <h2>회원가입</h2>
-  <form action="/join" method="post" id="join">
+  <form action="/join" method="post">
     <div class="join-input">
       <label>이름</label>
       <input type="text" name="u_name" class="name" />
@@ -41,4 +41,8 @@
     alert("빈칸이있습니다");
   }
 </script>
+
 {% endblock %}
+
+{% endblock %}
+
