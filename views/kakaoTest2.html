@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>주소로 장소 표시하기</title>
+</head>
+<body>
+<p style="margin-top:-12px">
+    <em class="link">
+        <a href="javascript:void(0);"
+           onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
+            혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
+        </a>
+    </em>
+</p>
+<div id="map" style="width:100%;height:350px;"></div>
+<div><input class="searchMap">
+    <button class="btnMap">검색</button>
+</div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{mapAPI}}&libraries=services"></script>
+<script>
+    const mapContainer = document.getElementById('map'); // 지도를 표시할 div
+    const mapOption = {
+        center: new kakao.maps.LatLng(35.861292438004945, 128.5562526030231), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+    // function testing(keyword){
+        // 지도를 생성합니다
+        const map = new kakao.maps.Map(mapContainer, mapOption);
+        // 주소-좌표 변환 객체를 생성합니다
+        const geocoder = new kakao.maps.services.Geocoder();
+        // 주소로 좌표를 검색합니다
+    function search (target){
+        geocoder.addressSearch(target, function (result, status) {
+            // 정상적으로 검색이 완료됐으면
+            if (status === kakao.maps.services.Status.OK) {
+                const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                // 결과값으로 받은 위치를 마커로 표시합니다
+                const marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords
+                });
+                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                const infowindow = new kakao.maps.InfoWindow({
+                    content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+                });
+                infowindow.open(map, marker);
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                map.setCenter(coords);
+            }
+        });
+    }
+    let test = '서울시 성북구 성북로 7';
+    search(test);
+        // geocoder.addressSearch('서울시 성북구 성북로 7', function (result, status) {
+        //     // 정상적으로 검색이 완료됐으면
+        //     if (status === kakao.maps.services.Status.OK) {
+        //         const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+        //         // 결과값으로 받은 위치를 마커로 표시합니다
+        //         const marker = new kakao.maps.Marker({
+        //             map: map,
+        //             position: coords
+        //         });
+        //         // 인포윈도우로 장소에 대한 설명을 표시합니다
+        //         const infowindow = new kakao.maps.InfoWindow({
+        //             content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+        //         });
+        //         infowindow.open(map, marker);
+        //         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        //         map.setCenter(coords);
+        //     }
+        // });
+    // }
+    const btn = document.querySelector('.btnMap');
+    btn.addEventListener('click', function () {
+        const keyword = document.querySelector('.searchMap').value;
+        search(keyword);
+    })
+
+</script>
+</body>
+</html>

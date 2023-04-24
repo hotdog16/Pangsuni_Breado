@@ -68,6 +68,9 @@ router.get("/map", (req, res) => {
     const mapAPI = process.env.KAKAO_MAP;
     res.render('kakaoTest', {mapAPI});
 });
-
+router.get("/map2", (req, res) => {
+  const mapAPI = process.env.KAKAO_MAP;
+  res.render('kakaoTest2', {mapAPI});
+});
 
 module.exports = router;
