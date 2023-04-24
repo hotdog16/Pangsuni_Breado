@@ -7,7 +7,6 @@ const nunjucks = require("nunjucks");
 const dotenv = require("dotenv");
 const fs = require('fs');
 const multer = require('multer');
-const fs = require("fs");
 dotenv.config();
 
 const indexRouter = require("./routes/index");
@@ -16,28 +15,7 @@ const noticeRouter = require("./routes/notice");
 const productRouter = require("./routes/product");
 const orderRouter = require("./routes/order");
 
-// const storeRouter = require("./routes/store");
-//
 const app = express();
-
-// const upload = multer({
-//   storage:multer.diskStorage({
-//     destination(req,file,done){
-//       done(null, 'public/images/');
-//     },
-//     filename(req,file,done){
-//       const ext = path.extname(file.originalname);
-//       done(null, path.basename(file.originalname, ext)+ext);
-//     },
-//   }),
-//   limits:{fileSize: 5 * 1024 * 1024},
-// });
-
-try {
-} catch (err) {
-  console.error("public/images 폴더가 없어서 폴더를 생성합니다!");
-  fs.mkdirSync("public/images");
-}
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -66,7 +44,6 @@ app.use("/users", usersRouter);
 app.use("/notice", noticeRouter);
 app.use("/product", productRouter);
 app.use("/order", orderRouter);
-// app.use("/store", storeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
