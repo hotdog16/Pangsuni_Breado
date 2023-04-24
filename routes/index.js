@@ -1,11 +1,11 @@
 const express = require("express");
 const { createProduct, addProduct, listProduct, modProduct, editProduct } = require("../controllers/product");
-const {addUser} = require("../controllers/user");
 const {uerRegExp} = require('../middlewares/regExpCheck');
 const {addBoard, qnaList, aaaaa} = require("../controllers/board");
 const {notice} = require("../controllers/notice");
 const multer = require('multer');
 const path = require('path');
+
 const fs = require('fs');
 
 
@@ -57,7 +57,6 @@ router.get("/board/write", aaaaa);
 // 지도 테스트 중
 router.get("/map", (req, res) => {
     const mapAPI = process.env.KAKAO_MAP;
-    // console.log('appkey :', mapAPI);
     res.render('kakaoTest', {mapAPI});
 });
 

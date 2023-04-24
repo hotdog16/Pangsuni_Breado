@@ -1,12 +1,13 @@
 const bcrypt = require("bcrypt");
 const passport = require("passport");
-const users = require("../models/users");
+const {users} = require("../models/users");
+const Sequelize = require("sequelize");
 
 exports.join = async (req, res, next) => {
   const { u_id, u_pwd } = req.body;
   console.log("req.body ,,, auth.js", req.body);
   try {
-    const exUser = await users.findOne({ where: { u_id } });
+    const exUser = await users.findOne({ where: { u_id: u_id } });
     if (exUser) {
       return res.redirect("/join?error=exist");
     }
