@@ -4,24 +4,41 @@
   <form action="/join" method="post">
     <div class="join-input">
       <label>이름</label>
-      <input type="text" name="u_name" />
+      <input type="text" name="u_name" class="name" />
 
       <label>아이디</label>
-      <input type="text" name="u_id" />
+      <input type="text" name="u_id" class="id" />
+      <button class="id-chk-btn" type="button">중복 체크</button>
+      <span class="id_chk_btn"></span>
 
       <label>비밀번호</label>
-      <input type="password" name="u_pwd" />
+      <input type="password" name="u_pwd" class="password" />
 
       <label>비밀번호확인</label>
-      <input type="password" />
+      <input type="password" class="re-password" />
 
       <label>전화번호</label>
-      <input type="text" name="u_tel" />
+      <input type="text" name="u_tel" class="tel" />
 
       <label>이메일</label>
-      <input type="email" name="u_email" />
+      <input type="email" name="u_email" class="email" />
     </div>
     <button class="btn join-btn" type="submit">회원가입</button>
   </form>
 </div>
+
+{% endblock %} {% block script %}
+<script>
+  userName = document.querySelector(".name");
+  userId = document.querySelector(".name");
+  userPassword = document.querySelector(".name");
+  rePassword = document.querySelector(".name");
+  useTel = document.querySelector(".name");
+  userEmail = document.querySelector(".name");
+  joinBtn = document.querySelector(".join-btn");
+
+  if (userName === "" || userName === "" || userId === "" || userPassword === "" || useTel === "" || userEmail === "" || joinBtn === "") {
+    alert("빈칸이있습니다");
+  }
+</script>
 {% endblock %}

@@ -1,13 +1,18 @@
 const express = require("express");
-const {addBoard, qnaList, aaaaa} = require("../controllers/board");
-const fs = require('fs');
-
-
+const { createProduct, addProduct, listProduct, modProduct, editProduct } = require("../controllers/product");
 const { join, login, logout } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
 const { mypage, mypageUpdate } = require("../controllers/mypage");
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
-
+const {addBoard, qnaList, aaaaa} = require("../controllers/board");
+// const {singleUpload} = require('../middlewares/uploads');
+// const {singleUpload} = require('../middlewares/uploads');
+// const upload = multer({dest: '../public/images/'});
+/* GET home page. */
+// const upload = express().upload();
 
 const router = express.Router();
 
@@ -16,8 +21,6 @@ try {
 } catch (e) {
     console.error('');
 }
-
-
 
 router.get("/", renderMain);
 router.post("/", function (req, res, next) {
