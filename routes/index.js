@@ -12,9 +12,6 @@ const fs = require('fs');
 const { join, login, logout } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
 const { mypage, mypageUpdate } = require("../controllers/mypage");
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
 
 

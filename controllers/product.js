@@ -11,17 +11,6 @@ exports.createProduct = (req, res) => {
             const upload = multer({dest: '../public/images/'});
         })
 }
-exports.createProduct = (req, res, next) => {
-    stores.findAll()
-        .then((stores2) => {
-            console.log(stores2);
-            res.render('product', {store: stores2});
-
-        })
-        .catch((err) => {
-            res.send(err);
-        })
-}
 
 exports.addProduct = async (req, res, next) => {
     // 상품등록시 null값 허용 컬럼에 null 값이 들어가도록 하기 위함
