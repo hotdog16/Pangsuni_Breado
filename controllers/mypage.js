@@ -1,4 +1,4 @@
-const { users } = require("../models");
+// const { users } = require("../models");
 
 exports.mypage = async (req, res, next) => {
   console.log("req:body ======>1111", req.user);
@@ -13,5 +13,5 @@ exports.mypage = async (req, res, next) => {
 exports.mypageUpdate = async (req, res) => {
   const user = req.user;
   console.log("mypageuser -------------------->", user);
-  user.res.render("mypage_update");
+  res.render("mypage_update", { user });
 };
