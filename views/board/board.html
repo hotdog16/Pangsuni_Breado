@@ -11,7 +11,7 @@
     <!--    <h1>list {{str}}</h1>-->
     <!--<form id ="board_form" action="/board" method="post">-->
     <div class="qna-list">
-        <ul class="qna-title-list">
+        <ul class="qna-title">
             <li>No</li>
             <li>작성자ID</li>
             <li>제목</li>
@@ -30,7 +30,7 @@
                 <li>{{i.b_cnt}}</li>
             </ul>
             <div class="qnabox">
-                {{i.b_content}}
+               {{i.b_content}}
             </div>
         </div>
 
@@ -41,8 +41,19 @@
 <button><a href="/board/write">글쓰기</a></button>
 
 <!--2023.04.23-메뉴 펼치고 접기-->
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!--<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>-->
 <script>
+    let qnaConBox = document.querySelectorAll('.qna-list-con');
+    qnaConBox.forEach((target) => {
+        target.addEventListener('click', function (){
+            let flag = this.parentNode.lastElementChild.style.display;
+            if (flag === 'black') {
+                this.parentNode.lastElementChild.style.display = 'none';
+            } else {
+                this.parentNode.lastElementChild.style.display = 'black';
+            }
+        })
+    })
     // let qnaList = document.querySelector('.qna-list-con');
     // let qnaListBox = document.querySelector('.qnabox');
     // // 클릭시 메뉴 펼침 or 닫힘
@@ -58,6 +69,43 @@
     $('.qna-list-con').click(function () {
         $(this).find('.qnabox').slideToggle()
     });
+    // $('.qna-list-con').click(function() {
+    //     $(this).find('.qnabox').slideToggle()
+    // });	// <![CDATA[  <-- For SVG support
+    // if ('WebSocket' in window) {
+    //     (function () {
+    //         function refreshCSS() {
+    //             var sheets = [].slice.call(document.getElementsByTagName("link"));
+    //             var head = document.getElementsByTagName("head")[0];
+    //             for (var i = 0; i < sheets.length; ++i) {
+    //                 var elem = sheets[i];
+    //                 var parent = elem.parentElement || head;
+    //                 parent.removeChild(elem);
+    //                 var rel = elem.rel;
+    //                 if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+    //                     var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+    //                     elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+    //                 }
+    //                 parent.appendChild(elem);
+    //             }
+    //         }
+    //         var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+    //         var address = protocol + window.location.host + window.location.pathname + '/ws';
+    //         var socket = new WebSocket(address);
+    //         socket.onmessage = function (msg) {
+    //             if (msg.data == 'reload') window.location.reload();
+    //             else if (msg.data == 'refreshcss') refreshCSS();
+    //         };
+    //         if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+    //             console.log('Live reload enabled.');
+    //             sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+    //         }
+    //     })();
+    // }
+    // else {
+    //     console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+    // }
+    // ]]>
 
     // let btn = document.querySelectorAll('.qna-list-con');
     //
@@ -71,7 +119,18 @@
     //         }
     //     })
     // })
+    let btn = document.querySelectorAll('.qna-list-con');
 
+    btn.forEach((target)=>{
+        target.addEventListener('click', function () {
+            let flag = this.parentNode.lastElementChild.style.display;
+            if(flag === 'block'){
+                this.parentNode.lastElementChild.style.display = 'none';
+            }else{
+                this.parentNode.lastElementChild.style.display = 'block';
+            }
+        })
+    })
 </script>
 
 {% endblock %}
