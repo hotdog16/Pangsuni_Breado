@@ -1,4 +1,5 @@
-exports.uerRegExp = (req, res, next) => {
+//
+exports.productRegExp = (req, res, next) => {
     const nameRegExp = /^[가-힣]{1,10}$/;
     const priceRegExp = /^[0-9]{1,4}$/;
     const name = req.body.p_name;

@@ -6,41 +6,16 @@ const morgan = require("morgan");
 const nunjucks = require("nunjucks");
 const dotenv = require("dotenv");
 const fs = require('fs');
+const multer = require('multer');
 dotenv.config();
-// const session = require("express-session");
-// const passport = require("passport");
-// const sequelize = require("sequelize");
-// const multer = require('multer');
 
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const noticeRouter = require("./routes/notice");
 const productRouter = require("./routes/product");
 const orderRouter = require("./routes/order");
-// const storeRouter = require("./routes/store");
 
 const app = express();
-
-// const upload = multer({
-//   storage:multer.diskStorage({
-//     destination(req,file,done){
-//       done(null, 'public/images/');
-//     },
-//     filename(req,file,done){
-//       const ext = path.extname(file.originalname);
-//       done(null, path.basename(file.originalname, ext)+ext);
-//     },
-//   }),
-//   limits:{fileSize: 5 * 1024 * 1024},
-// });
-
-try {
-
-} catch (err) {
-    console.error('public/images 폴더가 없어서 폴더를 생성합니다!');
-    fs.mkdirSync('public/images');
-}
-
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -49,14 +24,14 @@ nunjucks.configure("views", {
     express: app,
     watch: true,
 });
-
-// sequelize.sync({force: false})
-//     .then(() => {
-//         console.log('데이터베이스 연결 성공');
-//     })
-//     .catch((err) => {
-//         console.error(err);
-//     });
+// 파일 업로드를 위해 디렉토리가 있는지 확인하고 없다면 생성
+app.listen(3000, ()=>{
+    const dir = './public/images';
+    if(!fs.existsSync(dir)){
+        fs.mkdirSync(dir);
+    }
+    console.log('서버실행');
+})
 
 app.use(morgan("dev"));
 app.use(express.json());
@@ -69,15 +44,11 @@ app.use("/users", usersRouter);
 app.use("/notice", noticeRouter);
 app.use("/product", productRouter);
 app.use("/order", orderRouter);
-// app.use("/store", storeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     next(createError(404));
 });
-// app.use(function (req, res, next) {
-//   next(createError(404));
-// });
 
 // error handler
 app.use(function (err, req, res, next) {

@@ -28,7 +28,6 @@
                 <li>{{i.b_content}}</li>
                 <li>{{i.b_reg_dt}}</li>
                 <li>{{i.b_cnt}}</li>
-
             </ul>
             <div class="qnabox">
                 {{i.b_content}}
@@ -56,10 +55,22 @@
     //     }
     // })
 
-    $('.qna-list-con').click(function() {
+    $('.qna-list-con').click(function () {
         $(this).find('.qnabox').slideToggle()
     });
 
+    // let btn = document.querySelectorAll('.qna-list-con');
+    //
+    // btn.forEach((target)=>{
+    //     target.addEventListener('click', function () {
+    //         let flag = this.parentNode.lastElementChild.style.display;
+    //         if(flag === 'block'){
+    //             this.parentNode.lastElementChild.style.display = 'none';
+    //         }else{
+    //             this.parentNode.lastElementChild.style.display = 'block';
+    //         }
+    //     })
+    // })
 
 </script>
 

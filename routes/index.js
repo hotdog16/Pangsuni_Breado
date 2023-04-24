@@ -22,7 +22,6 @@ try {
 }
 
 
-
 router.get('/', function (req, res, next) {
     res.render('index');
 });
@@ -51,5 +50,11 @@ router.post("/board", addBoard);
 
 router.get("/board/write", aaaaa);
 
+// 지도 테스트 중
+router.get("/map", (req, res) => {
+    const mapAPI = process.env.KAKAO_MAP;
+    console.log('appkey :', mapAPI);
+    res.render('kakaoTest', {mapAPI});
+});
 
 module.exports = router;
