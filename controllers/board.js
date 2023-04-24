@@ -68,5 +68,5 @@ exports.qnaList = async (req, res, next)=> {
 // board.html / 게시글 처음에서 글쓰기----------
 exports.aaaaa= async (req, res, next)=> {
     // console.log('글쓰기에 들어오는창');
-    res.render('write');
+    res.render('board/write');
 }

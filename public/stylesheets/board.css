@@ -17,14 +17,14 @@ body {
     font-size: 17px;
 }
 
-.qna-title-list, .qna-list-con {
+.qna-title, .qna-list-con {
     display: flex;
     justify-content: space-around;
     border-bottom: 1px solid #555;
 
 }
 
-.qna-title-list {
+.qna-title {
     padding: 10px;
     background: lightgreen;
 }

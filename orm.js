@@ -1,6 +1,6 @@
 const SequelizeAuto = require('sequelize-auto');
-const auto = new SequelizeAuto("bread", "root", "edurootroot", {
-        host: "127.0.0.1",
+const auto = new SequelizeAuto("bread", "breado", "pangsuni", {
+        host: "192.168.10.102",
         port: "3306",
         dialect: "mysql"
     }
