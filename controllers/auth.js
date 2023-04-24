@@ -1,9 +1,10 @@
 const bcrypt = require("bcrypt");
 const passport = require("passport");
-const users = require("../models/users");
+const { Sequelize } = require("sequelize");
+const { users } = require("../models");
 
 exports.join = async (req, res, next) => {
-  const { u_id, u_pwd } = req.body;
+  const { u_id, u_pwd, u_name, u_tel, u_email, u_grade } = req.body;
   console.log("req.body ,,, auth.js", req.body);
   try {
     const exUser = await users.findOne({ where: { u_id: u_id } });
@@ -17,12 +18,12 @@ exports.join = async (req, res, next) => {
       u_pwd: hash,
       u_tel,
       u_email,
-      u_grade,
-      u_reg_dt,
-      u_mod_dt,
+      u_grade: "일반회원",
+      u_reg_dt: Sequelize.Sequelize.literal("now()"),
+      u_mod_dt: null,
       u_done: 1,
     });
-    return res.redirect("/login");
+    return res.redirect("/");
   } catch (error) {
     console.error(error);
     return next(error);
