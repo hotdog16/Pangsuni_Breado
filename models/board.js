@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     bt_no: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'board_type',
         key: 'bt_no'
@@ -17,7 +17,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     u_id: {
       type: DataTypes.STRING(10),
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'users',
         key: 'u_id'
@@ -33,7 +33,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     b_reg_dt: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull: false,
       defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
     b_mod_dt: {

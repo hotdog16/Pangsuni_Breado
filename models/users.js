@@ -37,7 +37,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     u_reg_dt: {
       type: DataTypes.DATE,
-      allowNull: true,
+      allowNull: false,
       defaultValue: Sequelize.Sequelize.literal('CURRENT_TIMESTAMP')
     },
     u_mod_dt: {
@@ -47,7 +47,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     u_done: {
       type: DataTypes.TINYINT,
-      allowNull: true,
+      allowNull: false,
       defaultValue: 1
     }
   }, {

@@ -17,11 +17,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     p_desc: {
       type: DataTypes.TEXT,
-      allowNull: true
+      allowNull: false
     },
     s_no: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'stores',
         key: 's_no'

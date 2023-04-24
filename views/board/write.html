@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div id="qna-write">
+<form id ="board_form" action="/board" method="post">
+
+    <div class="input-group">
+        <br><br><br>
+        <label>작성자</label>
+        <input name="u_id" value="kkk">
+    </div>
+    <div class="input-group">
+        <label>제&nbsp&nbsp&nbsp목</label>
+        <input name="b_title" class="b_title">
+    </div>
+    <div class="input-group">
+        <label>내&nbsp&nbsp&nbsp용</label>
+        <input name="b_content" class="b_content">
+    </div>
+    <br>
+    <p><button type="submit">전송하기</button></p>
+
+
+</form>
+</div>
+{% endblock %}

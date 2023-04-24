@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     r_no: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
       references: {
         model: 'regions',
         key: 'r_no'
@@ -21,15 +21,15 @@ module.exports = function(sequelize, DataTypes) {
     },
     s_desc: {
       type: DataTypes.TEXT,
-      allowNull: true
+      allowNull: false
     },
     s_addr: {
       type: DataTypes.STRING(100),
-      allowNull: true
+      allowNull: false
     },
     s_tel: {
       type: DataTypes.STRING(13),
-      allowNull: true
+      allowNull: false
     },
     s_img: {
       type: DataTypes.STRING(100),
@@ -37,11 +37,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     s_latitude: {
       type: DataTypes.STRING(100),
-      allowNull: true
+      allowNull: false
     },
     s_longitude: {
       type: DataTypes.STRING(100),
-      allowNull: true
+      allowNull: false
     }
   }, {
     sequelize,

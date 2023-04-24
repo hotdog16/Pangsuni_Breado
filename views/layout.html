@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{ title }}</title>
 
-    <!-- css연결 -->
     <link rel="stylesheet" href="/stylesheets/index.css"/>
     <link rel="stylesheet" href="/stylesheets/main.css"/>
     <link rel="stylesheet" href="/stylesheets/style.css"/>
+    <link rel="stylesheet" href="/stylesheets/board.css"/>
+    {% block style %}{% endblock %}
+
 </head>
 <body>
 <div class="main-container">
@@ -20,8 +22,10 @@
             <input type="text" class="search-form"/>
         </div>
         <div class="logo">
-            <a href="/"><img src="./img/logo.png" alt=""/></a>
+
+            <a href="/main"><img src="./img/logo.png" alt=""/></a>
         </div>
+
         <div class="top_container">
             <p>user => {{user.u_id}}</p>
             {% if user and user.u_id %}
@@ -33,6 +37,7 @@
             </ul>
         </div>
         {% else %}
+
         <div class="top-category">
             <ul>
                 <li><a href="/login">로그인</a></li>
@@ -40,9 +45,9 @@
                 <!-- <li><a href="#">관리자로그인</a></li> -->
             </ul>
         </div>
-
             {% endif %}
         </div>
+
 
 
 
@@ -52,7 +57,11 @@
     <ul id="nav">
         <li><a href="bread">전국빵집</a></li>
         <li><a href="inquiry">예약조회</a></li>
+
+        <li><a href="/board">QNA</a></li>
+
         <li><a href="faq">FAQ</a></li>
+
         <li><a href="notice">공지사항</a></li>
     </ul>
 
