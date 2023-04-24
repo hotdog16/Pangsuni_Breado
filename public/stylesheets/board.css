@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 /*-----게시판 qna 부분 스타일-----*/
 
+=======
+>>>>>>> ab08d20654986331d7e32cb457860971b62563ca
 body {
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+<<<<<<< HEAD
 
 #qna-border {
     text-align: center;
@@ -67,3 +71,5 @@ body {
     display: block;
 }
 
+=======
+>>>>>>> ab08d20654986331d7e32cb457860971b62563ca
