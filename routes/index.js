@@ -57,7 +57,7 @@ router.get("/board/write", aaaaa);
 // 지도 테스트 중
 router.get("/map", (req, res) => {
     const mapAPI = process.env.KAKAO_MAP;
-    console.log('appkey :', mapAPI);
+    // console.log('appkey :', mapAPI);
     res.render('kakaoTest', {mapAPI});
 });
 
