@@ -11,7 +11,5 @@ exports.mypage = async (req, res, next) => {
 exports.mypageUpdate = async (req, res) => {
   const user = req.user;
   console.log("mypageuser -------------------->", user);
-  const updateUser = await user.findOne({ where: { user: u_id } });
-  console.log("updeateuser 0000>", updateUser);
-  res.render("mypage_update");
+  user.res.render("mypage_update");
 };

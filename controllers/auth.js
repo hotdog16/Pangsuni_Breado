@@ -6,7 +6,7 @@ exports.join = async (req, res, next) => {
   const { u_id, u_pwd } = req.body;
   console.log("req.body ,,, auth.js", req.body);
   try {
-    const exUser = await users.findOne({ where: { u_id } });
+    const exUser = await users.findOne({ where: { u_id: u_id } });
     if (exUser) {
       return res.redirect("/join?error=exist");
     }
@@ -18,11 +18,11 @@ exports.join = async (req, res, next) => {
       u_tel,
       u_email,
       u_grade,
-      u_reg_dt: null,
-      u_mod_dt: null,
+      u_reg_dt,
+      u_mod_dt,
       u_done: 1,
     });
-    return res.redirect("/");
+    return res.redirect("/login");
   } catch (error) {
     console.error(error);
     return next(error);
