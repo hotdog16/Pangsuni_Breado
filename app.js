@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const nunjucks = require("nunjucks");
 const dotenv = require("dotenv");
-const fs = require('fs');
+const fs = require("fs");
 dotenv.config();
 // const session = require("express-session");
 // const passport = require("passport");
@@ -18,7 +18,7 @@ const noticeRouter = require("./routes/notice");
 const productRouter = require("./routes/product");
 const orderRouter = require("./routes/order");
 // const storeRouter = require("./routes/store");
-
+//
 const app = express();
 
 // const upload = multer({
@@ -35,19 +35,17 @@ const app = express();
 // });
 
 try {
-
 } catch (err) {
-    console.error('public/images 폴더가 없어서 폴더를 생성합니다!');
-    fs.mkdirSync('public/images');
+  console.error("public/images 폴더가 없어서 폴더를 생성합니다!");
+  fs.mkdirSync("public/images");
 }
-
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "html");
 nunjucks.configure("views", {
-    express: app,
-    watch: true,
+  express: app,
+  watch: true,
 });
 
 // sequelize.sync({force: false})
@@ -60,7 +58,7 @@ nunjucks.configure("views", {
 
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -73,7 +71,7 @@ app.use("/order", orderRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    next(createError(404));
+  next(createError(404));
 });
 // app.use(function (req, res, next) {
 //   next(createError(404));
@@ -81,13 +79,13 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get("env") === "development" ? err : {};
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
-    // render the error page
-    res.status(err.status || 500);
-    res.render("error");
+  // render the error page
+  res.status(err.status || 500);
+  res.render("error");
 });
 
 module.exports = app;
