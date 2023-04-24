@@ -2,7 +2,6 @@ var DataTypes = require("sequelize").DataTypes;
 var _board = require("./board");
 var _board_type = require("./board_type");
 var _comments = require("./comments");
-var _hashtags = require("./hashtags");
 var _orders = require("./orders");
 var _products = require("./products");
 var _regions = require("./regions");
@@ -13,7 +12,6 @@ function initModels(sequelize) {
   var board = _board(sequelize, DataTypes);
   var board_type = _board_type(sequelize, DataTypes);
   var comments = _comments(sequelize, DataTypes);
-  var hashtags = _hashtags(sequelize, DataTypes);
   var orders = _orders(sequelize, DataTypes);
   var products = _products(sequelize, DataTypes);
   var regions = _regions(sequelize, DataTypes);
@@ -41,7 +39,6 @@ function initModels(sequelize) {
     board,
     board_type,
     comments,
-    hashtags,
     orders,
     products,
     regions,

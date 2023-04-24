@@ -22,7 +22,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     u_tel: {
       type: DataTypes.CHAR(13),
-      allowNull: false
+      allowNull: false,
+      unique: "u_tel"
     },
     u_email: {
       type: DataTypes.STRING(30),
@@ -68,6 +69,14 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "u_id" },
+        ]
+      },
+      {
+        name: "u_tel",
+        unique: true,
+        using: "BTREE",
+        fields: [
+          { name: "u_tel" },
         ]
       },
       {

@@ -2,10 +2,12 @@ const express = require("express");
 const { createProduct, addProduct, listProduct, modProduct, editProduct } = require("../controllers/product");
 const { join, login, logout } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
+const { mypage, mypageUpdate } = require("../controllers/mypage");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
+
 // const {singleUpload} = require('../middlewares/uploads');
 // const {singleUpload} = require('../middlewares/uploads');
 // const upload = multer({dest: '../public/images/'});
@@ -30,5 +32,11 @@ router.post("/login", isNotLoggedIn, login);
 
 router.get("/join", isNotLoggedIn, renderJoin);
 router.post("/join", isNotLoggedIn, join);
+
+router.get("/logout", isLoggedIn, logout);
+
+router.get("/mypage", isLoggedIn, mypage);
+
+router.get("/mypage/update", isLoggedIn, mypageUpdate);
 
 module.exports = router;
