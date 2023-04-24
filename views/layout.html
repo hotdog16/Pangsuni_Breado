@@ -5,11 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>{{ title }}</title>
+
     <link rel="stylesheet" href="/stylesheets/index.css"/>
     <link rel="stylesheet" href="/stylesheets/main.css"/>
     <link rel="stylesheet" href="/stylesheets/style.css"/>
     <link rel="stylesheet" href="/stylesheets/board.css"/>
     {% block style %}{% endblock %}
+
 </head>
 <body>
 <div class="main-container">
@@ -20,8 +22,22 @@
             <input type="text" class="search-form"/>
         </div>
         <div class="logo">
+
             <a href="/main"><img src="./img/logo.png" alt=""/></a>
         </div>
+
+        <div class="top_container">
+            <p>user => {{user.u_id}}</p>
+            {% if user and user.u_id %}
+        <div class="logout">
+            <div class="custom-profile">{{'반갑습니다' + user.u_id + '님!'}}</div>
+            <ul>
+                <li><a href="/logout">로그아웃</a></li>
+                <li><a href="/mypage">마이페이지</a></li>
+            </ul>
+        </div>
+        {% else %}
+
         <div class="top-category">
             <ul>
                 <li><a href="/login">로그인</a></li>
@@ -29,13 +45,23 @@
                 <!-- <li><a href="#">관리자로그인</a></li> -->
             </ul>
         </div>
+            {% endif %}
+        </div>
+
+
+
+
     </header>
     <!-- //header -->
 
     <ul id="nav">
         <li><a href="bread">전국빵집</a></li>
         <li><a href="inquiry">예약조회</a></li>
+
         <li><a href="/board">QNA</a></li>
+
+        <li><a href="faq">FAQ</a></li>
+
         <li><a href="notice">공지사항</a></li>
     </ul>
 
@@ -43,6 +69,20 @@
     <!-- footer -->
 </div>
 <footer id="footer">footer</footer>
+
+</div>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+  // 레더링 시 user가 존재하면 로그아웃 보여주고 존재하지 않으면은 로그인메뉴를 보여줘
+  window.onload = () => {
+    if (new URL(location.href).searchParams.get("loginError")) {
+      alert(new URL(location.href).searchParams.get("loginError"));
+    }
+  };
+
+</script>
+
+{% block script %}{% endblock %}
 </body>
 </html>
 

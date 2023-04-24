@@ -3,15 +3,14 @@ const { board } = require("../models");
 exports.addBoard  = async (req, res, next) => {
     console.log('컨트롤러에 들어옴');
     console.log(req.body);
+    const { bt_no,u_id,b_title,b_content }= req.body;
     try {
         await board.create({
             b_no: null,
-            bt_no: 2,
-            u_id: req.body.u_id,
-            b_title: req.body.b_title,
-            b_content: req.body.b_content,
-            b_reg_dt: null,
-            b_mod_dt: null,
+            bt_no,
+            u_id,
+            b_title,
+            b_content,
             b_done: 1,
             b_cnt : 0
         });

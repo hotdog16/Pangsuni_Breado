@@ -1,10 +1,12 @@
 const express = require('express');
-const {}=require('../controllers/s')
+const {board}=require('../controllers/board')
 const {regions,stores,products} = require('../models');
 
 const router = express.Router();
 
-router.get('/add', );
-router.post('/add');
+router.get('/', (req, res, next)=>{
+
+    res.render('/board/board',{});
+});
 
 module.exports = router;

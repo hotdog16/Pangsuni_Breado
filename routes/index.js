@@ -1,57 +1,59 @@
 const express = require("express");
-const {createProduct, addProduct} = require('../controllers/product');
-const {addUser} = require("../controllers/user");
-const {addBoard, qnaList ,aaaaa} = require("../controllers/board");
-const {notice} = require("../controllers/notice");
-const {singleUpload} = require('../middlewares/uploads');
-const multer = require('multer');
-const path = require('path');
+const {addBoard, qnaList, aaaaa} = require("../controllers/board");
 const fs = require('fs');
-// const upload = multer({dest: '../public/images/'});
-/* GET home page. */
-// const upload = express().upload();
+
+
+const { join, login, logout } = require("../controllers/auth");
+const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
+const { mypage, mypageUpdate } = require("../controllers/mypage");
+const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
+
 
 const router = express.Router();
 
-try{
+try {
     fs.readFileSync('')
-}catch (e) {
+} catch (e) {
     console.error('');
 }
 
 
 
+router.get("/", renderMain);
+router.post("/", function (req, res, next) {
+    res.render("index", { title: "Express" });
+});
+
+router.get("/login", renderLogin);
+router.post("/login", isNotLoggedIn, login);
+
+router.get("/join", isNotLoggedIn, renderJoin);
+router.post("/join", isNotLoggedIn, join);
+
+router.get("/logout", isLoggedIn, logout);
+
+router.get("/mypage", isLoggedIn, mypage);
+
+router.get("/mypage/update", isLoggedIn, mypageUpdate);
+
+
 router.get("/main", function (req, res, next) {
     res.render("index");
 });
-router.get('/', function (req, res, next) {
-    res.render('index');
 
-});
-router.post("/", function (req, res, next) {
-    res.render("index", {title: "Express"});
-});
-router.get("/login", function (req, res, next) {
-    res.render("login");
-});
-router.post("/login", function (req, res, next) {
-    res.render("index", {title: "Express"});
-});
-router.get("/join", function (req, res, next) {
-    res.render("join", {title: "Express"});
-});
-router.post("/join", addUser);
+
+
 router.get("/board", qnaList);
 router.post("/board", addBoard);
+
 router.get("/board/write", aaaaa);
 
-router.get("/", function (req, res, next) {
-    res.render("index", {title: "Express"});
+// 지도 테스트 중
+router.get("/map", (req, res) => {
+    const mapAPI = process.env.KAKAO_MAP;
+    console.log('appkey :', mapAPI);
+    res.render('kakaoTest', {mapAPI});
 });
-router.get("/", function (req, res, next) {
-    res.render("index", {title: "Express"});
-});
-router.get('/product', createProduct);
-router.post('/product',  addProduct);
-// router.post('/product', singleUpload, addProduct);
+
+
 module.exports = router;
