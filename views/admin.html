@@ -1,3 +1,119 @@
 {% extends 'layout.html' %} {% block body %}
-<h2>관리자 페이지 입니다</h2>
-관리자만 접근가능 {% endblock %}
+
+<style>
+  * {
+    list-style: none;
+    text-decoration: none;
+    color: #333;
+    padding: 0;
+    margin: 0 auto;
+  }
+  #admin-container {
+    max-width: 1440px;
+    height: 1000px;
+  }
+
+  #admin-container h2 {
+    text-align: center;
+    font-size: 40px;
+    margin-top: 20px;
+  }
+  #admin-container .admin-category {
+    display: flex;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #333;
+  }
+
+  .admin-category .category {
+    border: 1px solid #333;
+    width: 300px;
+    line-height: 100px;
+  }
+  .admin-category .category.active {
+    background-color: #222;
+  }
+
+  .admin-category .category:hover {
+    background-color: #222;
+  }
+
+  .admin-category .category:hover a {
+    color: #fff;
+  }
+
+  .admin-category .category.active a {
+    color: #fff;
+  }
+
+  .admin-category .category a {
+    text-align: center;
+    font-size: 20px;
+    display: block;
+  }
+
+  .admin-con {
+    background-color: #fff;
+    border: 1px solid #333;
+    width: 100%;
+    height: 800px;
+    display: none;
+  }
+  .admin-con.active {
+    display: inherit;
+  }
+
+  .search{
+      display: none;
+  }
+
+
+  .top-category{
+      margin-top: -20px;
+  }
+
+  #nav{display: none;}
+</style>
+<body>
+  <div id="admin-container">
+    <h2>admin</h2>
+    <ul class="admin-category">
+      <li class="category active" data-tab="tab-1"><a href="">상품등록</a></li>
+      <li class="category" data-tab="tab-2"><a href="">회원관리</a></li>
+      <li class="category" data-tab="tab-3"><a href="">주문내역</a></li>
+      <li class="category" data-tab="tab-4">
+        <a href="">게시판관리</a>
+      </li>
+      <li class="category" data-tab="tab-5"><a href="">store관리</a></li>
+    </ul>
+    <div class="admin-cont-box">
+      <div class="admin-con active" id="tab-1">상품등록</div>
+      <div class="admin-con" id="tab-2">회원관리</div>
+      <div class="admin-con" id="tab-3">주문내역</div>
+      <div class="admin-con" id="tab-4">게시판관리</div>
+      <div class="admin-con" id="tab-5">store관리</div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // 탭메뉴구현
+      var tabBtn = $(".admin-category > li");
+      var tabCont = $(".admin-cont-box > div");
+
+      tabCont.hide().eq(0).show();
+
+      tabBtn.click(function (e) {
+        e.preventDefault();
+        var target = $(this);
+        var index = target.index();
+        tabBtn.removeClass("active");
+        target.addClass("active");
+        tabCont.css("display", "none");
+        tabCont.eq(index).css("display", "block");
+      });
+    });
+  </script>
+</body>
+</html>
+ {% endblock %}
