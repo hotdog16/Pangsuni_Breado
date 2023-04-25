@@ -11,7 +11,7 @@ const { join, login, logout } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
 const { mypage, mypageUpdate, mypageUpdateAdd } = require("../controllers/mypage");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
-const {addBoard, qnaList, aaaaa} = require("../controllers/board");
+// const {addBoard, qnaList, aaaaa, bbbbb} = require("../controllers/board");
 // const {singleUpload} = require('../middlewares/uploads');
 // const {singleUpload} = require('../middlewares/uploads');
 // const upload = multer({dest: '../public/images/'});
@@ -63,10 +63,11 @@ router.get("/admin", (req, res) => {
 
 
 
-router.get("/board", qnaList);
-router.post("/board", addBoard);
+// router.get("/board", qnaList);
+// router.post("/board", addBoard);
 
-router.get("/board/write", aaaaa);
+// router.get("/board/write", aaaaa);
+// router.get("/board/comments", bbbbb);
 
 // 지도 테스트 중
 router.get("/map", (req, res) => {

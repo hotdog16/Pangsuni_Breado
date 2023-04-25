@@ -67,3 +67,9 @@ exports.aaaaa = async (req, res, next) => {
   // console.log('글쓰기에 들어오는창');
   res.render("board/write");
 };
+
+// board.html / 게시글 처음에서 댓글달기(comments)----------
+exports.bbbbb = async (req, res, next) => {
+  // console.log('댓글쓰기에 들어오는창');
+  res.render("board/comments");
+};

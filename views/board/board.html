@@ -15,7 +15,7 @@
             <li>No</li>
             <li>작성자ID</li>
             <li>제목</li>
-            <li>내용</li>
+<!--            <li>내용</li>-->
             <li>등록일</li>
             <li>조회수</li>
         </ul>
@@ -25,13 +25,22 @@
                 <li>{{i.b_no}}</li>
                 <li>{{i.u_id}}</li>
                 <li>{{i.b_title}}</li>
-                <li>{{i.b_content}}</li>
+<!--                <li>{{i.b_content}}</li>-->
                 <li>{{i.b_reg_dt}}</li>
                 <li>{{i.b_cnt}}</li>
             </ul>
+
             <div class="qnabox">
                {{i.b_content}}
+                <br>
             </div>
+            <div class="qnabox">
+                {{i.b_content}}
+                <br>
+                <button><a href="/board/comments:{{i.b_no}}">댓글달기(comments)</a></button>
+            </div>
+
+
         </div>
 
         {% endfor %}
