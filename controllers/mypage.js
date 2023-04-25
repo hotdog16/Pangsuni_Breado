@@ -1,4 +1,4 @@
-const { users } = require("../models");
+// const { users } = require("../models");
 
 exports.mypage = async (req, res, next) => {
   console.log("req:body ======>1111", req.user);
@@ -17,17 +17,18 @@ exports.mypageUpdate = async (req, res) => {
 };
 
 exports.mypageUpdateAdd = async (req, res, next) => {
+  const user = req.user;
   console.log(req.body);
   try {
-    await users.update(
+    await user.update(
       {
         u_pwd: req.body.u_pwd,
-        u_email: req.body.u_email,
         u_tel: req.body.u_tel,
+        u_email: req.body.u_email,
       },
       {
         where: {
-          u_id: req.body.u_id,
+          u_no: req.body.u_no,
         },
       }
     );
