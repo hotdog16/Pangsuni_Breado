@@ -28,17 +28,36 @@
 </div>
 
 {% endblock %} {% block script %}
-<script>
-  userName = document.querySelector(".name");
-  userId = document.querySelector(".name");
-  userPassword = document.querySelector(".name");
-  rePassword = document.querySelector(".name");
-  useTel = document.querySelector(".name");
-  userEmail = document.querySelector(".name");
-  joinBtn = document.querySelector(".join-btn");
 
-  if (userName === "" || userName === "" || userId === "" || userPassword === "" || useTel === "" || userEmail === "" || joinBtn === "") {
-    alert("빈칸이있습니다");
-  }
+
+
+<script type="text/javascript" src="https://unpkg.com/axios@0.26.0/dist/axios.min.js"></script>
+<script>
+  let userName = document.querySelector(".name").value;
+  let userId = document.querySelector(".id").value;
+  let userPassword = document.querySelector(".password").value;
+  let rePassword = document.querySelector(".re-password").value;
+  let userTel = document.querySelector(".tel").value;
+  let userEmail = document.querySelector(".email").value;
+  let joinBtn = document.querySelector(".join-btn");
+
+  let idChkBtn = document.querySelector(".id-chk-btn");
+
+  joinBtn.addEventListener("click", function () {
+    if (userName == "" || userId == "" || userPassword == "" || rePassword == "" || userTel == "" || userEmail == "") {
+      alert("빈칸이 있습니다, 모두 입력한 후 회원가입이 가능합니다");
+    }
+  });
+
+  // idChkBtn.addEventListener("click", function () {
+  //   if (userId == "") {
+  //     alert("아이디를 입력해주세요");
+  //   }
+  // });
 </script>
 {% endblock %}
+
+
+
+
+

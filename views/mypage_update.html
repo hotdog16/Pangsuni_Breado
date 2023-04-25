@@ -1,15 +1,14 @@
 {% extends 'layout.html' %} {% block body %}
 
 <div>회원정보수정</div>
-
-<form action="/mypageUpdate" method="post">
+<form action="/mypage/update" method="post">
   <ul class="mypage-list">
     <li>이름 :{{user.u_id}}</li>
-    <li>비밀번호 :<input type="password" placeholder="*****" /></li>
-    <li>비밀번호 확인 :<input type="password" placeholder="*****" /></li>
-    <li>이메일 :<input type="email" placeholder="{{user.u_email}}" /></li>
-    <li>전화번호 :<input type="text" placeholder="{{user.u_tel}}" /></li>
+    <li>비밀번호 :<input type="password" value="*****" name="password" /></li>
+    <li>비밀번호 확인 :<input type="password" value="*****" name="re-password" /></li>
+    <li>이메일 :<input type="email" value="{{user.u_email}}" name="email" /></li>
+    <li>전화번호 :<input type="text" value="{{user.u_tel}}" name="tel" /></li>
   </ul>
-  <button type="submit">수정하기</button>
+  <button type="submit" class="user-update-btn">수정하기</button>
 </form>
 {% endblock %}

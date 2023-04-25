@@ -311,5 +311,7 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,webstorm,node,expressionengine,linux
 
-#config/config.json
+config/config.json
+orm.js
 .gitignore
+
