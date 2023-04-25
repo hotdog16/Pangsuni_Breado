@@ -11,7 +11,8 @@ const fs = require('fs');
 const multer = require('multer');
 dotenv.config();
 
-
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
 const noticeRouter = require("./routes/notice");
 const productRouter = require("./routes/product");
 const orderRouter = require("./routes/order");
@@ -23,8 +24,7 @@ app.set("views", path.join(__dirname, "views"));
 
 
 
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+
 const { sequelize } = require("./models");
 const passportConfig = require("./passport");
 
