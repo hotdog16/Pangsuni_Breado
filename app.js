@@ -7,8 +7,8 @@ const session = require("express-session");
 const nunjucks = require("nunjucks");
 const dotenv = require("dotenv");
 const passport = require("passport");
-const fs = require('fs');
-const multer = require('multer');
+const fs = require("fs");
+const multer = require("multer");
 dotenv.config();
 
 const indexRouter = require("./routes/index");
@@ -16,6 +16,7 @@ const usersRouter = require("./routes/users");
 const noticeRouter = require("./routes/notice");
 const productRouter = require("./routes/product");
 const orderRouter = require("./routes/order");
+const boardRouter = require("./routes/board");
 
 const app = express();
 
@@ -38,13 +39,13 @@ nunjucks.configure("views", {
 });
 
 // 파일 업로드를 위해 디렉토리가 있는지 확인하고 없다면 생성
-app.listen(3000, ()=>{
-    const dir = './public/images';
-    if(!fs.existsSync(dir)){
-        fs.mkdirSync(dir);
-    }
-    console.log('서버실행');
-})
+app.listen(3000, () => {
+  const dir = "./public/images";
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
+  console.log("서버실행");
+});
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/img", express.static(path.join(__dirname, "uploads")));
