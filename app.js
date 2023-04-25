@@ -20,16 +20,17 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const boardRouter = require("./routes/board");
 const {sequelize} = require("./models");
+const passportConfig = require("./passport");
+passportConfig(); // 패스포트 설정
+
+
 
 const app = express();
 
 
 // view engin setup
-app.set("views", path.join(__dirname, "views"));
 
-const passportConfig = require("./passport");
 
-passportConfig(); // 패스포트 설정
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "html");

@@ -1,4 +1,5 @@
 const {stores, products} = require('../models');
+const {getPagingData, getPagination} = require('./pagination');
 
 exports.createProduct = (req, res) => {
     stores.findAll()
@@ -37,10 +38,32 @@ exports.addProduct = async (req, res, next) => {
 
 }
 
-exports.listProduct = (req, res) => {
-    products.findAll({include: {model: stores, as: "s_no_store", required: true}})
-        .then((list) => {
-            res.render('product/list', {products: list});
+exports.listProduct = async (req, res) => {
+    console.log('============================test============================');
+    ///////////////////////////////////////////////////
+    // let {searchType, keyword} = req.query;
+    const contentSize = Number(process.env.CONTENTSIZE);
+    const currentPage = Number(req.query.currentPage) || 1;
+    const {limit, offset} = getPagination(currentPage, contentSize);
+    // keyword = keyword ? keyword : "";
+    let dataAll = await products.findAll({limit, offset})
+    let dataCountAll = await products.findAndCountAll({limit, offset})
+    const pagingData = getPagingData(dataCountAll, currentPage, limit);
+
+    let list = dataAll;
+    ///////////////////////////////////////////////////
+    products.findAll({
+        limit: 10,
+        order:[['p_no', 'desc']],
+        include: {
+            model: stores,
+            as: "s_no_store",
+            required: true
+        }
+    })
+        .then((productList) => {
+
+            res.render('product/list',{products:productList, list, pagingData});
         })
         .catch((err) => {
             res.send(err);
@@ -83,4 +106,18 @@ exports.editProduct = async (req, res, next) => {
         console.error(e);
         next(e);
     }
+}
+
+exports.pageProduct = async (req, res, next)=>{
+try{
+    const posts = await products.findAll({
+        where : {id : lastId},
+        limit: 10,
+        order :[['p_no', 'DESC']],
+    });
+    res.status(200).json(posts);
+}catch (e) {
+    console.error(e);
+    next(e);
+}
 }

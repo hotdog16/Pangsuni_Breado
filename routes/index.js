@@ -27,6 +27,7 @@ try {
   console.error("");
 }
 
+router.get("/main", renderMain);
 router.get("/", renderMain);
 router.post("/", function (req, res, next) {
   res.render("index", { title: "Express" });
