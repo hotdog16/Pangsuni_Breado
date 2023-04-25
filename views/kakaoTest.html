@@ -36,11 +36,11 @@
 <!--        marker2.setMap(map);-->
 <!--    </script>-->
     <script>
-        let btn = document.querySelector('.btnMap');
-        btn.forEach((target) => {
-            target.addEventListener('click', function () {
-                console.log('확인용');
-                let keyword = document.querySelector('.searchMap');
+        // let btn = document.querySelector('.btnMap');
+        // btn.forEach((target) => {
+        //     target.addEventListener('click', function () {
+        //         console.log('확인용');
+        //         let keyword = document.querySelector('.searchMap');
                 let mapContainer = document.getElementById('map'), // 지도를 표시할 div
                     mapOption = {
                         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -69,8 +69,8 @@
                         map.setCenter(coords);
                     }
                 });
-            })
-        })
+        //     })
+        // })
 
 
     </script>
