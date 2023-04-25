@@ -24,16 +24,11 @@ const app = express();
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
 const { sequelize } = require("./models");
 const passportConfig = require("./passport");
 
 
 passportConfig(); // 패스포트 설정
-
-const app = express();
-
 
 
 

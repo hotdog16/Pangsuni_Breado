@@ -56,10 +56,6 @@ router.get("/admin", (req, res) => {
   res.render("admin");
 });
 
-router.get("/main", function (req, res, next) {
-  res.render("index");
-});
-
 
 
 router.get("/board", qnaList);
