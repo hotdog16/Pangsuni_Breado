@@ -9,6 +9,7 @@ const dotenv = require("dotenv");
 const passport = require("passport");
 const fs = require("fs");
 const multer = require("multer");
+const exios = require("axios");
 dotenv.config();
 
 const noticeRouter = require("./routes/notice");
