@@ -1,19 +1,22 @@
 const express = require("express");
 const { createProduct, addProduct, listProduct, modProduct, editProduct } = require("../controllers/product");
-
-const { uerRegExp } = require("../middlewares/regExpCheck");
-const { addBoard, qnaList, aaaaa } = require("../controllers/board");
-const { notice } = require("../controllers/notice");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+
+const { uerRegExp } = require("../middlewares/regExpCheck");
+const { notice } = require("../controllers/notice");
+
 const { join, login, logout } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
-const { mypage, mypageUpdate } = require("../controllers/mypage");
+const { mypage, mypageUpdate, mypageUpdateAdd } = require("../controllers/mypage");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
-
-
-
+const {addBoard, qnaList, aaaaa} = require("../controllers/board");
+// const {singleUpload} = require('../middlewares/uploads');
+// const {singleUpload} = require('../middlewares/uploads');
+// const upload = multer({dest: '../public/images/'});
+/* GET home page. */
+// const upload = express().upload();
 
 
 const router = express.Router();
@@ -56,10 +59,6 @@ router.post("/mypage/update", isLoggedIn, mypageUpdateAdd);
 
 router.get("/admin", (req, res) => {
   res.render("admin");
-});
-
-router.get("/main", function (req, res, next) {
-  res.render("index");
 });
 
 

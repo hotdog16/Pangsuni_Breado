@@ -5,12 +5,9 @@
  */
 
 
-
-
 const app = require("../app");
 const debug = require("debug")("pangsuni-breado:server");
 const http = require("http");
-
 
 /**
  * Get port from environment and store in Express.
@@ -25,7 +22,6 @@ app.set("port", port);
  */
 
 const server = http.createServer(app);
-
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -65,8 +61,8 @@ function onError(error) {
   }
 
 
-
   const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+
 
 
   // handle specific listen errors with friendly messages

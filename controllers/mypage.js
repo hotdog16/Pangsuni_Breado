@@ -1,5 +1,6 @@
 const { users } = require("../models");
 
+
 exports.mypage = async (req, res, next) => {
   console.log("req:body ======>1111", req.user);
   const user = req.user;
@@ -20,21 +21,22 @@ exports.mypageUpdateAdd = async (req, res, next) => {
   console.log(req.body);
   try {
     await users.update(
-      {
-        u_pwd: req.body.u_pwd,
-        u_email: req.body.u_email,
-        u_tel: req.body.u_tel,
-      },
-      {
-        where: {
-          u_id: req.body.u_id,
-        },
-      }
+        {
+          u_pwd: req.body.u_pwd,
+          s_no: req.body.s_no,
+          p_img: req.body.p_img,
+        }, {
+          where: {
+            p_no: req.body.p_no,
+          },
+        }
     );
-    res.redirect("/mypage");
+    res.redirect("/product");
     console.log("rep.body수정 ----------------------------------->>>>", req.body);
   } catch (e) {
     console.error(e);
     next(e);
   }
+  res.send("수정이 완료되었습니다");
 };
+
