@@ -9,7 +9,7 @@ const path = require("path");
 const fs = require("fs");
 const { join, login, logout } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
-const { mypage, mypageUpdate } = require("../controllers/mypage");
+const { mypage, mypageUpdate, mypageUpdateAdd } = require("../controllers/mypage");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
 
 
@@ -33,22 +33,13 @@ router.post("/login", isNotLoggedIn, login);
 router.get("/join", isNotLoggedIn, renderJoin);
 router.post("/join", isNotLoggedIn, join);
 
-router.post("/join/idCheck", (req, res) => {
-  const { user } = req.body;
-  console.log(req.body);
-  const idCheck = user.filter((users) => users === user).length;
-  if (idCheck) {
-    res.send(false);
-  } else {
-    res.send(true);
-  }
-});
-
 router.get("/logout", isLoggedIn, logout);
+// router.post("/logout", isLoggedIn, logout);
 
 router.get("/mypage", isLoggedIn, mypage);
 
 router.get("/mypage/update", isLoggedIn, mypageUpdate);
+router.post("/mypage/update", isLoggedIn, mypageUpdateAdd);
 
 router.get("/admin", (req, res) => {
   res.render("admin");

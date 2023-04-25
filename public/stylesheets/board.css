@@ -1,79 +1,68 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> c7a968d88fae329219ea8d9e35871b1d027f4553
 /*-----게시판 qna 부분 스타일-----*/
 
-=======
->>>>>>> ab08d20654986331d7e32cb457860971b62563ca
 body {
-    padding: 50px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-<<<<<<< HEAD
 
 #qna-border {
-    text-align: center;
+  text-align: center;
 }
 
 #qna-border h1 {
-    margin-top: 70px;
+  margin-top: 70px;
 }
 #qna-border p {
-    margin: 40px 0;
-    font-size: 17px;
+  margin: 40px 0;
+  font-size: 17px;
 }
 
-.qna-title, .qna-list-con {
-    display: flex;
-    justify-content: space-around;
-    border-bottom: 1px solid #555;
-
+.qna-title,
+.qna-list-con {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid #555;
 }
 
 .qna-title {
-    padding: 10px;
-    background: lightgreen;
+  padding: 10px;
+  background: lightgreen;
 }
 
 .qna-list-con {
-    padding: 6px;
-    cursor: pointer;
-    transition: .3s;
-
+  padding: 6px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
 .qna-list-con li {
-    width: 1000px;
-    text-align: center;
+  width: 1000px;
+  text-align: center;
 }
 
-#qna-write{
-    width: 1000px;
+#qna-write {
+  width: 1000px;
 }
 
 #qna-write .b_content {
-   width: 500px;
-   height: 150px;
+  width: 500px;
+  height: 150px;
 }
 
 .b_title {
-    width: 500px;
+  width: 500px;
 }
 
 .qnabox {
-    width: 100%;
-    height: 100px;
-    display: none;
+  width: 100%;
+  height: 100px;
+  display: none;
 }
 
-.qna-list-con:hover{
-    background: lightgray;
+.qna-list-con:hover {
+  background: lightgray;
 }
-.test{
-    display: block;
+.test {
+  display: block;
 }
 
-=======
->>>>>>> ab08d20654986331d7e32cb457860971b62563ca
