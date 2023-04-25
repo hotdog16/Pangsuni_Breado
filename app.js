@@ -12,9 +12,18 @@ const multer = require("multer");
 const exios = require("axios");
 dotenv.config();
 
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
 const noticeRouter = require("./routes/notice");
 const productRouter = require("./routes/product");
 const orderRouter = require("./routes/order");
+const boardRouter = require("./routes/board");
+
+const app = express();
+
+// view engine setup
+app.set("views", path.join(__dirname, "views"));
+
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const { sequelize } = require("./models");
@@ -32,8 +41,8 @@ const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "html");
 nunjucks.configure("views", {
-    express: app,
-    watch: true,
+  express: app,
+  watch: true,
 });
 
 // 파일 업로드를 위해 디렉토리가 있는지 확인하고 없다면 생성
@@ -69,6 +78,7 @@ app.use("/users", usersRouter);
 app.use("/notice", noticeRouter);
 app.use("/product", productRouter);
 app.use("/order", orderRouter);
+app.use("/board", boardRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -93,6 +103,7 @@ app.use((req, res, next) => {
   next(error);
 });
 app.use((err, req, res, next) => {
+  res.locals.user = req.user;
   res.locals.message = err.message;
   res.locals.error = process.env.NODE_ENV !== "production" ? err : {};
   res.status(err.status || 500);

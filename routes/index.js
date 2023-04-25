@@ -33,6 +33,17 @@ router.post("/login", isNotLoggedIn, login);
 router.get("/join", isNotLoggedIn, renderJoin);
 router.post("/join", isNotLoggedIn, join);
 
+router.post("/join/idCheck", (req, res) => {
+  const { user } = req.body;
+  console.log(req.body);
+  const idCheck = user.filter((users) => users === user).length;
+  if (idCheck) {
+    res.send(false);
+  } else {
+    res.send(true);
+  }
+});
+
 router.get("/logout", isLoggedIn, logout);
 // router.post("/logout", isLoggedIn, logout);
 
