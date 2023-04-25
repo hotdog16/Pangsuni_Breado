@@ -32,10 +32,11 @@ exports.mypageUpdateAdd = async (req, res, next) => {
         },
       }
     );
-    res.redirect("/mypage");
+    res.redirect("/product");
     console.log("rep.body수정 ----------------------------------->>>>", req.body);
   } catch (e) {
     console.error(e);
     next(e);
   }
+  res.send("수정이 완료되었습니다");
 };

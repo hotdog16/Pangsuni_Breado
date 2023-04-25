@@ -34,14 +34,6 @@ module.exports = function(sequelize, DataTypes) {
     s_img: {
       type: DataTypes.STRING(100),
       allowNull: true
-    },
-    s_latitude: {
-      type: DataTypes.STRING(100),
-      allowNull: false
-    },
-    s_longitude: {
-      type: DataTypes.STRING(100),
-      allowNull: false
     }
   }, {
     sequelize,

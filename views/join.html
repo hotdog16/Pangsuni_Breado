@@ -1,7 +1,7 @@
 {% extends 'layout.html' %} {% block body %}
 <div id="join">
   <h2>회원가입</h2>
-  <form action="/join" method="post" id="join">
+  <form action="/join" method="post">
     <div class="join-input">
       <label>이름</label>
       <input type="text" name="u_name" class="name" />
@@ -28,6 +28,9 @@
 </div>
 
 {% endblock %} {% block script %}
+
+
+
 <script type="text/javascript" src="https://unpkg.com/axios@0.26.0/dist/axios.min.js"></script>
 <script>
   let userName = document.querySelector(".name").value;
@@ -53,3 +56,8 @@
   // });
 </script>
 {% endblock %}
+
+
+
+
+

@@ -10,14 +10,14 @@
     "username": "breado",
     "password": "pangsuni",
     "database": "bread",
-    "host": "127.0.0.1",
+    "host": "192.168.10.102",
     "dialect": "mysql"
   },
   "production": {
     "username": "breado",
     "password": "pangsuni",
     "database": "bread",
-    "host": "127.0.0.1",
+    "host": "192.168.10.102",
     "dialect": "mysql"
   }
 }
