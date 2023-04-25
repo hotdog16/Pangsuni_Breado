@@ -1,6 +1,6 @@
 const express = require("express");
 const { createProduct, addProduct, listProduct, modProduct, editProduct } = require("../controllers/product");
-const {addUser} = require("../controllers/user");
+// const {addUser} = require("../controllers/user");
 const {uerRegExp} = require('../middlewares/regExpCheck');
 const {addBoard, qnaList, aaaaa} = require("../controllers/board");
 const {notice} = require("../controllers/notice");
