@@ -27,7 +27,6 @@ passportConfig(); // 패스포트 설정
 
 const app = express();
 
-
 // view engin setup
 
 
@@ -39,8 +38,6 @@ nunjucks.configure("views", {
     watch: true,
 });
 
-
-// // 파일 업로드를 위해 디렉토리가 있는지 확인하고 없다면 생성
 // app.listen(3000, () => {
 //   const dir = "./public/images";
 //   if (!fs.existsSync(dir)) {
@@ -78,9 +75,9 @@ app.use("/board", boardRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
+
     next(createError(404));
 });
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -107,9 +104,3 @@ app.use((err, req, res, next) => {
   res.render("error");
 });
 module.exports = app;
-
-
-
-
-
-

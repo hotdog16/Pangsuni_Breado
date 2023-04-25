@@ -1,11 +1,12 @@
 const express = require("express");
-const { board } = require("../controllers/board");
-const { regions, stores, products } = require("../models");
-
+// const { regions, stores, products } = require("../models");
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-  res.render("/board/board", {});
-});
+const {addBoard, aaaaa, bbbbb, qnaList} = require("../controllers/board");
+
+router.get("/", qnaList);
+router.post("/", addBoard);
+router.get("/write", aaaaa);
+router.get("/comments", bbbbb);
 
 module.exports = router;

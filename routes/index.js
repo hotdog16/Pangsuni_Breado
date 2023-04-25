@@ -11,13 +11,13 @@ const { join, login, logout } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
 const { mypage, mypageUpdate, mypageUpdateAdd } = require("../controllers/mypage");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
-const { addBoard, qnaList, aaaaa } = require("../controllers/board");
+// const {addBoard, qnaList, aaaaa, bbbbb} = require("../controllers/board");
 // const {singleUpload} = require('../middlewares/uploads');
 // const {singleUpload} = require('../middlewares/uploads');
 // const upload = multer({dest: '../public/images/'});
 /* GET home page. */
 // const upload = express().upload();
-const { users } = require("../models");
+
 
 const router = express.Router();
 
@@ -27,7 +27,6 @@ try {
   console.error("");
 }
 
-router.get("/main", renderMain);
 router.get("/", renderMain);
 router.post("/", function (req, res, next) {
   res.render("index", { title: "Express" });
@@ -58,13 +57,17 @@ router.get("/mypage", isLoggedIn, mypage);
 router.get("/mypage/update", isLoggedIn, mypageUpdate);
 router.post("/mypage/update", isLoggedIn, mypageUpdateAdd);
 
-router.get("/admin", function (req, res) {
-  res.render("admin", { title: "Express" });
+router.get("/admin", (req, res) => {
+  res.render("admin");
 });
-router.get("/board", qnaList);
-router.post("/board", addBoard);
 
-router.get("/board/write", aaaaa);
+
+
+// router.get("/board", qnaList);
+// router.post("/board", addBoard);
+
+// router.get("/board/write", aaaaa);
+// router.get("/board/comments", bbbbb);
 
 // 지도 테스트 중
 router.get("/map", (req, res) => {
