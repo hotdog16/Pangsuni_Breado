@@ -1,4 +1,5 @@
 // const { users } = require("../models");
+const bcrypt = require("bcrypt");
 
 exports.mypage = async (req, res, next) => {
   console.log("req:body ======>1111", req.user);
@@ -19,10 +20,11 @@ exports.mypageUpdate = async (req, res) => {
 exports.mypageUpdateAdd = async (req, res, next) => {
   const user = req.user;
   console.log(req.body);
+  const hash = await bcrypt.hash(req.body.u_pwd, 12);
   try {
     await user.update(
       {
-        u_pwd: req.body.u_pwd,
+        u_pwd: hash,
         u_tel: req.body.u_tel,
         u_email: req.body.u_email,
       },
@@ -32,11 +34,10 @@ exports.mypageUpdateAdd = async (req, res, next) => {
         },
       }
     );
-    res.redirect("/product");
+    res.redirect("/mypage");
     console.log("rep.body수정 ----------------------------------->>>>", req.body);
   } catch (e) {
     console.error(e);
     next(e);
   }
-  res.send("수정이 완료되었습니다");
 };

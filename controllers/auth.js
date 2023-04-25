@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 const { users } = require("../models");
-const {Sequelize} = require("sequelize");
+const { Sequelize } = require("sequelize");
 
 exports.join = async (req, res, next) => {
   const { u_id, u_pwd, u_name, u_tel, u_email, u_grade } = req.body;
@@ -18,11 +18,12 @@ exports.join = async (req, res, next) => {
       u_pwd: hash,
       u_tel,
       u_email,
-      u_grade : '일반회원',
-      u_reg_dt : Sequelize.Sequelize.literal('now()'),
+      u_grade: "일반회원",
+      u_reg_dt: Sequelize.Sequelize.literal("now()"),
       u_mod_dt: null,
       u_done: 1,
     });
+
     return res.redirect("/login");
   } catch (error) {
     console.error(error);
@@ -55,5 +56,3 @@ exports.logout = (req, res) => {
     res.redirect("/");
   });
 };
-
-
