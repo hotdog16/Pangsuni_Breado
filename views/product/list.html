@@ -14,6 +14,7 @@
 </style>
 {% endblock %}
 {% block body %}
+<h1>제품</h1>
 <table>
     <tr class="item">
         <th>제품번호</th>
@@ -38,5 +39,56 @@
     </tr>
     {% endfor %}
 </table>
-<button><a href="/product/add">추가</a></button>
+<div class='text-center'>
+    <ul class="pagination">
+        {% if (pagingData.totalPages != 0) { %}
+        <div class="" style="text-align:center;">
+            <ul class="pagination">
+                <li {%if(pagingData.currentPage == 1){%} class="disabled" {%}else{%}class="waves-effect" {%}%} >
+                    <a {%if(pagingData.currentPage > 1){%} href="?currentPage={%=pagingData.currentPage-1%}" {%}%}>
+                        <i class="material-icons">prev</i>
+                    </a>
+                </li>
+                {% for(var i=pagingData.pnStart; i<=pagingData.pnEnd; i++){ %} <li {%if(i===pagingData.currentPage){%} class="active"
+                                                                                   {%}%}><a href="?currentPage={%=i%}">{%=i%}</a></li>
+                {% } %}
+                <li {%if(pagingData.currentPage == pagingData.totalPages){%} class="disabled" {%}else{%} class="waves-effect" {%}%}>
+                    <a {%if(pagingData.currentPage < pagingData.totalPages){%} href="?currentPage={%=pagingData.currentPage+1%}" {%}%} class="waves-effect">
+                    <i class="material-icons">next</i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        {% } %}
+
+    </ul>
+</div>
+<!--<div class='text-center'>-->
+<!--    <ul class="pagination">-->
+<!--        {% if (pagingData.totalPages != 0) { %}-->
+<!--        <div class="" style="text-align:center;">-->
+<!--            <ul class="pagination">-->
+<!--                <li {%if(pagingData.currentPage== 1){%} class="disabled" {%}else{%}class="waves-effect" {%}%}>-->
+<!--                    <a {%if(pagingData.currentPage> 1){%} href="?currentPage={%=pagingData.currentPage-1%}" {%}%}>-->
+<!--                        <i class="material-icons">prev</i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                {% for(var i=pagingData.pnStart; i<=pagingData.pnEnd; i++){ %}-->
+<!--                <li {%if(i===pagingData.currentPage){%} class="active"-->
+<!--                    {%}%}>-->
+<!--                    <a href="?currentPage={%=i%}">{%=i%}</a>-->
+<!--                </li>-->
+<!--                {% } %}-->
+<!--                <li {%if(pagingData.currentPage == pagingData.totalPages){%} class="disabled" {%}else{%} class="waves-effect" {%}%}>-->
+<!--                    <a {%if(pagingData.currentPage < pagingData.totalPages){%} href="?currentPage={%=pagingData.currentPage+1%}" {%}%} class="waves-effect">-->
+<!--                    <i class="material-icons">next</i>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--        {% } %}-->
+<!--    </ul>-->
+<!--</div>-->
+
+<div><button><a href="/product/add">추가</a></button></div>
 {% endblock %}
