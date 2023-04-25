@@ -17,7 +17,6 @@ const http = require("http");
  */
 
 const port = normalizePort("3002");
-
 console.log("port : ", port);
 app.set("port", port);
 
@@ -42,7 +41,6 @@ server.on("listening", onListening);
 
 function normalizePort(val) {
   const port = parseInt(val, 10);
-
 
   if (isNaN(port)) {
     // named pipe

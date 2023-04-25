@@ -10,11 +10,10 @@ const fs = require("fs");
 const { join, login, logout } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
 const { mypage, mypageUpdate } = require("../controllers/mypage");
-const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
-const {addBoard, qnaList, aaaaa} = require("../controllers/board");
+
+
+
 
 
 const router = express.Router();
@@ -48,10 +47,12 @@ router.post("/join/idCheck", (req, res) => {
 });
 
 router.get("/logout", isLoggedIn, logout);
+// router.post("/logout", isLoggedIn, logout);
 
 router.get("/mypage", isLoggedIn, mypage);
 
 router.get("/mypage/update", isLoggedIn, mypageUpdate);
+router.post("/mypage/update", isLoggedIn, mypageUpdateAdd);
 
 router.get("/admin", (req, res) => {
   res.render("admin");
@@ -73,6 +74,9 @@ router.get("/map", (req, res) => {
     const mapAPI = process.env.KAKAO_MAP;
     res.render('kakaoTest', {mapAPI});
 });
-
+router.get("/map2", (req, res) => {
+  const mapAPI = process.env.KAKAO_MAP;
+  res.render('kakaoTest2', {mapAPI});
+});
 
 module.exports = router;

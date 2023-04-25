@@ -28,6 +28,7 @@
 </div>
 
 {% endblock %} {% block script %}
+
 <script type="text/javascript" src="https://unpkg.com/axios@0.26.0/dist/axios.min.js"></script>
 <script>
   let userName = document.querySelector(".name").value;
@@ -46,32 +47,13 @@
     }
   });
 
-  idChkBtn.addEventListener("click", function () {
-    if (userId == "") {
-      alert("아이디를 입력해주세요");
-    }
-  });
-
-  async function userid_check() {
-    let data = await axios.get(`http://localhost:3002/join${u_id.value}`);
-    //AJAX id 값 가져와서 중복 아니면 true, 중복이면 false
-
-    console.log(data);
-
-    login_flag = data.data.login;
-    if (login_flag) {
-      userid_msg.innerHTML = "사용 가능한 아이디 입니다.";
-      userid_msg.style.color = "green";
-    } else {
-      userid_msg.innerHTML = "중복된 아이디 입니다.";
-      userid_msg.style.color = "red";
-    }
-  }
-
-  userid.addEventListener("focusout", userid_check); // 커서가 밖으로 갔을 때 저 함수를 실행시켜라
+  // idChkBtn.addEventListener("click", function () {
+  //   if (userId == "") {
+  //     alert("아이디를 입력해주세요");
+  //   }
+  // });
 </script>
 
 {% endblock %}
 
-{% endblock %}
 

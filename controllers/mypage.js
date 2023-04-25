@@ -15,3 +15,26 @@ exports.mypageUpdate = async (req, res) => {
   console.log("mypageuser -------------------->", user);
   res.render("mypage_update", { user });
 };
+
+exports.mypageUpdateAdd = async (req, res, next) => {
+  console.log(req.body);
+  try {
+    await users.update(
+      {
+        u_pwd: req.body.u_pwd,
+        u_email: req.body.u_email,
+        u_tel: req.body.u_tel,
+      },
+      {
+        where: {
+          u_id: req.body.u_id,
+        },
+      }
+    );
+    res.redirect("/mypage");
+    console.log("rep.body수정 ----------------------------------->>>>", req.body);
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+};
