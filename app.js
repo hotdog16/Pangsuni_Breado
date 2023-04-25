@@ -38,15 +38,6 @@ nunjucks.configure("views", {
     watch: true,
 });
 
-// 파일 업로드를 위해 디렉토리가 있는지 확인하고 없다면 생성
-app.listen(3000, ()=>{
-    const dir = './public/images';
-    if(!fs.existsSync(dir)){
-        fs.mkdirSync(dir);
-    }
-    console.log('서버실행');
-})
-
 
 // 파일 업로드를 위해 디렉토리가 있는지 확인하고 없다면 생성
 // app.listen(3000, () => {
