@@ -9,7 +9,7 @@ const fs = require("fs");
 
 const { join, login, logout } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
-const { mypage, mypageUpdate } = require("../controllers/mypage");
+const { mypage, mypageUpdate, mypageUpdateAdd } = require("../controllers/mypage");
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
 
 const router = express.Router();
@@ -43,10 +43,12 @@ router.post("/join/idCheck", (req, res) => {
 });
 
 router.get("/logout", isLoggedIn, logout);
+// router.post("/logout", isLoggedIn, logout);
 
 router.get("/mypage", isLoggedIn, mypage);
 
 router.get("/mypage/update", isLoggedIn, mypageUpdate);
+router.post("/mypage/update", isLoggedIn, mypageUpdateAdd);
 
 router.get("/admin", (req, res) => {
   res.render("admin");

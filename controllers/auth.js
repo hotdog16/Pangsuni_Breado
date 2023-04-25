@@ -23,7 +23,7 @@ exports.join = async (req, res, next) => {
       u_mod_dt: null,
       u_done: 1,
     });
-    return res.redirect("/");
+    return res.redirect("/login");
   } catch (error) {
     console.error(error);
     return next(error);
