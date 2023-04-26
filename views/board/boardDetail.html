@@ -7,12 +7,12 @@
 <form id ="board_form" action="/board" method="post">
   <div class="qna-con">
     <ul class="qna-list-con">
-      <li>{{boards.b_no}}</li>
-      <li>{{boards.u_id}}</li>
-      <li>{{boards.b_title}}</li>
+<!--      <li>{{boards.b_no}}</li>-->
+<!--      <li>{{boards.u_id}}</li>-->
+<!--      <li>{{boards.b_title}}</li>-->
       <li>{{boards.b_content}}</li>
-      <li>{{boards.b_reg_dt}}</li>
-      <li>{{boards.b_cnt}}</li>
+<!--      <li>{{boards.b_reg_dt}}</li>-->
+<!--      <li>{{boards.b_cnt}}</li>-->
     </ul>
   </div>
 </form>
@@ -22,7 +22,11 @@
   <p>{{c.c_content}}</p>
   {% endfor %}
 </div>
-<button>
+<br>
+<button class="qna-comment-btn">
   <a href="/board/comments/{{boards.b_no}}">댓글달기(comments)</a>
+</button>
+<button class="qna-home-btn">
+  <a href="/board/">게시판홈</a>
 </button>
 {% endblock %}
