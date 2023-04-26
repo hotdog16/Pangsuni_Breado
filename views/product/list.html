@@ -17,8 +17,6 @@
 
 {% block body %}
 <h1>제품</h1>
-{% set nowPage = (currentPage/10) + 1 %}
-<h1>현재페이지 : {{nowPage}}</h1>
 <table>
     <tr class="item">
         <th>제품번호</th>
@@ -45,14 +43,15 @@
 </table>
 <div>
     <ul>
-        {% if currentPage > 0 %}
-        <li><a href="?page={{(currentPage/10)}}">prev</a></li>
+        {% set nowPage = (currentPage/10) + 1 %}
+        {% if currentPage > 10 %}
+        <li><a href="?page={{(checkNum-9)}}">prev</a></li>
         {% endif %}
         {% for n in num %}
         <li><a href="?page={{n}}">{{n}}</a></li>
         {% endfor %}
         {% if currentPage+10 < products.count %}
-        <li><a href="?page={{nowPage+1}}">next</a></li>
+        <li><a href="?page={{checkNum+11}}">next</a></li>
         {% endif %}
     </ul>
 </div>

@@ -1,5 +1,4 @@
 const {stores, products} = require('../models');
-const {getPagingData, getPagination} = require('../middlewares/pagination');
 
 exports.createProduct = (req, res) => {
     stores.findAll()
@@ -39,104 +38,14 @@ exports.addProduct = async (req, res, next) => {
 }
 
 exports.listProduct = async (req, res) => {
-    // console.log("REST API Get Method - Read All");
-    // // 페이지 크기
-    // var countPerPage = req.query.countperpage;
-    // // 페이지 번호
-    // var pageNo = req.query.pageno;
-    // // 페이지 사이즈
-    // var pageSize = req.query.pagesize;
-    //
-    // if (countPerPage == undefined || typeof countPerPage == "undefined" || countPerPage == null) {
-    //     countPerPage = 10;
-    // } else {
-    //     countPerPage = parseInt(countPerPage);
-    // }
-    // if (pageSize == undefined || typeof pageSize == "undefined" || pageSize == null) {
-    //     pageSize = 10;
-    // } else {
-    //     pageSize = parseInt(pageSize);
-    // }
-    // if (pageNo == undefined || typeof pageNo == "undefined" || pageNo == null) {
-    //     pageNo = 0;
-    // } else {
-    //     pageNo = parseInt(pageNo);
-    // }
-    //
-    // if (pageNo > 0) {
-    //     // 전체 크기
-    //     var totalCount = boardList.length;
-    //     // 마지막 페이지 번호(전체 페이지 크기)
-    //     var lastPageNo = Math.floor(totalCount / countPerPage) + (totalCount % countPerPage== 0 ? 0 : 1);
-    //     // 시작 페이지 번호
-    //     var startPageNo = 1;
-    //     // 페이지 사이즈로 페이지 번호를 나눈 몫만큼 페이지 시작 번호 변경
-    //     var start = Math.floor(pageNo / pageSize);
-    //     if (start >= 1) {
-    //         // 그렇지만 나머지가 없으면 현재 페이지 번호가 마지막 페이지 번호와 같아 감소
-    //         if (pageNo % pageSize == 0){
-    //             start--;
-    //         }
-    //         startPageNo = (start * pageSize) + 1;
-    //     }
-    //     // 종료 페이지 번호
-    //     var endPageNo = (startPageNo - 1) + pageSize;
-    //     // 그렇지만 종료 페이지 번호가 마지막 페이지 번호보다 크면 마지막 페이지 번호로 변경
-    //     if (endPageNo > lastPageNo) {
-    //         endPageNo = lastPageNo;
-    //     }
-    //     // 이전 페이지 사이즈 번호
-    //     var prevPageSizeNo = startPageNo - 1;
-    //     // 이전 페이지 사이즈 번호 활성화 여부
-    //     var enablePrevPageSizeNO = true;
-    //     if (prevPageSizeNo == 0) {
-    //         enablePrevPageSizeNO = false;
-    //     }
-    //     // 다음 페이지 사이즈 번호
-    //     var nextPageSizeNo = endPageNo + 1;
-    //     // 다음 페이지 사이즈 번호 활성화 여부
-    //     var enableNextPageSizeNO = true;
-    //     if (nextPageSizeNo > lastPageNo) {
-    //         enableNextPageSizeNO = false;
-    //     }
-    //     // 시작 번호
-    //     var startItemNo = ((pageNo - 1) * countPerPage);
-    //     // 종료 번호
-    //     var endItemNo = (pageNo * countPerPage) - 1;
-    //     // 종료 번호가 전체 크기보다 크면 전체 크기로 변경
-    //     if (endItemNo > (totalCount - 1)) {
-    //         endItemNo = totalCount - 1;
-    //     }
-    //     var boardPageList = [];
-    //     if (startItemNo < totalCount) {
-    //         for (var index = startItemNo; index <= endItemNo; index++) {
-    //             boardPageList.push(boardList[index]);
-    //         }
-    //     }
-    //     // 페이지네이션 정보
-    //     var paginationInfo = {};
-    //     paginationInfo.totalCount = totalCount;
-    //     paginationInfo.countPerPage = countPerPage;
-    //     paginationInfo.pageSize = pageSize;
-    //     paginationInfo.startPageNo = startPageNo;
-    //     paginationInfo.endPageNo = endPageNo;
-    //     paginationInfo.lastPageNo = lastPageNo;
-    //     paginationInfo.pageNo = pageNo;
-    //     paginationInfo.prevPageSizeNo = prevPageSizeNo;
-    //     paginationInfo.enablePrevPageSizeNO = enablePrevPageSizeNO;
-    //     paginationInfo.nextPageSizeNo = nextPageSizeNo;
-    //     paginationInfo.enableNextPageSizeNO = enableNextPageSizeNO;
-    //     res.json({success:true, data:boardPageList, pagination:paginationInfo});
-    // } else {
-    //     res.json({success:true, data:boardList});
-    // }
-    let limit = 10;
-    let offset = 0 + Number((req.query.page? req.query.page : 1) - 1) * limit;
-    console.log('req.query.page', (req.query.page? req.query.page : offset));
-    await products.findAndCountAll({
+    let limit = 10; // sql select 쿼리문의 order by limit 부분
+    let offset = 0 + Number((req.query.page? req.query.page : 1) - 1) * limit; // sql select 쿼리문의 order by offset 부분
+    let checkNum = (req.query.page? req.query.page : 1); // 페이지 네비게이션 부분에 페이징을 위한 변수 초기화
+    checkNum = Math.floor(checkNum/10)*10; // 10자리에서 내림을 해서 10개씩 끊어주려고 위해 재할당
+    await products.findAndCountAll({ // 검색결과와 전체 count를 같이 보기 위해 사용
         limit: 10,
         offset : offset,
-        order:[['p_no', 'desc']],
+        order:[['p_no', 'desc']], // 최신부터 보여주기 위해 역순으로 정렬
         include: {
             model: stores,
             as: "s_no_store",
@@ -144,20 +53,20 @@ exports.listProduct = async (req, res) => {
         }
     })
         .then((productList) => {
-            const num = [];
-            for(let i = 0; i*10 < productList.count; i++){
-                num.push(i+1);
+            let navCheck = Math.ceil(productList.count/10)*10; // 페이지 네비게이션을 체크하기 위한 변수로 초기화
+            navCheck = navCheck/10; // 초기화 후 쉽게 체크하기 위해 재할당
+            const num = []; // 페이지 네비게이션에 나올 숫자들을 담을 배열을 선언
+            for(let i = checkNum; i < checkNum+10; i++){ // checkNum 변수를 이용해서 10개씩 담기 위한 반복문 사용
+                if(i < navCheck){
+                    num.push(i+1);
+                }
             }
-            res.render('product/list',{products:productList, currentPage: offset, num});
+            res.render('product/list',{products:productList, currentPage: offset, num, checkNum});
         })
         .catch((err) => {
             res.send(err);
         })
 }
-
-
-
-
 
 exports.modProduct = async (req, res) => {
     const no1 = req.params.p_no;
@@ -197,144 +106,3 @@ exports.editProduct = async (req, res, next) => {
         next(e);
     }
 }
-
-exports.pageProduct = async (req, res) => {
-    // console.log("REST API Get Method - Read All");
-    // let countPerPage = req.query.countperpage; // 페이지 크기
-    // let pageNo = req.query.pageno; // 페이지 번호
-    // let pageSize = req.query.pagesize; // 페이지 사이즈
-    //
-    // if (countPerPage == undefined || typeof countPerPage == "undefined" || countPerPage == null) countPerPage = 10;
-    // else countPerPage = parseInt(countPerPage);
-    //
-    // if (pageSize == undefined || typeof pageSize == "undefined" || pageSize == null) pageSize = 10;
-    // else pageSize = parseInt(pageSize);
-    //
-    // if (pageNo == undefined || typeof pageNo == "undefined" || pageNo == null) pageNo = 0;
-    // else pageNo = parseInt(pageNo);
-    //
-    // if (pageNo > 0) {
-    //     let totalCount = boardList.length; // 전체 크기
-    //     let lastPageNo = Math.floor(totalCount / countPerPage) + (totalCount % countPerPage== 0 ? 0 : 1); // 마지막 페이지 번호(전체 페이지 크기)
-    //     let startPageNo = 1; // 시작 페이지 번호
-    //     let start = Math.floor(pageNo / pageSize); // 페이지 사이즈로 페이지 번호를 나눈 몫만큼 페이지 시작 번호 변경
-    //     if (start >= 1) {
-    //         // 그렇지만 나머지가 없으면 현재 페이지 번호가 마지막 페이지 번호와 같아 감소
-    //         if (pageNo % pageSize == 0){
-    //             start--;
-    //         }
-    //         startPageNo = (start * pageSize) + 1;
-    //     }
-    //     // 종료 페이지 번호
-    //     var endPageNo = (startPageNo - 1) + pageSize;
-    //     // 그렇지만 종료 페이지 번호가 마지막 페이지 번호보다 크면 마지막 페이지 번호로 변경
-    //     if (endPageNo > lastPageNo) {
-    //         endPageNo = lastPageNo;
-    //     }
-    //     // 이전 페이지 사이즈 번호
-    //     var prevPageSizeNo = startPageNo - 1;
-    //     // 이전 페이지 사이즈 번호 활성화 여부
-    //     var enablePrevPageSizeNO = true;
-    //     if (prevPageSizeNo == 0) {
-    //         enablePrevPageSizeNO = false;
-    //     }
-    //     // 다음 페이지 사이즈 번호
-    //     var nextPageSizeNo = endPageNo + 1;
-    //     // 다음 페이지 사이즈 번호 활성화 여부
-    //     var enableNextPageSizeNO = true;
-    //     if (nextPageSizeNo > lastPageNo) {
-    //         enableNextPageSizeNO = false;
-    //     }
-    //     // 시작 번호
-    //     var startItemNo = ((pageNo - 1) * countPerPage);
-    //     // 종료 번호
-    //     var endItemNo = (pageNo * countPerPage) - 1;
-    //     // 종료 번호가 전체 크기보다 크면 전체 크기로 변경
-    //     if (endItemNo > (totalCount - 1)) {
-    //         endItemNo = totalCount - 1;
-    //     }
-    //     var boardPageList = [];
-    //     if (startItemNo < totalCount) {
-    //         for (var index = startItemNo; index <= endItemNo; index++) {
-    //             boardPageList.push(boardList[index]);
-    //         }
-    //     }
-    //     // 페이지네이션 정보
-    //     var paginationInfo = {};
-    //     paginationInfo.totalCount = totalCount;
-    //     paginationInfo.countPerPage = countPerPage;
-    //     paginationInfo.pageSize = pageSize;
-    //     paginationInfo.startPageNo = startPageNo;
-    //     paginationInfo.endPageNo = endPageNo;
-    //     paginationInfo.lastPageNo = lastPageNo;
-    //     paginationInfo.pageNo = pageNo;
-    //     paginationInfo.prevPageSizeNo = prevPageSizeNo;
-    //     paginationInfo.enablePrevPageSizeNO = enablePrevPageSizeNO;
-    //     paginationInfo.nextPageSizeNo = nextPageSizeNo;
-    //     paginationInfo.enableNextPageSizeNO = enableNextPageSizeNO;
-    //     res.json({success:true, data:boardPageList, pagination:paginationInfo});
-    // } else {
-    //     res.json({success:true, data:boardList});
-    // }
-    try {
-        let limit = 10;
-        let offset = 0 + Number((req.query.page? req.query.page : 1) - 1) * limit;
-        // let offset = 0 + Number((req.body.page? req.body.page : 1) - 1) * limit;
-        console.log('offset : ', offset);
-        const list = await products.findAndCountAll({
-            limit: 10,
-            offset : offset,
-            order:[['p_no', 'desc']],
-            include: {
-                model: stores,
-                as: "s_no_store",
-                required: true
-            }
-        });
-        return res.status(200).json(list);
-    } catch (e) {
-        console.error(e);
-        return res.status(400).json(e);
-    }
-}
-
-exports.pageProduct2 = async (req,res)=>{
-
-}
-
-// exports.listProduct = async (req, res, next) => {
-//     // let { keyword} = req.query;
-//
-//     const contentSize = Number(process.env.CONTENTSIZE); // 한페이지에 나올 개수
-//     const currentPage = Number(req.query.currentPage) || 1; //현재페이지
-//     const {limit, offset} = getPagination(currentPage, contentSize);
-//
-//     // keyword = keyword ? keyword : "";
-//
-//     let dataAll = await products.findAll({
-//         where: {
-//             include:
-//                 {
-//                 model: stores,
-//                 // as: "s_no_store",
-//                 // required: true
-//             }
-//         },
-//         limit, offset
-//     })
-//
-//     let dataCountAll = await products.findAndCountAll({
-//         where: {
-//             include:
-//                 {
-//                 model: stores,
-//                 // as: "s_no_store",
-//                 // required: true
-//             }
-//         },
-//         limit, offset
-//     })
-//     const pagingData = getPagingData(dataCountAll, currentPage, limit);
-//     let list = dataAll;
-//     res.render("manager/employee/employeeMngList", {products: list,  pagingData});
-// };
