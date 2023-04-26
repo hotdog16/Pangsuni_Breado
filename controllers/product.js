@@ -38,18 +38,14 @@ exports.addProduct = async (req, res, next) => {
 }
 
 exports.listProduct = async (req, res) => {
-    let limit = 10;
-    let offset = 0 + Number((req.query.page? req.query.page : 1) - 1) * limit;
-    console.log('==============', (req.query.page? req.query.page : offset));
-    console.log('req.query.page', req.query.page);
-    console.log('offset', offset);
-    let checkNum = (req.query.page? req.query.page : 1);
-    checkNum = Math.floor(checkNum/10)*10;
-    console.log('checkNum : ',checkNum);
-    await products.findAndCountAll({
+    let limit = 10; // sql select 쿼리문의 order by limit 부분
+    let offset = 0 + Number((req.query.page? req.query.page : 1) - 1) * limit; // sql select 쿼리문의 order by offset 부분
+    let checkNum = (req.query.page? req.query.page : 1); // 페이지 네비게이션 부분에 페이징을 위한 변수 초기화
+    checkNum = Math.floor(checkNum/10)*10; // 10자리에서 내림을 해서 10개씩 끊어주려고 위해 재할당
+    await products.findAndCountAll({ // 검색결과와 전체 count를 같이 보기 위해 사용
         limit: 10,
         offset : offset,
-        order:[['p_no', 'desc']],
+        order:[['p_no', 'desc']], // 최신부터 보여주기 위해 역순으로 정렬
         include: {
             model: stores,
             as: "s_no_store",
@@ -57,10 +53,10 @@ exports.listProduct = async (req, res) => {
         }
     })
         .then((productList) => {
-            let navCheck = Math.ceil(productList.count/10)*10;
-            navCheck = navCheck/10;
-            const num = [];
-            for(let i = checkNum; i < checkNum+10; i++){
+            let navCheck = Math.ceil(productList.count/10)*10; // 페이지 네비게이션을 체크하기 위한 변수로 초기화
+            navCheck = navCheck/10; // 초기화 후 쉽게 체크하기 위해 재할당
+            const num = []; // 페이지 네비게이션에 나올 숫자들을 담을 배열을 선언
+            for(let i = checkNum; i < checkNum+10; i++){ // checkNum 변수를 이용해서 10개씩 담기 위한 반복문 사용
                 if(i < navCheck){
                     num.push(i+1);
                 }
