@@ -17,7 +17,7 @@ const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
 // const upload = multer({dest: '../public/images/'});
 /* GET home page. */
 // const upload = express().upload();
-
+const { users } = require("../models");
 
 const router = express.Router();
 
@@ -58,7 +58,7 @@ router.get("/mypage/update", isLoggedIn, mypageUpdate);
 router.post("/mypage/update", isLoggedIn, mypageUpdateAdd);
 
 router.get("/admin", (req, res) => {
-  res.render("admin");
+  res.render("admin", { title: "Express" });
 });
 
 
