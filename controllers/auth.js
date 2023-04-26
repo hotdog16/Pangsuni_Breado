@@ -9,7 +9,7 @@ exports.join = async (req, res, next) => {
   try {
     const exUser = await users.findOne({ where: { u_id: u_id } });
     if (exUser) {
-      return res.redirect("/join?error=exist");
+      return res.error("");
     }
     const hash = await bcrypt.hash(u_pwd, 12);
     await users.create({
@@ -33,6 +33,7 @@ exports.join = async (req, res, next) => {
 
 exports.login = (req, res, next) => {
   passport.authenticate("local", (authError, user, info) => {
+    console.log("req--------------", user);
     if (authError) {
       console.error(authError);
       return next(authError);
