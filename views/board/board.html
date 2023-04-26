@@ -21,25 +21,34 @@
         </ul>
         {% for i in list %}
         <div class="qna-con">
-            <ul class="qna-list-con">
+            <div>
+                <a href = "/board/boardDetail/{{i.b_no}}">
+                <ul class="qna-list-con">
                 <li>{{i.b_no}}</li>
                 <li>{{i.u_id}}</li>
                 <li>{{i.b_title}}</li>
-<!--                <li>{{i.b_content}}</li>-->
+<!--<!-             <li>{{i.b_content}}</li>-->
                 <li>{{i.b_reg_dt}}</li>
                 <li>{{i.b_cnt}}</li>
             </ul>
-
-            <div class="qnabox">
-               {{i.b_content}}
-                <br>
-            </div>
-            <div class="qnabox">
-                {{i.b_content}}
-                <br>
-                <button><a href="/board/comments:{{i.b_no}}">댓글달기(comments)</a></button>
+                </a>
             </div>
 
+<!--            <div class="qnabox">-->
+<!--               {{i.b_content}}-->
+<!--                <br>-->
+<!--            </div>-->
+<!--            <div class="qnabox">-->
+<!--                {{i.b_content}}-->
+<!--                <br>-->
+<!--                <button><a href="/board/comments/{{i.b_no}}">댓글달기(comments)</a></button>-->
+<!--           <form id = "comments-form" action="/board" method="post">-->
+<!--               <div class="comment">-->
+<!--                   <label for="comment-text">댓글</label>-->
+<!--                   <input id="comment-text" type="textarea" name="">-->
+<!--               </div>-->
+<!--           </form>-->
+<!--            </div>-->
 
         </div>
 
@@ -51,31 +60,31 @@
 <button><a href="/board/write">글쓰기</a></button>
 
 <!--2023.04.23-메뉴 펼치고 접기-->
-<script>
-    let qnaConBox = document.querySelectorAll('.qna-list-con');
-    qnaConBox.forEach((target) => {
-        target.addEventListener('click', function (){
-            let flag = this.parentNode.lastElementChild.style.display;
-            if (flag === 'black') {
-                this.parentNode.lastElementChild.style.display = 'none';
-            } else {
-                this.parentNode.lastElementChild.style.display = 'black';
-            }
-        })
-    })
+<!--<script>-->
+<!--    let qnaConBox = document.querySelectorAll('.qna-list-con');-->
+<!--    qnaConBox.forEach((target) => {-->
+<!--        target.addEventListener('click', function (){-->
+<!--            let flag = this.parentNode.lastElementChild.style.display;-->
+<!--            if (flag === 'black') {-->
+<!--                this.parentNode.lastElementChild.style.display = 'none';-->
+<!--            } else {-->
+<!--                this.parentNode.lastElementChild.style.display = 'black';-->
+<!--            }-->
+<!--        })-->
+<!--    })-->
 
-    let btn = document.querySelectorAll('.qna-list-con');
+<!--    let btn = document.querySelectorAll('.qna-list-con');-->
 
-    btn.forEach((target)=>{
-        target.addEventListener('click', function () {
-            let flag = this.parentNode.lastElementChild.style.display;
-            if(flag === 'block'){
-                this.parentNode.lastElementChild.style.display = 'none';
-            }else{
-                this.parentNode.lastElementChild.style.display = 'block';
-            }
-        })
-    })
-</script>
+<!--    btn.forEach((target)=>{-->
+<!--        target.addEventListener('click', function () {-->
+<!--            let flag = this.parentNode.lastElementChild.style.display;-->
+<!--            if(flag === 'block'){-->
+<!--                this.parentNode.lastElementChild.style.display = 'none';-->
+<!--            }else{-->
+<!--                this.parentNode.lastElementChild.style.display = 'block';-->
+<!--            }-->
+<!--        })-->
+<!--    })-->
+<!--</script>-->
 
 {% endblock %}

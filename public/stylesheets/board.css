@@ -10,10 +10,10 @@ body {
 }
 
 #qna-border h1 {
-  margin-top: 70px;
+  margin-top: 30px;
 }
 #qna-border p {
-  margin: 40px 0;
+  margin: 20px 0;
   font-size: 17px;
 }
 
@@ -41,7 +41,19 @@ body {
 }
 
 #qna-write {
-  width: 1000px;
+  /*width: 1000px;*/
+  text-align: center;
+  background-color: rgb(255, 245, 193);
+  /*opacity: 0.5;*/
+}
+
+#qna-write .btn {
+  /*background-color: #fab53e;*/
+  padding: 8px 15px;
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 #qna-write .b_content {
@@ -66,3 +78,11 @@ body {
   display: block;
 }
 
+.board_form {
+  /*background-color: rgb(255, 213, 0);*/
+  /*opacity: 0.5;*/
+}
+
+.btn {
+  color: orange;
+}
