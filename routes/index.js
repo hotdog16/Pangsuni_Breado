@@ -57,7 +57,7 @@ router.get("/mypage", isLoggedIn, mypage);
 router.get("/mypage/update", isLoggedIn, mypageUpdate);
 router.post("/mypage/update", isLoggedIn, mypageUpdateAdd);
 
-router.get("/admin", function (req, res) {
+router.get("/admin", (req, res) => {
   res.render("admin", { title: "Express" });
 });
 router.get("/board", qnaList);
