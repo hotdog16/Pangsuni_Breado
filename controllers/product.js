@@ -39,21 +39,38 @@ exports.addProduct = async (req, res, next) => {
 }
 
 exports.listProduct = async (req, res) => {
-    console.log('============================test============================');
+    // console.log('controllers/listProduct ======>');
+    // ///////////////////////////////////////////////////
+    // // let {searchType, keyword} = req.query;
+    // const contentSize = Number(process.env.CONTENTSIZE);
+    // console.log('contentSize : ', contentSize);
+    // const currentPage = Number(req.query.currentPage) || 1;
+    // console.log('currentPage : ', currentPage);
+    // const {limit, offset} = getPagination(currentPage, contentSize);
+    // // keyword = keyword ? keyword : "";
+    // let dataAll = await products.findAll({limit, offset})
+    // let dataCountAll = await products.findAndCountAll({limit, offset})
+    // const pagingData = getPagingData(dataCountAll, currentPage, limit);
+    // let list = dataAll;
     ///////////////////////////////////////////////////
-    // let {searchType, keyword} = req.query;
-    const contentSize = Number(process.env.CONTENTSIZE);
-    const currentPage = Number(req.query.currentPage) || 1;
-    const {limit, offset} = getPagination(currentPage, contentSize);
-    // keyword = keyword ? keyword : "";
-    let dataAll = await products.findAll({limit, offset})
-    let dataCountAll = await products.findAndCountAll({limit, offset})
-    const pagingData = getPagingData(dataCountAll, currentPage, limit);
-
-    let list = dataAll;
-    ///////////////////////////////////////////////////
-    products.findAll({
+    let limit = 10;
+    let offset = 0 + Number((req.body.page? req.body.page : 1) - 1) * limit;
+    // console.log('offset : ', offset);
+    // let totalCnt = products.findAndCountAll({
+    //     limit : limit,
+    //     offset : offset,
+    //     order:[['p_no', 'desc']],
+    //     include: {
+    //         model: stores,
+    //         as: "s_no_store",
+    //         required: true
+    //     }
+    // });
+    // console.log('totalCnt : ', totalCnt);
+    // totalCnt = totalCnt/10;
+    products.findAndCountAll({
         limit: 10,
+        offset : offset,
         order:[['p_no', 'desc']],
         include: {
             model: stores,
@@ -62,8 +79,11 @@ exports.listProduct = async (req, res) => {
         }
     })
         .then((productList) => {
-
-            res.render('product/list',{products:productList, list, pagingData});
+            // res.status(200).json({products:productList});
+            // res.render('product/list',{products:productList});
+            // res.status(200).json({products:productList});
+            res.render('product/list',{products:productList});
+            // res.render('product/list',{products:productList, list, pagingData});
         })
         .catch((err) => {
             res.send(err);
