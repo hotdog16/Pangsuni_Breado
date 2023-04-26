@@ -1,10 +1,11 @@
 {% extends 'layout.html' %}
+
 {% block style %}
 <style>
-   table{
-       border-collapse: collapse;
-       text-align: center;
-   }
+    table{
+        border-collapse: collapse;
+        text-align: center;
+    }
     tr{
         background-color: whitesmoke;
     }
@@ -13,8 +14,11 @@
     }
 </style>
 {% endblock %}
+
 {% block body %}
 <h1>제품</h1>
+{% set nowPage = (currentPage/10) + 1 %}
+<h1>현재페이지 : {{nowPage}}</h1>
 <table>
     <tr class="item">
         <th>제품번호</th>
@@ -26,12 +30,12 @@
     </tr>
     {% for p in products.rows %}
     <tr class="item">
-        <td>{{p.p_no}}</td>
-        <td>{{p.s_no_store.s_name}}</td>
-        <td>{{p.p_name}}</td>
-        <td>{{p.p_price}}원</td>
+        <td>{{ p.p_no }}</td>
+        <td>{{ p.s_no_store.s_name }}</td>
+        <td>{{ p.p_name }}</td>
+        <td>{{ p.p_price }}원</td>
         <td>
-            <button><a href="/product/modify/{{p.p_no}}">수정</a></button>
+            <button><a href="/product/modify/{{ p.p_no }}">수정</a></button>
         </td>
         <td>
             <button>삭제</button>
@@ -39,10 +43,18 @@
     </tr>
     {% endfor %}
 </table>
-<h1>{{products.count}}</h1>
-<h1>{{products.count/10}}</h1>
-<p>
-
-</p>
+<div>
+    <ul>
+        {% if currentPage > 0 %}
+        <li><a href="?page={{(currentPage/10)}}">prev</a></li>
+        {% endif %}
+        {% for n in num %}
+        <li><a href="?page={{n}}">{{n}}</a></li>
+        {% endfor %}
+        {% if currentPage+10 < products.count %}
+        <li><a href="?page={{nowPage+1}}">next</a></li>
+        {% endif %}
+    </ul>
+</div>
 <div><button><a href="/product/add">추가</a></button></div>
 {% endblock %}
