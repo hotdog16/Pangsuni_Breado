@@ -2,25 +2,24 @@
 
 {% block body %}
 <div id="qna-comments">
-  <form id ="board_form" action="/board" method="post">
-
+  <form id ="board_form" action="/board/comments" method="post">
+<!--    <p>{{bNo}} 게시판 번호</p>-->
+    게시판번호 <input name="b_no" value="{{bNo}}" readonly size="3">
     <div class="input-group">
-      <br><br><br>
-      <label>작성자</label>
       <!--        로그인 구현 후 u_id value에 {{user.u_id}}}-->
-      <input name="u_id" value="alxo9974">
-      <input name="bt_no" value="2">
+        <label>게시판타입 </label>
+      <input name="bt_no" value="2" size="3"><br>
+        <br><br>
+        <label>작&nbsp&nbsp&nbsp성&nbsp&nbsp&nbsp자 </label><input name="u_id" value="hotdog"><br><br>
+<!--      <input name="u_id" value="{{uid}}">-->
     </div>
     <div class="input-group">
-      <label>제&nbsp&nbsp&nbsp목</label>
-      <input name="b_title" class="b_title">
-    </div>
-    <div class="input-group">
-      <label>내&nbsp&nbsp&nbsp용</label>
-      <input name="b_content" class="b_content">
+      <label>내&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp용</label>
+<!--      <input name="c_content" class="b_content">-->
+        <textarea cols="50" rows="5" name="c_content" class="b_content"></textarea>
     </div>
     <br>
-    <p><button type="submit">댓글(comments)전송하기</button></p>
+    <p><button type="submit" class="btn">댓글(comments)전송하기</button></p>
 
 
   </form>

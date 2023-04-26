@@ -15,7 +15,4 @@ router.get('/modify/:p_no', modProduct); // 상품 정보 수정 화면으로 �
 router.post('/modify', productRegExp, editProduct); // 상품 정보 수정화면에서 리스트로 이동
 // router.post('/modify', editProduct); // 상품 정보 수정화면에서 리스트로 이동
 
-router.get('/test/', pageProduct);
-router.get('/test2/', pageProduct2);
-
 module.exports = router;
