@@ -51,9 +51,15 @@
         <li><a href="?page={{n}}">{{n}}</a></li>
         {% endfor %}
         {% if currentPage+10 < products.count %}
+        {% if num.length == 10 %}
         <li><a href="?page={{checkNum+11}}">next</a></li>
+        {% endif %}
         {% endif %}
     </ul>
 </div>
 <div><button><a href="/product/add">추가</a></button></div>
+<div>
+    <p> currentPage : {{currentPage+10}}</p>
+    <p> products.count : {{products.count}}</p>
+</div>
 {% endblock %}
