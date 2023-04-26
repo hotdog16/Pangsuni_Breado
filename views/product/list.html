@@ -14,6 +14,7 @@
 </style>
 {% endblock %}
 {% block body %}
+<h1>제품</h1>
 <table>
     <tr class="item">
         <th>제품번호</th>
@@ -23,7 +24,7 @@
         <th>수정</th>
         <th>삭제</th>
     </tr>
-    {% for p in products %}
+    {% for p in products.rows %}
     <tr class="item">
         <td>{{p.p_no}}</td>
         <td>{{p.s_no_store.s_name}}</td>
@@ -38,5 +39,10 @@
     </tr>
     {% endfor %}
 </table>
-<button><a href="/product/add">추가</a></button>
+<h1>{{products.count}}</h1>
+<h1>{{products.count/10}}</h1>
+<p>
+
+</p>
+<div><button><a href="/product/add">추가</a></button></div>
 {% endblock %}

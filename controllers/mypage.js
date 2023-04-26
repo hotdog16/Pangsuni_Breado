@@ -23,6 +23,7 @@ exports.mypageUpdateAdd = async (req, res, next) => {
   const hash = await bcrypt.hash(req.body.u_pwd, 12);
   try {
     await user.update(
+
       {
         u_pwd: hash,
         u_tel: req.body.u_tel,
@@ -33,6 +34,7 @@ exports.mypageUpdateAdd = async (req, res, next) => {
           u_no: req.body.u_no,
         },
       }
+
     );
     res.redirect("/mypage");
     console.log("rep.body수정 ----------------------------------->>>>", req.body);
