@@ -11,9 +11,11 @@
       <label>아이디</label>
       <input type="text" name="u_id" class="id" />
       <span class="id-text">영문/영문과 숫자를 조합하여 최소 6자리 이상 12자리로 입력바랍니다.</span>
-      <input type="button" class="id_Check" value="중복체크"></input>
+      <input type="button" class="id_Check" value="중복체크" disabled="disabled"></input>
       <input type="hidden" class="check_id" value="0"/>
-      <input type="checkbox" class="id_Check_ok" unchecked/>
+      <input type="checkbox" class="id_Check_ok" unchecked disabled/>
+
+
       <label>비밀번호</label>
       <input type="password" name="u_pwd" class="password" />
       <span class="pwd-text">영문과 숫자를 조합하여 6자리 이상으로 입력해주세요.</span>
@@ -51,24 +53,31 @@
         console.log("axios1->", res);
         console.log("axios2->", res.data.msg);
         console.log("axios3->", res.status);
-        if (res.data.msg == "사용가능") {
+        if (res.data.msg === "사용가능") {
           $(".id-text").text("사용가능한 아이디 입니다.");
-          $(".id_Check_ok").attr('checked',true)
+          $(".id_Check_ok").attr('checked',true,)
           $(".id-text").css("color", "green");
-          
-
         }
       })
       .catch((error) => {
-        console.log("555555->", error.response.status);
-        console.log(error);
-        if (res.data.msg == "사용불가능") {
+        console.log("axios1ec->", error);
+        console.log("axios1ec->", error.code);
+        if (error.code === "ERR_BAD_RESPONSE") {
           $(".id-text").text(`이미 존재하는 아이디 입니다.`);
-          $(".check_id").css("color","red");
+          $(".id-text").css("color","red");
         }
       });
   });
   //id 중복체크
+
+  // //중복체크 버튼 활성화
+  // function idCheckActive(){
+  //   let checkID = RegExp(/^[a-z0-9]{5,19}$/);
+  //   if (checkID.test($(".id").val())) {
+  //       $(".id_Check").attr('disabled',false)
+  //   }
+  // }
+  // idCheckActive();
 
   function checkJoin() {
     let chEmail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
@@ -102,9 +111,13 @@
       } else if (checkID.test($(".id").val())) {
         $(".id-text").text("아이디 입력 완료");
         $(".id-text").css("color", "green");
+        $(".id_Check").attr('disabled',false)
         return true;
       }
+
     });
+
+   
 
     $(".password").blur(function () {
       if ($(".password").val() == "") {

@@ -7,14 +7,14 @@ exports.renderJoin = (req, res) => {
 };
 
 exports.renderMain = async (req, res, next) => {
-  let user = null;
-  if (req.isAuthenticated()) {
-    console.log("req:body ======>1111", req.user);
-    user = req.user;
-  } else {
-    user = [];
-  }
-
+  // let user = null;
+  // if (req.isAuthenticated()) {
+  //   console.log("req:body ======>1111", req.user);
+  //   user = req.user;
+  // } else {
+  //   user = [];
+  // }
+  user = req.user;
   res.render("index", {
     title: "PangsuniBreado",
     user,

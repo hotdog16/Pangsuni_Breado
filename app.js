@@ -19,23 +19,19 @@ const orderRouter = require("./routes/order");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const boardRouter = require("./routes/board");
-const {sequelize} = require("./models");
+const { sequelize } = require("./models");
 const passportConfig = require("./passport");
 passportConfig(); // 패스포트 설정
-
-
 
 const app = express();
 
 // view engin setup
 
-
-
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "html");
 nunjucks.configure("views", {
-    express: app,
-    watch: true,
+  express: app,
+  watch: true,
 });
 
 // app.listen(3000, () => {
@@ -75,8 +71,7 @@ app.use("/board", boardRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-
-    next(createError(404));
+  next(createError(404));
 });
 
 // catch 404 and forward to error handler
@@ -86,10 +81,10 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-    res.locals.message = err.message;
-    res.locals.error = req.app.get("env") === "development" ? err : {};
-})
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
+});
 // render the error page
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);

@@ -19,8 +19,6 @@ const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
 /* GET home page. */
 // const upload = express().upload();
 
-const { users } = require("../models");
-
 const router = express.Router();
 
 try {
@@ -54,7 +52,7 @@ router.post("/idCheck", async (req, res) => {
   if (idCheck == null) {
     return res.status(200).json({ msg: "사용가능" });
   } else {
-    return res.status(400).json({ msg: "사용불가능" });
+    return res.status(500).json({ msg: "사용불가능" });
   }
 });
 
