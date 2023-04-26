@@ -19,8 +19,6 @@ const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
 /* GET home page. */
 // const upload = express().upload();
 
-const { users } = require("../models");
-
 const router = express.Router();
 
 try {

@@ -47,7 +47,30 @@ body {
   /*opacity: 0.5;*/
 }
 
-#qna-write .btn {
+.qna-write-btn {
+  background-color: lightgreen;
+  padding: 8px 15px;
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;;
+  border: none;
+}
+
+#qna-write .b_content {
+  width: 500px;
+  height: 150px;
+}
+
+
+#qna-comments {
+  /*width: 1000px;*/
+  text-align: center;
+  background-color: rgb(255, 245, 193);
+  /*opacity: 0.5;*/
+}
+
+#qna-comments .btn {
   /*background-color: #fab53e;*/
   padding: 8px 15px;
   border-radius: 5px;
@@ -56,7 +79,17 @@ body {
   font-weight: 600;
 }
 
-#qna-write .b_content {
+.write-btn {
+  background-color: orange;
+  padding: 8px 15px;
+  border-radius: 5px;
+  color: black;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+}
+
+#qna-comments .b_content {
   width: 500px;
   height: 150px;
 }
@@ -81,8 +114,4 @@ body {
 .board_form {
   /*background-color: rgb(255, 213, 0);*/
   /*opacity: 0.5;*/
-}
-
-.btn {
-  color: orange;
 }
