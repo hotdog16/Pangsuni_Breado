@@ -16,16 +16,14 @@
   <h3 class="best-title">오늘의 BEST 빵집!</h3>
   <!--best-->
   <div class="best">
-    <div class="best-bread"><a href=""><img src="./img/빵집1" alt="">빵집1</a></div>
-    <div class="best-bread"><a href=""><img src="./img/빵집1" alt="">빵집1</a></div>
-
-
-    <div class="best-bread"><a href=""><img src="./img/빵집1" alt="">빵집1</a></div>
-    <div class="best-bread"><a href=""><img src="./img/빵집1" alt="">빵집1</a></div>
-    <div class="best-bread"><a href=""><img src="./img/빵집1" alt="">빵집1</a></div>
-    <div class="best-bread"><a href=""><img src="./img/빵집1" alt="">빵집1</a></div>
-    <div class="best-bread"><a href=""><img src="./img/빵집1" alt="">빵집1</a></div>
-    <div class="best-bread"><a href=""><img src="./img/빵집1" alt="">빵집1</a></div>
+    <div class="best-bread"><a href="">빵집1</a></div>
+    <div class="best-bread"><a href="">빵집1</a></div>
+    <div class="best-bread"><a href="">빵집1</a></div>
+    <div class="best-bread"><a href="">빵집1</a></div>
+    <div class="best-bread"><a href="">빵집1</a></div>
+    <div class="best-bread"><a href="">빵집1</a></div>
+    <div class="best-bread"><a href="">빵집1</a></div>
+    <div class="best-bread"><a href="">빵집1</a></div>
   </div>
   <!-- //best-->
 

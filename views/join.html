@@ -6,57 +6,167 @@
     <div class="join-input">
       <label>이름</label>
       <input type="text" name="u_name" class="name" />
+      <span class="name-text"></span>
 
       <label>아이디</label>
       <input type="text" name="u_id" class="id" />
-      <div class="idCheck">중복체크</div>
-      <span class="check_id"></span>
-
+      <span class="id-text">영문/영문과 숫자를 조합하여 최소 6자리 이상 12자리로 입력바랍니다.</span>
+      <input type="button" class="id_Check" value="중복체크"></input>
+      <input type="hidden" class="check_id" value="0"/>
+      <input type="checkbox" class="id_Check_ok" unchecked/>
       <label>비밀번호</label>
       <input type="password" name="u_pwd" class="password" />
+      <span class="pwd-text">영문과 숫자를 조합하여 6자리 이상으로 입력해주세요.</span>
 
       <label>비밀번호확인</label>
       <input type="password" class="re-password" />
+      <span class="repwd-text"></span>
 
       <label>전화번호</label>
       <input type="text" name="u_tel" class="tel" />
+      <span class="tel-text">ex &#41; 010-2222-2222</span>
 
       <label>이메일</label>
       <input type="email" name="u_email" class="email" />
+      <span class="email-text"></span>
     </div>
     <button class="btn join-btn" type="submit">회원가입</button>
   </form>
 </div>
 <script type="text/javascript">
-  const id = $(".id").val();
-  $(document).ready(function () {
-    $(".idCheck").click(function () {
-      axios({
-        url: "/idCheck", // 통신할 웹문서
-        method: "post", // 통신할 방식
-        data: {
-          // 인자로 보낼 데이터
-          id: id,
-        },
-        responseType: "json",
-        responseEncoding: "utf-8",
+  $(".id_Check").click(function () {
+    const id = $(".id").val();
+    axios({
+      url: "/idCheck", // 통신할 웹문서
+      method: "post", // 통신할 방식
+      data: {
+        // 인자로 보낼 데이터
+
+        id: id,
+      },
+      responseType: "json",
+      responseEncoding: "utf-8",
+    })
+      .then((res) => {
+        console.log("axios1->", res);
+        console.log("axios2->", res.data.msg);
+        console.log("axios3->", res.status);
+        if (res.data.msg == "사용가능") {
+          $(".id-text").text("사용가능한 아이디 입니다.");
+          $(".id_Check_ok").attr('checked',true)
+          $(".id-text").css("color", "green");
+          
+
+        }
       })
-        .then((res) => {
-          console.log("axios1->", res);
-          console.log("axios2->", res.data.msg);
-          console.log("axios3->", res.status);
-          if (res.response.status == 200) {
-            $(".check_id").text(`사용가능한 아이디 입니다.`);
-          }
-        })
-        .catch((error) => {
-          console.log("555555->", error.response.status);
-          if (error.response.status == 300) {
-            $(".check_id").text(`이미 존재하는 아이디 입니다.`);
-          }
-        });
-    });
-    //id 중복체크
+      .catch((error) => {
+        console.log("555555->", error.response.status);
+        console.log(error);
+        if (res.data.msg == "사용불가능") {
+          $(".id-text").text(`이미 존재하는 아이디 입니다.`);
+          $(".check_id").css("color","red");
+        }
+      });
   });
+  //id 중복체크
+
+  function checkJoin() {
+    let chEmail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+    let checkID = RegExp(/^[a-z0-9]{5,19}$/);
+    let checkPW = RegExp(/^[A-Za-z0-9]{6,12}$/);
+    let chName = RegExp(/^[가-힣]{2,5}$/);
+    let chTel = RegExp(/^01([0|1|6|7|8|9])-([0-9]{3,4})-([0-9]{4})$/);
+    // 이름 유효성 검사
+    $(".name").blur(function () {
+      if ($(".name").val() == "") {
+        $(".name-text").text("이름은 필수입력 값 입니다.");
+        $(".name-text").css("color", "red");
+        $(".name").focus();
+      } else if (!chName.test($(".name").val())) {
+        $(".name-text").text("이름이 올바르지 않습니다");
+        $(".name-text").css("color", "red");
+      } else if (chName.test($(".name").val())) {
+        $(".name-text").text("이름 입력 완료");
+        $(".name-text").css("color", "green");
+        return true;
+      }
+    });
+
+    $(".id").blur(function () {
+      if ($(".id").val() == "") {
+        $(".id-text").text("아이디는 필수입력 값 입니다.");
+        $(".id-text").css("color", "red");
+      } else if (!checkID.test($(".id").val())) {
+        $(".id-text").text("아이디가 올바르지 않습니다");
+        $(".id-text").css("color", "red");
+      } else if (checkID.test($(".id").val())) {
+        $(".id-text").text("아이디 입력 완료");
+        $(".id-text").css("color", "green");
+        return true;
+      }
+    });
+
+    $(".password").blur(function () {
+      if ($(".password").val() == "") {
+        $(".pwd-text").text("비밀번호를 입력해주세요.");
+        $(".pwd-text").css("color", "red");
+      } else if (!checkPW.test($(".password").val())) {
+        $(".pwd-text").text("영문과 숫자를 조합하여 6자리 이상으로 입력해주세요.");
+        $(".pwd-text").css("color", "red");
+      } else if (checkPW.test($(".password").val())) {
+        $(".pwd-text").text("비밀번호 입력 완료");
+        $(".pwd-text").css("color", "green");
+        return true;
+      }
+    });
+
+    //비밀번호 똑같은지
+
+    $(".re-password").blur(function () {
+      if ($(".re-password").val() == "") {
+        $(".pwd-text").text("비밀번호를 입력해주세요.");
+        $(".pwd-text").css("color", "red");
+      } else if ($(".password").val() != $(".re-password").val()) {
+        $(".repwd-text").text("비밀번호가 일치하지 않습니다");
+        $(".repwd-text").css("color", "red");
+
+        $(".re-password").val("");
+        $(".re-password").focus();
+        return false;
+      } else if ($(".password").val() == $(".re-password").val()) {
+        $(".repwd-text").text("비밀번호 일치");
+        $(".repwd-text").css("color", "green");
+      }
+    });
+
+    $(".tel").blur(function () {
+      if ($(".tel").val() == "") {
+        $(".tel-text").text("전화번호를 입력해주세요.");
+        $(".tel-text").css("color", "red");
+      } else if (!chTel.test($(".tel").val())) {
+        $(".tel-text").text("전화번호를 확인해주세요. ex)010-2222-2222");
+        $(".tel-text").css("color", "red");
+      } else if (chTel.test($(".tel").val())) {
+        $(".tel-text").text("전화번호 입력 완료");
+        $(".tel-text").css("color", "green");
+        return true;
+      }
+    });
+
+    $(".email").blur(function () {
+      if ($(".email").val() == "") {
+        $(".email-text").text("이메일을 입력해주세요.");
+        $(".email-text").css("color", "red");
+      } else if (!chEmail.test($(".email").val())) {
+        $(".email-text").text("이메일 형식에 맞게 입력하세요. ex) ****@naver.com");
+        $(".email-text").css("color", "red");
+      } else if (chEmail.test($(".email").val())) {
+        $(".email-text").text("이메일 입력 완료");
+        $(".email-text").css("color", "green");
+        return true;
+      }
+    });
+  }
+  checkJoin();
 </script>
 {% endblock %} {% block script %} {% endblock %}

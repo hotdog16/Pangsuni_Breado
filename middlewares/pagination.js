@@ -18,6 +18,8 @@ exports.getPagingDataCount = (totalItems, page, limit) => {
 };
 
 exports.getPagination = (page, size) => {
+    // const contentSize = Number(process.env.CONTENTSIZE); // 한페이지에 나올 개수
+    // const currentPage = Number(req.query.currentPage) || 1; //현재페이지
     const skipSize = (page - 1) * size; // NOTE: 다음 페이지 갈 때 건너뛸 리스트 개수.
     const limit = size ? size : 3;
     const offset = skipSize ? skipSize : 0;
@@ -30,3 +32,4 @@ exports.getPagination_airplne = (page, size) => {
     const offset_airplne = skipSize ? skipSize : 0;
     return {limit_airplne, offset_airplne};
 };
+

@@ -4,7 +4,7 @@ const { users } = require("../models");
 const { Sequelize } = require("sequelize");
 
 exports.join = async (req, res, next) => {
-  const { u_id, u_pwd, u_name, u_tel, u_email, u_grade } = req.body;
+  const { u_id, u_pwd, u_name, u_tel, u_email } = req.body;
   console.log("req.body ,,, auth.js", req.body);
   try {
     const exUser = await users.findOne({ where: { u_id: u_id } });

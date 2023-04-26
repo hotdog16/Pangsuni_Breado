@@ -7,11 +7,18 @@ exports.renderJoin = (req, res) => {
 };
 
 exports.renderMain = async (req, res, next) => {
-  console.log("req:body ======>1111", req.user);
-  const user = req.user;
+  let user = null;
+  if (req.isAuthenticated()) {
+    console.log("req:body ======>1111", req.user);
+    user = req.user;
+  } else {
+    user = [];
+  }
+
   res.render("index", {
     title: "PangsuniBreado",
     user,
     // 메인 페이지 렌더링시 넌적스에 게시글 목록 전달
   });
+  next();
 };
