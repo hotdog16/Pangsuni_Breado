@@ -1,4 +1,5 @@
-const { board } = require("../models");
+const { board, comments } = require("../models");
+const {Sequelize} = require("sequelize");
 
 exports.addBoard = async (req, res, next) => {
   console.log("컨트롤러에 들어옴");
@@ -63,13 +64,46 @@ exports.qnaList = async (req, res, next) => {
 };
 
 // board.html / 게시글 처음에서 글쓰기----------
-exports.aaaaa = async (req, res, next) => {
+exports.addwrite = async (req, res, next) => {
   // console.log('글쓰기에 들어오는창');
   res.render("board/write");
 };
 
 // board.html / 게시글 처음에서 댓글달기(comments)----------
-exports.bbbbb = async (req, res, next) => {
+exports.comNo = async (req, res, next) => {
   // console.log('댓글쓰기에 들어오는창');
-  res.render("board/comments");
+  const boardNo = req.params.no;
+  // const userId = req.user;
+  // console.log('userId : ',userId);
+  // console.log('boardNo : ', boardNo);
+  res.render("board/comments", {bNo : boardNo}); //(뷰,데이터)
 };
+
+exports.addComment = async (req, res) =>{
+  console.log('userID : ', req.user);
+  await comments.create({
+    c_no : null,
+    b_no : req.body.b_no,
+    u_id : req.body.u_id,
+    c_content: req.body.c_content,
+    c_reg_dt: Sequelize.Sequelize.literal('now()'),
+    c_mod_dt: null
+  })
+  // res.send('test');
+  res.redirect('/board');
+}
+
+exports.addBoardDetail = async (req, res) => {
+  // console.log('게시판 번호 : ', req.params.no);
+  const boards = await board.findOne({
+    where :{
+      b_no : req.params.no
+    }
+  });
+  const commentList = await comments.findAll({
+    where:{
+      b_no : req.params.no
+    }
+  })
+  res.render("board/boardDetail",{boards, commentList});
+}

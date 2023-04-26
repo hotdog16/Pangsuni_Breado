@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block style %}
+
+{% endblock %}
+{% block body %}
+
+<form id ="board_form" action="/board" method="post">
+  <div class="qna-con">
+    <ul class="qna-list-con">
+      <li>{{boards.b_no}}</li>
+      <li>{{boards.u_id}}</li>
+      <li>{{boards.b_title}}</li>
+      <li>{{boards.b_content}}</li>
+      <li>{{boards.b_reg_dt}}</li>
+      <li>{{boards.b_cnt}}</li>
+    </ul>
+  </div>
+</form>
+<div>
+  댓글리스트 나오는 곳
+  {% for c in commentList %}
+  <p>{{c.c_content}}</p>
+  {% endfor %}
+</div>
+<button>
+  <a href="/board/comments/{{boards.b_no}}">댓글달기(comments)</a>
+</button>
+{% endblock %}
