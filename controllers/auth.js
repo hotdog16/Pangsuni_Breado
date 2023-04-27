@@ -49,6 +49,24 @@ exports.idCheck = async (req, res) => {
   }
 };
 
+exports.emailCheck = async (req, res) => {
+  const { email } = req.body;
+  console.log("email--------1>", email);
+
+  const emailCheck = await users.findOne({
+    where: {
+      u_email: email,
+    },
+  });
+
+  console.log("email--------2>", emailCheck);
+  if (emailCheck == null) {
+    return res.status(200).json({ msg: "사용가능" });
+  } else {
+    return res.status(500).json({ msg: "사용불가능" });
+  }
+};
+
 exports.login = (req, res, next) => {
   passport.authenticate("local", (authError, user, info) => {
     console.log("req--------------", user);
