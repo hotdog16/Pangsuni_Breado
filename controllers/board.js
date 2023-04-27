@@ -90,7 +90,7 @@ exports.addComment = async (req, res) =>{
     c_mod_dt: null
   })
   // res.send('test');
-  res.redirect('/board');
+  res.redirect(`/board/boardDetail/${req.body.b_no}`);
 }
 
 exports.addBoardDetail = async (req, res) => {

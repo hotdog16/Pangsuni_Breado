@@ -17,22 +17,25 @@ body {
   font-size: 17px;
 }
 
-.qna-title,
 .qna-list-con {
+  padding: 6px;
+  cursor: pointer;
+  transition: 0.3s;
   display: flex;
   justify-content: space-around;
   border-bottom: 1px solid #555;
 }
 
 .qna-title {
-  padding: 10px;
-  background: lightgreen;
-}
-
-.qna-list-con {
   padding: 6px;
   cursor: pointer;
   transition: 0.3s;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid #555;
+  padding: 20px;
+  cursor: pointer;
+  background: lightgreen;
 }
 
 .qna-list-con li {
@@ -45,6 +48,16 @@ body {
   text-align: center;
   background-color: rgb(255, 245, 193);
   /*opacity: 0.5;*/
+}
+
+.qna-home-btn {
+  background-color: lightgreen;
+  padding: 8px 15px;
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;;
+  border: none;
 }
 
 .qna-write-btn {
@@ -62,12 +75,21 @@ body {
   height: 150px;
 }
 
-
 #qna-comments {
   /*width: 1000px;*/
   text-align: center;
   background-color: rgb(255, 245, 193);
   /*opacity: 0.5;*/
+}
+
+.qna-comment-btn {
+  background-color: #cf8afd;
+  padding: 8px 15px;
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;;
+  border: none;
 }
 
 #qna-comments .btn {
@@ -81,6 +103,16 @@ body {
 
 .write-btn {
   background-color: orange;
+  padding: 8px 15px;
+  border-radius: 5px;
+  color: black;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+}
+
+.comments-btn {
+  background-color: #cf8afd;
   padding: 8px 15px;
   border-radius: 5px;
   color: black;

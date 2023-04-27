@@ -61,6 +61,11 @@ exports.listProduct = async (req, res) => {
                     num.push(i+1);
                 }
             }
+            console.log('navCheck : ',navCheck);
+            console.log('page : ',req.query.page);
+            if(Number.isNaN(req.query.page) || req.query.page > navCheck){
+                res.status(400).json('버튼 눌러서 사용해주세용 없는 페이지에요!');
+            }
             res.render('product/list',{products:productList, currentPage: offset, num, checkNum});
         })
         .catch((err) => {
