@@ -14,7 +14,7 @@ exports.mypage = async (req, res, next) => {
 exports.mypageUpdate = async (req, res) => {
   const user = req.user;
   console.log("mypageuser -------------------->", user);
-  res.render("mypage_update", { user });
+  res.render("member/mypage_update", { user });
 };
 
 exports.mypageUpdateAdd = async (req, res, next) => {
