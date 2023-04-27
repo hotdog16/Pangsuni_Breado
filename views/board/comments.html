@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-<div id="qna-comments">
+<div id="qna-comments-bg">
   <form id ="board_form" action="/board/comments" method="post">
 <!--    <p>{{bNo}} 게시판 번호</p>-->
     게시판번호 <input name="b_no" value="{{bNo}}" readonly size="3">
@@ -21,7 +21,7 @@
     </div>
     <br>
     <p><button type="submit" class="comments-btn">댓글(comments)전송하기</button></p>
-
+      <br><br><br>
 
   </form>
 </div>

@@ -15,9 +15,9 @@ const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
 // const {addBoard, qnaList, aaaaa, bbbbb} = require("../controllers/board");
 // const {singleUpload} = require('../middlewares/uploads');
 // const {singleUpload} = require('../middlewares/uploads');
-// const upload = multer({dest: '../public/images/'});
+// const uploads = multer({dest: '../public/images/'});
 /* GET home page. */
-// const upload = express().upload();
+// const uploads = express().uploads();
 
 const router = express.Router();
 
