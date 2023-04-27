@@ -4,61 +4,64 @@
 {% block body %}
 <h1>가게 상세정보</h1>
 <div>
-    <div>가게이름 : {{stores.s_name}}</div>
-    <div>
-        가게 이미지 : {{stores.s_img}}
-        <img src="#" alt="가게 이미지">
-    </div>
-    <div>
-        메뉴
+
+<!--        <input type="hidden" value="{{stores.s_no}}">-->
+        <div>가게이름 : {{stores.s_name}}</div>
         <div>
-            {% for p in products %}
-            <div>
-                <p>{{p.p_name}}</p>
-                <p>
-                    <img src="{{p.p_img}}" alt="메뉴 이미지">
-                </p>
-                <p>
-                    <span class="p_price">{{p.p_price}}</span>원
-                    <input type="number" max="100" min="0" class="productCnt">
-                </p>
-                <p>
-                    <input class="p_result" type="number" readonly>
-                </p>
-            </div>
-            <hr>
-            {% endfor %}
+            가게 이미지 : {{stores.s_img}}
+            <img src="#" alt="가게 이미지">
         </div>
-        <form>
         <div>
-            주문 영역
+            메뉴
+            <form method="post" action="/order/add">
             <div>
-                픽업 가능 날짜
-                <select>
-                    <option>+1일</option>
-                    <option>+2일</option>
-                    <option>+3일</option>
-                    <option>+4일</option>
-                    <option>+5일</option>
-                    <option>+6일</option>
-                    <option>+7일</option>
-                </select>
+                {% for p in products %}
+                <div>
+                    <input type="hidden" value="{{p.p_no}}" name="p_no">
+                    <p>{{p.p_name}}</p>
+                    <p>
+                        <img src="{{p.p_img}}" alt="메뉴 이미지">
+                    </p>
+                    <p>
+                        <span class="p_price">{{p.p_price}}</span>원
+                        <input type="number" max="100" min="0" class="productCnt" name="o_cnt">
+                    </p>
+                    <p>
+                        <input class="p_result" type="number" readonly>
+                    </p>
+                </div>
+                <hr>
+                {% endfor %}
             </div>
             <div>
-                총금액 :
-                <input type="number" id="totalSum">
+                주문 영역
+                <div>
+                    픽업 가능 날짜
+                    <select name="o_pickup_dt">
+                        <option>+1일</option>
+                        <option>+2일</option>
+                        <option>+3일</option>
+                        <option>+4일</option>
+                        <option>+5일</option>
+                        <option>+6일</option>
+                        <option>+7일</option>
+                    </select>
+                </div>
+                <div>
+                    총금액 :
+                    <input type="number" id="totalSum">
+                </div>
+                <div>
+                    <button type="submit">주문</button>
+                </div>
             </div>
-            <div>
-                <button type="submit">주문</button>
-            </div>
-        </div>
-        </form>
-    </div>
+    </form>
+</div>
 </div>
 <script>
     const p_cnt = document.querySelectorAll('.productCnt');
-    p_cnt.forEach((target)=>{
-        target.addEventListener('change', function (){
+    p_cnt.forEach((target) => {
+        target.addEventListener('change', function () {
             // console.log(this.value);
             const price = this.previousSibling.previousSibling.textContent;
             // console.log(price);
@@ -68,7 +71,7 @@
             // console.log(result);
             const priceArr = document.querySelectorAll('.p_result');
             let sum = 0;
-            for(let p of priceArr){
+            for (let p of priceArr) {
                 sum += Number(p.value);
             }
             const resultSum = document.querySelector('#totalSum');
