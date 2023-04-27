@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+{% block style %}
+
+{% endblock %}
+{% block body %}
+
+<!--<form id ="board_form" action="/board" method="post">-->
+
+  <h3>QnA 질문 제목</h3>
+    <div class="qna-boardDetail-con">
+      <li>{{boards.b_title}}</li>
+    </div>
+
+  <h3>QnA 질문 내용</h3>
+  <div class="qna-boardDetail-con">
+<!--      <li>{{boards.b_no}}</li>-->
+<!--      <li>{{boards.u_id}}</li>-->
+       <li>{{boards.b_content}}</li>
+<!--      <li>{{boards.b_reg_dt}}</li>-->
+<!--      <li>{{boards.b_cnt}}</li>-->
+  </div>
+</form>
+
+<div>
+  <h1>댓글 list</h1>
+  {% for c in commentList %}
+  <div class="qna-boardDetail-comment"><p>{{c.c_content}}</p></div>
+  {% endfor %}
+</div>
+<br>
+<!--<button class="qna-comment-btn">-->
+<!--  <a href="/board/commentsview/{{boards.b_no}}">댓글달기(comments)</a>-->
+<!--</button>-->
+
+<!--댓글달기 폼 시작 : 테스트 -->
+<div id="qna-comments-bg">
+  <form id ="board_form" action="/board/commentsview/{{boards.b_no}}" method="post">
+    <!--    <p>{{bNo}} 게시판 번호</p>-->
+    게시판번호<input name="b_no" value="{{boards.b_no}}" readonly size="3">
+    <div class="input-group">
+      <!--        로그인 구현 후 u_id value에 {{user.u_id}}}-->
+      <label>게시판타입 </label>
+      <input name="bt_no" value="2" size="3"><br>
+      <h1>댓글(comments)전송하기</h1><br>
+      <br><br>
+      <label>작&nbsp&nbsp&nbsp성&nbsp&nbsp&nbsp자 </label>
+      <input name="u_id" value="hotdog"><br><br>
+      <!--      <input name="u_id" value="{{uid}}">-->
+    </div>
+    <div class="input-group">
+      <label>내&nbsp&nbsp&nbsp&nbsp&nbsp용</label><br>
+      <!--      <input name="c_content" class="b_content">-->
+      <textarea cols="50" rows="5" name="c_content" class="b_content"></textarea>
+    </div>
+    <br>
+    <p><button type="submit" class="comments-btn">댓글(comments)전송하기</button></p>
+    <br><br><br>
+
+  </form>
+</div>
+<!--댓글달기 폼 끝 : 테스트 -->
+<button class="qna-home-btn">
+  <a href="/board/">게시판홈</a>
+</button>
+
+{% endblock %}
