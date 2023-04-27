@@ -19,6 +19,7 @@ const orderRouter = require("./routes/order");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const boardRouter = require("./routes/board");
+const storeRouter = require("./routes/store");
 const { sequelize } = require("./models");
 const passportConfig = require("./passport");
 passportConfig(); // 패스포트 설정
@@ -68,6 +69,7 @@ app.use("/notice", noticeRouter);
 app.use("/product", productRouter);
 app.use("/order", orderRouter);
 app.use("/board", boardRouter);
+app.use("/store", storeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

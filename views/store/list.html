@@ -1,3 +1,5 @@
 {% extends 'layout.html' %} {% block body %}
-
+{% for s in stores %}
+<div><a href="/store/detail/{{s.s_no}}">{{s.s_name}}</a></div>
+{% endfor %}
 {% endblock %}
