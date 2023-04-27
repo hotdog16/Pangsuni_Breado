@@ -14,7 +14,7 @@ exports.renderMain = async (req, res, next) => {
   // } else {
   //   user = [];
   // }
-  user = req.user;
+  const user = req.user;
   res.render("index", {
     title: "PangsuniBreado",
     user,

@@ -1,7 +1,7 @@
 {% extends 'layout.html' %} {% block body %}
 
 <div>회원정보수정</div>
-<form action="/mypage/update" method="post">
+<form action="/users/mypage/update" method="post">
   <ul class="mypage-list">
     <li>이름 :{{user.u_name}}</li>
     <li>비밀번호 :<input type="password" name="u_pwd" /></li>
