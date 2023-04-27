@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 exports.mypage = async (req, res, next) => {
   console.log("req:body ======>1111", req.user);
   const user = req.user;
+  -[""];
   res.render("member/mypage", {
     title: "PangsuniBreado",
     user,
