@@ -2,13 +2,13 @@
 
 {% block body %}
 <div id="qna-write">
-<form id ="board_form" action="/board" method="post">
+<form id ="board_form" action="/board/write" method="post">
 
     <div class="input-group">
         <label>게시판타입</label>
         <input name="bt_no" value="2"><br><br><br>
         <h1>QnA 게시판 글쓰기</h1><br>
-
+    </div>
     <div class="input-group">
         <label>작성자</label>
 <!--        로그인 구현 후 u_id value에 {{user.u_id}}}-->
@@ -35,4 +35,5 @@
 <!--    </div>-->
 </form>
 </div>
-{% endblock %}+
+
+{% endblock %}
