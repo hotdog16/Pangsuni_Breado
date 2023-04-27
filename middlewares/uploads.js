@@ -9,7 +9,7 @@ const upload = multer({dest: '../public/images/'});
 //     console.log('req.body : ',req.body);
 //     console.log('req.body : ',req.);
 //     console.log('req.body : ',req.body);
-//     upload.single(req.body.p_img);
+//     uploads.single(req.body.p_img);
 //     console.log(req.body.p_img);
 //     console.log('업로드 미들웨어 end!!!');
 //     try{
