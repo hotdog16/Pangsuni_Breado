@@ -15,7 +15,6 @@
       <input type="hidden" class="check_id" value="0"/>
       <input type="checkbox" class="id_Check_ok" unchecked disabled/>
 
-
       <label>비밀번호</label>
       <input type="password" name="u_pwd" class="password" />
       <span class="pwd-text">영문과 숫자를 조합하여 6자리 이상으로 입력해주세요.</span>
@@ -68,16 +67,6 @@
         }
       });
   });
-  //id 중복체크
-
-  // //중복체크 버튼 활성화
-  // function idCheckActive(){
-  //   let checkID = RegExp(/^[a-z0-9]{5,19}$/);
-  //   if (checkID.test($(".id").val())) {
-  //       $(".id_Check").attr('disabled',false)
-  //   }
-  // }
-  // idCheckActive();
 
   function checkJoin() {
     let chEmail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
@@ -101,6 +90,7 @@
       }
     });
 
+    // 아이디 유효성 검사
     $(".id").blur(function () {
       if ($(".id").val() == "") {
         $(".id-text").text("아이디는 필수입력 값 입니다.");
@@ -117,8 +107,7 @@
 
     });
 
-   
-
+    // 비밀번호 유효성 검사
     $(".password").blur(function () {
       if ($(".password").val() == "") {
         $(".pwd-text").text("비밀번호를 입력해주세요.");
@@ -133,8 +122,7 @@
       }
     });
 
-    //비밀번호 똑같은지
-
+    // 비밀번호 일치
     $(".re-password").blur(function () {
       if ($(".re-password").val() == "") {
         $(".pwd-text").text("비밀번호를 입력해주세요.");
@@ -151,7 +139,7 @@
         $(".repwd-text").css("color", "green");
       }
     });
-
+    // 전화번호 유효성 검사
     $(".tel").blur(function () {
       if ($(".tel").val() == "") {
         $(".tel-text").text("전화번호를 입력해주세요.");
@@ -166,6 +154,7 @@
       }
     });
 
+    // 이메일 유효성 ㄱ머사
     $(".email").blur(function () {
       if ($(".email").val() == "") {
         $(".email-text").text("이메일을 입력해주세요.");
@@ -181,5 +170,11 @@
     });
   }
   checkJoin();
+
+  $('.join-btn').click(function(){
+  if($('.id_check_ok').prop("checked") == false ){
+    alert('아이디 중복체크를 해주세요')
+  }
+})
 </script>
 {% endblock %} {% block script %} {% endblock %}

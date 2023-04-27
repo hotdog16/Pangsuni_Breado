@@ -8,9 +8,9 @@ const { users } = require("../models");
 const { uerRegExp } = require("../middlewares/regExpCheck");
 const { notice } = require("../controllers/notice");
 
-const { join, login, logout } = require("../controllers/auth");
+const { join, login, logout, idCheck } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
-const { mypage, mypageUpdate, mypageUpdateAdd } = require("../controllers/mypage");
+
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
 // const {addBoard, qnaList, aaaaa, bbbbb} = require("../controllers/board");
 // const {singleUpload} = require('../middlewares/uploads');
@@ -38,31 +38,10 @@ router.post("/login", isNotLoggedIn, login);
 router.get("/join", isNotLoggedIn, renderJoin);
 router.post("/join", isNotLoggedIn, join);
 
-router.post("/idCheck", async (req, res) => {
-  const { id } = req.body;
-  console.log("join--------1>", id);
-
-  const idCheck = await users.findOne({
-    where: {
-      u_id: id,
-    },
-  });
-
-  console.log("join--------2>", idCheck);
-  if (idCheck == null) {
-    return res.status(200).json({ msg: "사용가능" });
-  } else {
-    return res.status(500).json({ msg: "사용불가능" });
-  }
-});
+router.post("/idCheck", idCheck);
 
 router.get("/logout", isLoggedIn, logout);
 // router.post("/logout", isLoggedIn, logout);
-
-router.get("/mypage", isLoggedIn, mypage);
-
-router.get("/mypage/update", isLoggedIn, mypageUpdate);
-router.post("/mypage/update", isLoggedIn, mypageUpdateAdd);
 
 router.get("/admin", (req, res) => {
   res.render("admin", { title: "Express" });
