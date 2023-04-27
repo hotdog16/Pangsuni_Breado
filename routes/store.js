@@ -8,5 +8,4 @@ router.get('/add', );
 router.post('/add');
 
 router.get('/detail/:no', detailStore);
-router.get('/detail/:no', detailStore);
 module.exports = router;
