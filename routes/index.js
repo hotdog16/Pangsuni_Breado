@@ -8,7 +8,7 @@ const { users } = require("../models");
 const { uerRegExp } = require("../middlewares/regExpCheck");
 const { notice } = require("../controllers/notice");
 
-const { join, login, logout, idCheck } = require("../controllers/auth");
+const { join, login, logout, idCheck, emailCheck } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
 
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
@@ -39,6 +39,7 @@ router.get("/join", isNotLoggedIn, renderJoin);
 router.post("/join", isNotLoggedIn, join);
 
 router.post("/idCheck", idCheck);
+router.post("/emailCheck", emailCheck);
 
 router.get("/logout", isLoggedIn, logout);
 // router.post("/logout", isLoggedIn, logout);

@@ -35,6 +35,7 @@
   </form>
 </div>
 <script type="text/javascript">
+  
   $(".id_Check").click(function () {
     const id = $(".id").val();
     axios({
@@ -67,6 +68,39 @@
         }
       });
   });
+
+
+    const email = $(".email").val();
+    axios({
+      url: "/emailCheck", // 통신할 웹문서
+      method: "post", // 통신할 방식
+      data: {
+        // 인자로 보낼 데이터
+
+        email: email,
+      },
+      responseType: "json",
+      responseEncoding: "utf-8",
+    })
+      .then((res) => {
+        console.log("axios1->", res);
+        console.log("axios2->", res.data.msg);
+        console.log("axios3->", res.status);
+        if (res.data.msg === "사용가능") {
+          $(".email-text").text("사용가능한 이메일 입니다.");
+          // $(".id_Check_ok").attr('checked',true,)
+          // $(".id-text").css("color", "green");
+        }
+      })
+      .catch((error) => {
+        console.log("axios1ec->", error);
+        console.log("axios1ec->", error.code);
+        if (error.code === "ERR_BAD_RESPONSE") {
+          $(".email-text").text(`이미 존재하는 이메일 입니다.`);
+          // $(".id-text").css("color","red");
+        }
+      });
+
 
   function checkJoin() {
     let chEmail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
