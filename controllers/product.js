@@ -106,3 +106,18 @@ exports.editProduct = async (req, res, next) => {
         next(e);
     }
 }
+
+exports.deleteProduct = async (req, res)=>{
+    try{
+        // console.log(req.params);
+        await products.destroy({
+            where:{
+                p_no : req.params.p_no
+            }
+        });
+        res.redirect('/product');
+    }catch (e) {
+        console.error(e);
+        res.status(400).json(e);
+    }
+}

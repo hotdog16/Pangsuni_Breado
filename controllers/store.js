@@ -29,3 +29,22 @@ exports.createStore = async (req, res) => {
         console.error(e);
     }
 };
+
+// exports.detailStoreTest = async (req, res)=>{
+//     try{
+//         const s_no = req.params.no;
+//         const store = await stores.findOne({
+//             where: {
+//                 s_no
+//             }
+//         });
+//         const product = await products.findAll({
+//             where: {
+//                 s_no
+//             }
+//         });
+//         res.status(400).json({stores: store, products: product});
+//     }catch (e) {
+//         res.status(200).json(e);
+//     }
+// }
