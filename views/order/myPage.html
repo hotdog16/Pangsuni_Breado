@@ -18,10 +18,11 @@
     <td>{{o.o_no}}</td>
     <td>{{p.s_no_store.s_name}}</td>
     <td>{{p.p_name}}</td>
-    <td>{{o.o_reg_dt}}</td>
-    <td>{{o.o_pickup_dt}}</td>
+    <td>{{ o.o_reg_dt | date('YYYY-MM-DD') }}</td>
+    <td>{{ o.o_pickup_dt | date('YYYY-MM-DD' )}}</td>
     <td>{{o.o_cnt}}</td>
     </tr>
     {% endfor %}
 </table>
+<p>{{ date | date('D MMM') }}</p>
 {% endblock %}
