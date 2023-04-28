@@ -1,11 +1,16 @@
 const express = require("express");
 
-const { join, login, logout, idCheck, emailCheck, telCheck } = require("../controllers/auth");
+const { join, login, logout, idCheck, emailCheck, telCheck, loginCheck } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
 
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
 
 const router = express.Router();
+
+router.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
 
 router.get("/", renderMain);
 router.post("/", function (req, res, next) {
@@ -14,6 +19,8 @@ router.post("/", function (req, res, next) {
 
 router.get("/login", renderLogin);
 router.post("/login", isNotLoggedIn, login);
+
+// router.post("/loginCheck", loginCheck);
 
 router.get("/join", isNotLoggedIn, renderJoin);
 router.post("/join", isNotLoggedIn, join);
