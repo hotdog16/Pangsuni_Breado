@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const path = require("path");
 const session = require("express-session");
 const nunjucks = require("nunjucks");
-const nunjucksDate = require('nunjucks-date-filter');
+const nunjucksDate = require("nunjucks-date-filter");
 const dotenv = require("dotenv");
 const passport = require("passport");
 const fs = require("fs");
@@ -20,6 +20,7 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const boardRouter = require("./routes/board");
 const storeRouter = require("./routes/store");
+const adminRouter = require("./routes/admin");
 const { sequelize } = require("./models");
 const passportConfig = require("./passport");
 passportConfig(); // 패스포트 설정
@@ -34,8 +35,8 @@ let env = nunjucks.configure("views", {
   express: app,
   watch: true,
 });
-nunjucksDate.setDefaultFormat('YYYY-MM-DD');
-env.addFilter('date', nunjucksDate); // 넌적스 템플릿 엔진에 date format을 위해 적용
+nunjucksDate.setDefaultFormat("YYYY-MM-DD");
+env.addFilter("date", nunjucksDate); // 넌적스 템플릿 엔진에 date format을 위해 적용
 
 // app.listen(3000, () => {
 //   const dir = "./public/images";
@@ -72,6 +73,7 @@ app.use("/product", productRouter);
 app.use("/order", orderRouter);
 app.use("/board", boardRouter);
 app.use("/store", storeRouter);
+app.use("/admin", adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
