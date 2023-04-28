@@ -5,8 +5,6 @@ const {uerRegExp} = require('../middlewares/regExpCheck');
 
 const router = express.Router();
 
-router.get('/', (req,res)=>{
-
-})
 router.post('/add',addOrder);
+
 module.exports = router;
