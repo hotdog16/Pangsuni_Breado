@@ -21,7 +21,7 @@
             <li>등록일</li>
             <li>조회수</li>
         </ul>
-        {% for i in list %}
+        {% for i in board.rows %}
         <div class="qna-con">
             <div>
                 <a href = "/board/view/{{i.b_no}}">
@@ -35,23 +35,6 @@
             </ul>
                 </a>
             </div>
-
-<!--            <div class="qnabox">-->
-<!--               {{i.b_content}}-->
-<!--                <br>-->
-<!--            </div>-->
-<!--            <div class="qnabox">-->
-<!--                {{i.b_content}}-->
-<!--                <br>-->
-<!--                <button><a href="/board/comments/{{i.b_no}}">댓글달기(comments)</a></button>-->
-<!--           <form id = "comments-form" action="/board" method="post">-->
-<!--               <div class="comment">-->
-<!--                   <label for="comment-text">댓글</label>-->
-<!--                   <input id="comment-text" type="textarea" name="">-->
-<!--               </div>-->
-<!--           </form>-->
-<!--            </div>-->
-
         </div>
 
         {% endfor %}
@@ -62,7 +45,7 @@
 <br>
 <!-- 아래부터 페이지 네비게이션-->
 <div>
-    <ul>
+    <ul calss="board-paging-num">
         {% set nowPage = (currentPage/5) + 1 %}
         {% if num[0] > 5 %}
         <li><a href="?page={{(checkNum-4)}}">prev</a></li>
@@ -78,7 +61,7 @@
     </ul>
 </div>
 <div>
-    <p class="qna-paging-align"> currentPage : {{currentPage+5}}</p>
+    <p class="qna-paging-align"> currentPage : {{currentPage+10}}</p>
     <p class="qna-paging-align"> board.count : {{board.count}}</p>
 </div>
 <button class="qna-write-btn"><a href="/board/write">글쓰기</a></button>

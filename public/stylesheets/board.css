@@ -13,6 +13,10 @@ body {
   width: 500px;
 }
 
+.board-paging-num {
+  float: left;
+}
+
 .qnabox {
   width: 100%;
   height: 100px;
