@@ -1,4 +1,4 @@
-const { stores, users, orders } = require("../models");
+const { stores, orders, products } = require("../models");
 const {Sequelize} = require("sequelize");
 
 exports.addOrder  = async (req, res) => {
@@ -24,3 +24,22 @@ exports.addOrder  = async (req, res) => {
         console.error(e);
     }
 };
+
+exports.userOrderList = async (req, res)=>{
+    const order = await orders.findAll({
+        where:{
+            u_id: req.user.u_id
+        },
+        include:{
+            model: products,
+            as : "p_no_product",
+            required: true,
+            include:{
+                model: stores,
+                as: 's_no_store',
+                required: true
+            }
+        }
+    })
+    res.render('order/myPage',{user: req.user, order});
+}

@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% block style %}
+{% endblock %}
+{% block body %}
+<h1>{{user.u_id}}님 예약조회</h1>
+<table>
+    <tr>
+        <th>주문번호</th>
+        <th>가게이름</th>
+        <th>제품명</th>
+        <th>주문날짜</th>
+        <th>픽업날짜</th>
+        <th>갯수</th>
+    </tr>
+    {% for o in order %}
+    {% set p = o.p_no_product %}
+    <tr>
+    <td>{{o.o_no}}</td>
+    <td>{{p.s_no_store.s_name}}</td>
+    <td>{{p.p_name}}</td>
+    <td>{{o.o_reg_dt}}</td>
+    <td>{{o.o_pickup_dt}}</td>
+    <td>{{o.o_cnt}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
