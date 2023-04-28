@@ -3,12 +3,7 @@ const {stores, products} = require('../models');
 exports.createProduct = (req, res) => {
     stores.findAll()
         .then((stores2) => {
-            console.log(stores2);
             res.render('product/add', {store: stores2});
-
-            const multer = require('multer');
-            const {regions, stores, products} = require('../models');
-            const upload = multer({dest: '../public/images/'});
         })
 }
 
