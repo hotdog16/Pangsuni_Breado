@@ -3,12 +3,7 @@ const {stores, products} = require('../models');
 exports.createProduct = (req, res) => {
     stores.findAll()
         .then((stores2) => {
-            console.log(stores2);
             res.render('product/add', {store: stores2});
-
-            const multer = require('multer');
-            const {regions, stores, products} = require('../models');
-            const upload = multer({dest: '../public/images/'});
         })
 }
 
@@ -109,5 +104,20 @@ exports.editProduct = async (req, res, next) => {
     } catch (e) {
         console.error(e);
         next(e);
+    }
+}
+
+exports.deleteProduct = async (req, res)=>{
+    try{
+        // console.log(req.params);
+        await products.destroy({
+            where:{
+                p_no : req.params.p_no
+            }
+        });
+        res.redirect('/product');
+    }catch (e) {
+        console.error(e);
+        res.status(400).json(e);
     }
 }
