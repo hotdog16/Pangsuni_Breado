@@ -1,38 +1,35 @@
 const fs = require('fs');
-const express = require('express');
 const path = require('path');
 const multer = require('multer');
-const upload = multer({dest: '../public/images/'});
 
-// exports.singleUpload = (req, res, next) => {
-//     console.log('업로드 미들웨어 start!!!');
-//     console.log('req.body : ',req.body);
-//     console.log('req.body : ',req.);
-//     console.log('req.body : ',req.body);
-//     uploads.single(req.body.p_img);
-//     console.log(req.body.p_img);
-//     console.log('업로드 미들웨어 end!!!');
-//     try{
-//
-//         next();
-//     }catch (e) {
-//         console.error(e);
-//         next(e);
-//     }
-// }
-exports.singleUpload = (req, res, next) => {
-    console.log('업로드 미들웨어 start!!!');
-    console.log('req.body : ', req.body);
-    console.log('req.body : ', req);
-    console.log('req.body : ', req.body);
-    upload.single(req.body.p_img);
-    console.log(req.body.p_img);
-    console.log('업로드 미들웨어 end!!!');
-    try {
-
-        next();
-    } catch (e) {
-        console.error(e);
-        next(e);
-    }
+try {
+    fs.readdirSync('../public/images');
+} catch (e) {
+    console.error(e);
+    fs.mkdirSync('../public/images');
 }
+
+exports.upload = multer({
+    storage: multer.diskStorage({
+        destination: function (req, file, done) {
+            done(null, '../public/images/');
+        },
+        filename: function (req, file, done) {
+            const ext = path.extname(file.originalname);
+            done(null, path.basename(file.originalname, ext) + Date.now() + ext);
+        }
+    }),
+    fileFilter: (req, file, cb) => {
+        const typeArray = file.mimetype.split('/');
+        const fileType = typeArray[1];
+        if (fileType == 'jpg' || fileType == 'png' || fileType == 'jpeg' || fileType == 'gif' || fileType == 'webp') {
+            req.fileValidationError = null;
+            cb(null, true);
+        } else {
+            req.fileValidationError = "jpg,jpeg,png,gif,webp 파일만 업로드 가능합니다.";
+            cb(null, false)
+        }
+    },
+    limits: {fileSize: 5 * 1024 * 1024}
+});
+

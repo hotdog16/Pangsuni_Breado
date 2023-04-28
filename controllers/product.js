@@ -15,6 +15,10 @@ exports.addProduct = async (req, res, next) => {
     if (req.body.p_img === '') {
         req.body.p_img = null;
     }
+    console.log('addProduct!!!!!!!!!!!!!!!!!!!!!');
+    console.log('req : ', req);
+    console.log('req.body : ', req.body);
+    console.log('req.file : ', req.file);
     try {
         await products.create({
             p_no: null,
@@ -120,4 +124,9 @@ exports.deleteProduct = async (req, res)=>{
         console.error(e);
         res.status(400).json(e);
     }
+}
+
+exports.testAxios = async (req, res)=>{
+    console.log('Real req.body : ', req.body);
+    res.send('ddd');
 }

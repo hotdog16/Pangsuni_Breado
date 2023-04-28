@@ -6,6 +6,7 @@ exports.productRegExp = (req, res, next) => {
     const price = req.body.p_price;
     console.log('name : ', name);
     console.log('price : ', price);
+    console.log('body : ', req.body);
     if (!nameRegExp.test(name)) {
         return res.send('아이디 입력이 양식에 맞지 않습니다.');
     }
