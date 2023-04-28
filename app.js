@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const path = require("path");
 const session = require("express-session");
 const nunjucks = require("nunjucks");
+const nunjucksDate = require('nunjucks-date-filter');
 const dotenv = require("dotenv");
 const passport = require("passport");
 const fs = require("fs");
@@ -30,10 +31,12 @@ const app = express();
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "html");
-nunjucks.configure("views", {
+let env = nunjucks.configure("views", {
   express: app,
   watch: true,
 });
+nunjucksDate.setDefaultFormat('YYYY-MM-DD');
+env.addFilter('date', nunjucksDate); // 넌적스 템플릿 엔진에 date format을 위해 적용
 
 // app.listen(3000, () => {
 //   const dir = "./public/images";
@@ -76,14 +79,13 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
-
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
   error.status = 404;
   next(error);
 });
 app.use((err, req, res, next) => {
-  res.locals.user = req.user;
+  res.locals.user = null;
   res.locals.message = err.message;
   res.locals.error = process.env.NODE_ENV !== "production" ? err : {};
   res.status(err.status || 500);

@@ -1,12 +1,12 @@
-const {stores, users, orders} = require("../models");
+const {stores, orders, products} = require("../models");
 const {Sequelize} = require("sequelize");
 
 exports.addOrder = async (req, res) => {
     try {
-        const loopCnt = req.body.p_no.length; // 한 가게에서 제품번호와 갯수가 배열로 넘어오기에 선언
-        const {p_no, o_cnt, o_pickup_dt} = req.body; //
+        const loopCnt = req.body.p_no.length;
+        const {p_no, o_cnt, o_pickup_dt} = req.body;
         const today = new Date();
-        const pickupDay = new Date(today.setDate(today.getDate() + Number(o_pickup_dt))); // 예약 픽업날짜
+        const pickupDay = new Date(today.setDate(today.getDate() + Number(o_pickup_dt)));
         for (let i = 0; i < loopCnt; i++) {
             if (Number(o_cnt[i]) !== 0) {
                 await orders.create({
@@ -24,3 +24,22 @@ exports.addOrder = async (req, res) => {
         console.error(e);
     }
 };
+
+exports.userOrderList = async (req, res) => {
+    const order = await orders.findAll({
+        where: {
+            u_id: req.user.u_id
+        },
+        include: {
+            model: products,
+            as: "p_no_product",
+            required: true,
+            include: {
+                model: stores,
+                as: 's_no_store',
+                required: true
+            }
+        }
+    })
+    res.render('order/myPage', {user: req.user, order});
+}
