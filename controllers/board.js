@@ -148,3 +148,24 @@ exports.BoardView = async (req, res) => {
     })
     res.render("board/boardview", {boards, commentList})
 }
+// 게시판 글 삭제 버튼
+exports.DeleteBoardList = async (req, res, next)=>{
+    try{
+        // console.log(req.params);
+        const { b_no } = req.params;
+
+        await board.destroy({
+            where:{
+                b_no
+            }
+        });
+
+        console.log("Delete ----->", board);
+
+        res.status(200).json({"msg":"삭제완료"});
+
+    }catch (e) {
+        console.error(e);
+        res.status(400).json(e);
+    }
+}

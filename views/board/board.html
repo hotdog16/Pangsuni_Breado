@@ -25,18 +25,16 @@
         {% for i in board.rows %}
         <div class="qna-con">
             <div>
-                <a href = "/board/view/{{i.b_no}}">
-                <ul class="qna-list-con">
-                <li>{{i.b_no}}</li>
-                <li>{{i.u_id}}</li>
-                <li>{{i.b_title}}</li>
+                <ul class="qna-list-con" value="{{i.b_no}}">
+                <li><a href="/board/view/{{i.b_no}}">{{i.b_no}}</a></li>
+                <li><a href="/board/view/{{i.b_no}}">{{i.u_id}}</a></li>
+                <li><a href="/board/view/{{i.b_no}}">{{i.b_title}}</a></li>
 <!--<!-             <li>{{i.b_content}}</li>-->
-                <li>{{ i.b_reg_dt | date('YYYY-MM-DD') }}</li>
+                <li><a href="/board/view/{{i.b_no}}">{{ i.b_reg_dt | date('YYYY-MM-DD') }}</a></li>
                 <li>{{i.b_cnt}}</li>
-                <li>{{i.b_done}}</li>
+<!--                <li>{{i.b_done}}</li>-->
+                <li><button id="delete" value="{{i.b_no}}">삭제</button></li>
             </ul>
-
-                </a>
             </div>
         </div>
 
@@ -72,4 +70,41 @@
 <input type = "text">&nbsp<button class="qna-write-search-btn">
     <a href="/board/write">검색</a></button>
 </span>
+
+<script>
+
+    // document.getElementById("li_*").addEventListener('click',(event)=>{
+    //     alert("/board/delete/${event.target.value}");
+    //    location.href="/board/delete/${event.target.value}";
+    // });
+
+    document.getElementById("delete").addEventListener('click', (event)=> {
+        // alert(`/board/delete/${event.target.value}`)
+
+        let b_no = event.target.value;
+
+        let url = `/board/delete/${b_no}`;
+        // alert(url);
+
+        axios({
+            url: url, // 통신할 웹문서
+            method: 'post', // 통신할 방식
+            data: { // 인자로 보낼 데이터
+                b_no: b_no,
+            },
+            responseType: 'json',
+            responseEncoding: 'utf-8'
+        }).then((res) => {
+            if (res.data.msg === "삭제완료") {
+                // confirm("게시물을 삭제 했습니다.");
+                location.href = "/board";
+            }
+        }).catch((error) => {
+
+            console.error(error);
+
+        })
+    });
+
+</script>
 {% endblock %}
