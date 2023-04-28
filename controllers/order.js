@@ -6,8 +6,7 @@ exports.addOrder  = async (req, res) => {
         const loopCnt = req.body.p_no.length;
         const {p_no, o_cnt, o_pickup_dt} = req.body;
         const today = new Date();
-        const pickupDay = new Date(today.setDate(ttt3.getDate() + Number(o_pickup_dt)));
-        const ttt5 = new Date(ttt3.setDate(ttt3.getDate() - 1));
+        const pickupDay = new Date(today.setDate(today.getDate() + Number(o_pickup_dt)));
         for(let i=0; i<loopCnt; i++){
             if(Number(o_cnt[i]) !== 0){
                 await orders.create({
