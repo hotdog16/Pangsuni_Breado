@@ -35,7 +35,7 @@ exports.mypageUpdateAdd = async (req, res, next) => {
         },
       }
     );
-    res.redirect("/mypage");
+    res.redirect("users/mypage");
     console.log("rep.body수정 ----------------------------------->>>>", req.body);
   } catch (e) {
     console.error(e);

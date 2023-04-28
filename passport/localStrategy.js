@@ -11,6 +11,7 @@ module.exports = () => {
         usernameField: "u_id",
         passwordField: "u_pwd",
         passReqToCallback: false,
+        session: true,
       },
       async (u_id, u_pwd, done) => {
         try {
