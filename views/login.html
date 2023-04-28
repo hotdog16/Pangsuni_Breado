@@ -2,16 +2,17 @@
 
 <div id="login">
   <h2>로그인</h2>
-  <form action="/login" method="post">
+  <form method="post">
     <div class="login-input">
       <label>아이디</label>
       <input class="id-input" name="u_id" placeholder="아이디를 입력하세요." />
     </div>
     <div class="login-input">
       <label>비밀번호</label>
-      <input type="password" name="u_pwd" placeholder="비밀번호를 입력하세요." />
+      <input type="password" name="u_pwd" class="pass_input" placeholder="비밀번호를 입력하세요." />
     </div>
-    <button type="sumit" class="btn login-btn">LOGIN</button>
+    <div class="login-text"></div>
+    <button type="submit" class="btn login-btn">LOGIN</button>
   </form>
   <p>아직 회원이 아니세요?</p>
 
@@ -20,45 +21,42 @@
   <p>아이디,비밀번호를 잊으셨나요?</p>
   <button id="forget" type="sumit" class="btn forget-btn">아이디/비밀번호 찾기</button>
 </div>
-{% endblock %}
-<script>
-  const id = $(".id").val();
-  const pass = $(".pass").val();
 
-  function loginCh() {
-    axios({
-      url: "/loginCheck", // 통신할 웹문서
-      method: "post", // 통신할 방식
-      data: {
-        // 인자로 보낼 데이터
-        pass: pass,
-        id: id,
-      },
-      responseType: "json",
-      responseEncoding: "utf-8",
-    })
-      .then((res) => {
-        console.log("axios1->", res);
-        console.log("axios2->", res.data.msg);
-        console.log("axios3->", res.status);
-        if (res.data.msg === "사용가능") {
-          $(".id-text").text("사용가능한 아이디 입니다.");
-          $(".id_Check_ok").attr("checked", true);
-          $(".id-text").css("color", "green");
-          $(".join-btn").attr("disabled", false);
-          $(".join-btn").css("background-color", "orange");
-        }
+<script>
+  $(document).ready(function () {
+    $(".login-btn").on("click", function () {
+      const id = $(".id-input").val();
+      const pass = $(".pass_input").val();
+
+      axios({
+        url: "/login", // 통신할 웹문서
+        method: "post", // 통신할 방식
+        data: {
+          // 인자로 보낼 데이터
+          pass: pass,
+          id: id,
+        },
+        responseType: "json",
+        responseEncoding: "utf-8",
       })
-      .catch((error) => {
-        console.log("axios1ec->", error);
-        console.log("axios1ec->", error.code);
-        if (error.code === "ERR_BAD_RESPONSE") {
-          $(".id-text").text(`이미 존재하는 아이디 입니다.`);
-          $(".id_Check_ok").attr("checked", false);
-          $(".id-text").css("color", "red");
-          $(".join-btn").attr("disabled", true);
-          $(".join-btn").css("background-color", "lightgray");
-        }
-      });
-  }
+        .then((res) => {
+          console.log("axios1->", res);
+          console.log("axios2->", res.data.msg);
+          console.log("axios3->", res.status);
+          console.log("axios3->", res.data.msg);
+          if (res.status === "200") {
+          }
+        })
+        .catch((error) => {
+          console.log("axios1ec->", error);
+          console.log("axios1ec->", error.code);
+          if (res.data.msg === "로그인에러") {
+            $(".login-text").text(`아이디나 비밀번호가 잘못입력되었습니다.`);
+            $(".login-text").css("color", "red");
+          }
+        });
+    });
+  });
 </script>
+
+{% endblock %}

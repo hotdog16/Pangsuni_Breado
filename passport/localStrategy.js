@@ -11,7 +11,6 @@ module.exports = () => {
         usernameField: "u_id",
         passwordField: "u_pwd",
         passReqToCallback: false,
-        session: true,
       },
       async (u_id, u_pwd, done) => {
         try {
@@ -20,7 +19,7 @@ module.exports = () => {
           if (exUser) {
             const result = await bcrypt.compare(u_pwd, exUser.u_pwd);
             if (result) {
-              done(null, exUser);
+              done(null, exUser); //로그인완료
             } else {
               done(null, false, { message: "비밀번호가 일치하지 않습니다." });
             }

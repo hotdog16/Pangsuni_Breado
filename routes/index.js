@@ -35,7 +35,7 @@ router.get("/logout", isLoggedIn, logout);
 // router.post("/logout", isLoggedIn, logout);
 
 router.get("/admin", (req, res) => {
-  res.render("admin", { title: "Express" });
+  res.render("admin/admin", { title: "Express" });
 });
 // 지도 테스트 중
 router.get("/map", (req, res) => {
