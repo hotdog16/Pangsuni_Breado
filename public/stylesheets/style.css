@@ -81,3 +81,8 @@ body {
   font-weight: 600;
 }
 
+.pagen {
+  width: 400px;
+  display: flex;
+  justify-content: space-around;
+}
