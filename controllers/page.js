@@ -3,7 +3,7 @@ exports.renderLogin = (req, res) => {
 };
 
 exports.renderJoin = (req, res) => {
-  res.render("join", { title: "회원가입" });
+  res.render("member/join", { title: "회원가입" });
 };
 
 exports.renderMain = async (req, res, next) => {

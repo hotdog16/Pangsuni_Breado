@@ -1,24 +1,22 @@
-const { stores, users, orders, products } = require("../models");
+const {stores, users, orders, products} = require("../models");
 
-exports.list  = async (req, res) => {
+exports.list = async (req, res) => {
     const store = await stores.findAll();
-    console.log('storeList : ', store);
-    res.render('store/list', {stores:store});
-    // res.json(store);
+    res.render('store/list', {stores: store});
 };
 
-exports.detailStore  = async (req, res) => {
+exports.detailStore = async (req, res) => {
     const s_no = req.params.no;
     const store = await stores.findOne({
-        where:{
+        where: {
             s_no
         }
     });
     const product = await products.findAll({
-        where:{
+        where: {
             s_no
         }
     });
-    res.render('store/detail', {stores:store, products :product});
+    res.render('store/detail', {stores: store, products: product});
     // res.json(product);
 };
