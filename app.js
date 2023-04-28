@@ -9,7 +9,7 @@ const dotenv = require("dotenv");
 const passport = require("passport");
 const fs = require("fs");
 const multer = require("multer");
-const exios = require("axios");
+const axios = require("axios");
 
 dotenv.config();
 
@@ -70,7 +70,6 @@ app.use("/product", productRouter);
 app.use("/order", orderRouter);
 app.use("/board", boardRouter);
 app.use("/store", storeRouter);
-app.use("/order", orderRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

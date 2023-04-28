@@ -20,5 +20,5 @@ exports.renderMain = async (req, res, next) => {
     user,
     // 메인 페이지 렌더링시 넌적스에 게시글 목록 전달
   });
-  next();
+  // next();
 };
