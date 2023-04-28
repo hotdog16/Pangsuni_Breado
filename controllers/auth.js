@@ -85,7 +85,7 @@ exports.telCheck = async (req, res) => {
   }
 };
 
-exports.login = (req, res, next) => {
+exports.login = async (req, res, next) => {
   passport.authenticate("local", (authError, user, info) => {
     console.log("req--------------", user);
     if (authError) {
