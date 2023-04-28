@@ -71,7 +71,7 @@ exports.BoardList = async (req, res) => {
             console.log('navCheck : ', navCheck);
             console.log('page : ', req.query.page);
             if (Number.isNaN(req.query.page) || req.query.page > navCheck) {
-                res.status(400).json('버튼 눌러서 사용해주세용 없는 페이지에요!');
+                res.status(400).json('숫자만 눌러주세요! 현재 페이지는 없습니다!');
             }
             res.render('board/board', {board: qnaList, currentPage: offset, num, checkNum, user: req.user});
         })
@@ -128,12 +128,19 @@ exports.CommentWrite = async (req, res) => {
 
 exports.BoardView = async (req, res) => {
     // console.log('게시판 번호 : ', req.params.no);
+
     const boards = await board.findOne({
         where: {
             b_no: req.params.no
         }
     });
-
+    await board.update({
+        b_cnt : boards.b_cnt + 1
+    }, {
+        where: {
+            b_no: req.params.no
+        }
+    });
     const commentList = await comments.findAll({
         where: {
             b_no: req.params.no

@@ -20,6 +20,7 @@
 <!--            <li>내용</li>-->
             <li>등록일</li>
             <li>조회수</li>
+            <li>삭제</li>
         </ul>
         {% for i in board.rows %}
         <div class="qna-con">
@@ -30,9 +31,11 @@
                 <li>{{i.u_id}}</li>
                 <li>{{i.b_title}}</li>
 <!--<!-             <li>{{i.b_content}}</li>-->
-                <li>{{i.b_reg_dt}}</li>
+                <li>{{ i.b_reg_dt | date('YYYY-MM-DD') }}</li>
                 <li>{{i.b_cnt}}</li>
+                <li>{{i.b_done}}</li>
             </ul>
+
                 </a>
             </div>
         </div>
@@ -45,17 +48,17 @@
 <br>
 <!-- 아래부터 페이지 네비게이션-->
 <div>
-    <ul calss="board-paging-num">
-        {% set nowPage = (currentPage/5) + 1 %}
-        {% if num[0] > 5 %}
-        <li><a href="?page={{(checkNum-4)}}">prev</a></li>
+    <ul class="board-paging-num">
+        {% set nowPage = (currentPage/10) + 1 %}
+        {% if num[0] > 10 %}
+        <li><a href="?page={{(checkNum-9)}}">prev</a></li>
         {% endif %}
         {% for n in num %}
         <li><a href="?page={{n}}">{{n}}</a></li>
         {% endfor %}
-        {% if currentPage+5 < board.count %}
-        {% if num.length == 5 %}
-        <li><a href="?page={{checkNum+6}}">next</a></li>
+        {% if currentPage+10 < board.count %}
+        {% if num.length == 10 %}
+        <li><a href="?page={{checkNum+11}}">next</a></li>
         {% endif %}
         {% endif %}
     </ul>
@@ -65,5 +68,8 @@
     <p class="qna-paging-align"> board.count : {{board.count}}</p>
 </div>
 <button class="qna-write-btn"><a href="/board/write">글쓰기</a></button>
-
+<span class="qna-write-search-box">
+<input type = "text">&nbsp<button class="qna-write-search-btn">
+    <a href="/board/write">검색</a></button>
+</span>
 {% endblock %}

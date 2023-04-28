@@ -24,13 +24,10 @@
 <div>
   <h1>댓글 list</h1>
   {% for c in commentList %}
-  <div class="qna-boardDetail-comment"><p>{{c.c_content}}</p></div>
+  <div class="qna-comment-list"><p>{{c.c_content}}</p></div>
   {% endfor %}
 </div>
 <br>
-<!--<button class="qna-comment-btn">-->
-<!--  <a href="/board/commentsview/{{boards.b_no}}">댓글달기(comments)</a>-->
-<!--</button>-->
 
 <!--댓글달기 폼 시작 : 테스트 -->
 <div id="qna-comments-bg">
