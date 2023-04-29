@@ -134,6 +134,7 @@ exports.BoardView = async (req, res) => {
             b_no: req.params.no
         }
     });
+
     await board.update({
         b_cnt : boards.b_cnt + 1
     }, {
