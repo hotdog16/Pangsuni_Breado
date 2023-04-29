@@ -20,7 +20,7 @@
 <!--            <li>내용</li>-->
             <li>등록일</li>
             <li>조회수</li>
-            <li>삭제</li>
+<!--            <li>삭제</li>-->
         </ul>
         {% for i in board.rows %}
         <div class="qna-con">
@@ -33,7 +33,7 @@
                 <li><a href="/board/view/{{i.b_no}}">{{ i.b_reg_dt | date('YYYY-MM-DD') }}</a></li>
                 <li>{{i.b_cnt}}</li>
 <!--                <li>{{i.b_done}}</li>-->
-                <li><button id="delete" value="{{i.b_no}}">삭제</button></li>
+<!--                <li><button id="delete" value="{{i.b_no}}">삭제</button></li>-->
             </ul>
             </div>
         </div>
@@ -71,40 +71,45 @@
     <a href="/board/write">검색</a></button>
 </span>
 
-<script>
+<!--아래 script 부분-->
+<!--로게시판 리스트에서 삭제버튼 클릭시-->
+<!--게시물 삭제 하기 했는데 게시물 상세보기에서 -->
+<!--삭제하기로 해서 주석처리함-->
 
-    // document.getElementById("li_*").addEventListener('click',(event)=>{
-    //     alert("/board/delete/${event.target.value}");
-    //    location.href="/board/delete/${event.target.value}";
-    // });
+<!--<script>-->
 
-    document.getElementById("delete").addEventListener('click', (event)=> {
-        // alert(`/board/delete/${event.target.value}`)
+<!--    // document.getElementById("li_*").addEventListener('click',(event)=>{-->
+<!--    //     alert("/board/delete/${event.target.value}");-->
+<!--    //    location.href="/board/delete/${event.target.value}";-->
+<!--    // });-->
 
-        let b_no = event.target.value;
+<!--    document.getElementById("delete").addEventListener('click', (event)=> {-->
+<!--        // alert(`/board/delete/${event.target.value}`)-->
 
-        let url = `/board/delete/${b_no}`;
-        // alert(url);
+<!--        let b_no = event.target.value;-->
 
-        axios({
-            url: url, // 통신할 웹문서
-            method: 'post', // 통신할 방식
-            data: { // 인자로 보낼 데이터
-                b_no: b_no,
-            },
-            responseType: 'json',
-            responseEncoding: 'utf-8'
-        }).then((res) => {
-            if (res.data.msg === "삭제완료") {
-                // confirm("게시물을 삭제 했습니다.");
-                location.href = "/board";
-            }
-        }).catch((error) => {
+<!--        let url = `/board/delete/${b_no}`;-->
+<!--        // alert(url);-->
 
-            console.error(error);
+<!--        axios({-->
+<!--            method: 'post', // 통신할 방식-->
+<!--            url: url, // 통신할 웹문서-->
+<!--            data: { // 인자로 보낼 데이터-->
+<!--                b_no: b_no,-->
+<!--            },-->
+<!--            responseType: 'json',-->
+<!--            responseEncoding: 'utf-8'-->
+<!--        }).then((res) => {-->
+<!--            if (res.data.msg === "삭제완료") {-->
+<!--                // confirm("게시물을 삭제 했습니다.");-->
+<!--                location.href = "/board";-->
+<!--            }-->
+<!--        }).catch((error) => {-->
 
-        })
-    });
+<!--            console.error(error);-->
 
-</script>
+<!--        })-->
+<!--    });-->
+
+<!--</script>-->
 {% endblock %}
