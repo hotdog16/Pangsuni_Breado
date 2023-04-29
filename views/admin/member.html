@@ -1,0 +1,36 @@
+{% extends 'admin/admin.html' %} {% block style %}
+<style>
+
+  .category2 {
+    background-color: #222;
+  }
+  .category2 a {
+    color: #fff;
+  }
+
+  #admin-member .user-list{
+    display: flex;
+  }
+
+</style>
+{% endblock %} {% block body %}
+
+<h2>회원관리</h2>
+
+{% for u in list %}
+<div id="admin-member">
+  <div>
+      <ul class="user-list">
+        <li>{{u.u_no}}</li>
+        <li>{{u.u_id}}</li>
+        <li>{{u.u_name}}</li>
+        <li>{{u.u_tel}}</li>
+        <li>{{u.u_email}}</li>
+        <li>{{u.u_grade}}</li>
+        <li>{{u.u_reg_dt}}</li>
+      </ul>
+    </a>
+  </div>
+</div>
+
+{% endfor %}  {% endblock %} {% block script %} {% endblock %}
