@@ -127,6 +127,27 @@ exports.deleteProduct = async (req, res)=>{
 }
 
 exports.testAxios = async (req, res)=>{
-    console.log('Real req.body : ', req.body);
-    res.send('ddd');
+    console.log('req : ', req);
+    console.log('req : ', req.file.filename);
+    const {p_no, p_name, p_price, p_desc, s_no, p_img}= req.body;
+    try{
+        const product = await products.create({
+            p_no: null,
+            p_name,
+            p_price,
+            p_desc,
+            s_no,
+            p_img:req.file.filename
+        })
+        if(product === null){
+            console.error('게시물 등록 에러');
+            res.status(400).json({msg : 'uploadError'});
+        }else{
+            console.log('게시물 등록 완료');
+            res.status(200).json({msg: 'uploadSuccess'});
+        }
+    }catch (err) {
+        console.error(err);
+        res.status(500).json({msg :err})
+    }
 }

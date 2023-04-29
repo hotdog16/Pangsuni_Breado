@@ -1,7 +1,14 @@
 {% extends 'layout.html' %}
-
+{% block style %}
+<style>
+    #preview{
+        width: 300px;
+        height: 300px;
+    }
+</style>
+{% endblock %}
 {% block body %}
-<form method="post" action="/product/add" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
     <p><label>이름 : </label><input name="p_name" placeholder="이름을 꼭 입력해주세요!" class="p_name"></p>
     <p><label>가격 : </label><input name="p_price" placeholder="가격을 꼭 입력해주세요!" class="p_price"></p>
     <p><label>설명 : </label><textarea cols="100" rows="20" name="p_desc"  class="p_desc"></textarea></p>
@@ -12,39 +19,47 @@
         </option>
         {% endfor %}
     </select></p>
-    <p><label>이미지 : </label><input type="file" name="p_img" id="input-multi-files"></p>
+    <p><label>이미지 : </label><input type="file" name="p_img" id="file" accept="image/*"></p>
     <p><button type="reset">취소</button><button type="submit">등록</button></p>
 </form>
-<div class="preview-images"></div>
+<div class="preview-images">
+    <img id="preview">
+</div>
 {% endblock %}
 {% block script %}
 <script>
-    $(document).ready(function() {
-        let imagesPreview = function(input, placeToInsertImagePreview) {
-            if (input.files) {
-                let filesAmount = input.files.length;
-                for (i = 0; i < filesAmount; i++) {
-                    let reader = new FileReader();
-                    reader.onload = function(event) {
-                        $($.parseHTML("<img>"))
-                            .attr("src", event.target.result)
-                            .appendTo(placeToInsertImagePreview);
-                    };
-                    reader.readAsDataURL(input.files[i]);
-                }
-            }
-        };
-        $("#input-multi-files").on("change", function() {
-            imagesPreview(this, "div.preview-images");
-        });
-    });
-
+    // $(document).ready(function() {
+    //     let imagesPreview = function(input, placeToInsertImagePreview) {
+    //         if (input.files) {
+    //             let filesAmount = input.files.length;
+    //             for (i = 0; i < filesAmount; i++) {
+    //                 let reader = new FileReader();
+    //                 reader.onload = function(event) {
+    //                     $($.parseHTML("<img>"))
+    //                         .attr("src", event.target.result)
+    //                         .appendTo(placeToInsertImagePreview);
+    //                 };
+    //                 reader.readAsDataURL(input.files[i]);
+    //             }
+    //         }
+    //     };
+    //     $("#input-multi-files").on("change", function() {
+    //         imagesPreview(this, "div.preview-images");
+    //     });
+    // });
+    const file = document.querySelector('#file');
+    const preview = document.querySelector('#preview');
+    file.addEventListener('change', ()=>{
+        const previewImg = URL.createObjectURL(file.files[0]);
+        preview.src = previewImg;
+    })
+    ///////////////////////////
     const form = document.querySelector('form');
     const pName = document.querySelector('.p_name');
     const pPrice = document.querySelector('.p_price');
     const pDesc = document.querySelector('.p_desc');
     const sNo = document.querySelector('.s_no');
-    const fileInput = document.querySelector('#input-multi-files');
+    const fileInput = document.querySelector('#file');
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -54,9 +69,10 @@
         formData.append('p_price', pPrice.value);
         formData.append('p_desc', pDesc.value);
         formData.append('s_no', sNo.value);
-        for (const file of fileInput.files) {
-            formData.append('p_img', file);
-        }
+        formData.append('p_img', fileInput.files[0]);
+        // for (const file of fileInput.files) {
+        //     formData.append('p_img', file);
+        // }
         try {
             const response = await axios.post('/product/test', formData, {
                 headers: {
@@ -64,6 +80,10 @@
                 },
             });
             console.log(response.data);
+            alert(response.data.msg);
+            if(response.data.msg === 'uploadSuccess'){
+                window.location.href = '/product';
+            }
         } catch (error) {
             console.error(error);
         }

@@ -3,16 +3,16 @@ const path = require('path');
 const multer = require('multer');
 
 try {
-    fs.readdirSync('../public/images');
+    fs.readdirSync('public/images');
 } catch (e) {
     console.error(e);
-    fs.mkdirSync('../public/images');
+    fs.mkdirSync('public/images');
 }
 
 exports.upload = multer({
     storage: multer.diskStorage({
         destination: function (req, file, done) {
-            done(null, '../public/images/');
+            done(null, 'public/images/');
         },
         filename: function (req, file, done) {
             const ext = path.extname(file.originalname);
