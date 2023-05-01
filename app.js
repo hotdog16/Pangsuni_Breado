@@ -11,7 +11,6 @@ const passport = require("passport");
 const fs = require("fs");
 const multer = require("multer");
 const axios = require("axios");
-
 dotenv.config();
 
 const noticeRouter = require("./routes/notice");
@@ -49,7 +48,7 @@ env.addFilter("date", nunjucksDate); // 넌적스 템플릿 엔진에 date forma
 
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/img", express.static(path.join(__dirname, "uploads")));
+app.use("/img", express.static(path.join(__dirname, "public/images")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -75,11 +74,6 @@ app.use("/order", orderRouter);
 app.use("/board", boardRouter);
 app.use("/store", storeRouter);
 app.use("/admin", adminRouter);
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
-});
 
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);

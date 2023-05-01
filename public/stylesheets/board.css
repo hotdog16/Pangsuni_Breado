@@ -9,7 +9,9 @@
 }
 
 .board-paging-num {
-  float: left;
+  width: 50px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .qnabox {
@@ -52,7 +54,7 @@
   border-bottom: 1px solid #555;
   padding: 10px;
   cursor: pointer;
-  background: lightgreen;
+  background: #95e0c8;
 }
 
 .qna-list-con li {
@@ -61,7 +63,7 @@
 }
 
 .qna-home-btn {
-  background-color: lightgreen;
+  background-color: #fdf4e3;
   padding: 8px 15px;
   border-radius: 5px;
   color: white;
@@ -77,23 +79,28 @@
 /*----- 2.boardDetail.html의 스타일속성 ---- */
 
 .qna-boardDetail-con {
-  width: 1000px;
-  border: 1px solid #173395;
-  padding: 15px 0px;
+  background-color: #fdf4e3;
+  padding: 5px;
+  display: flex;
+
+  /*width: 1000px;*/
+  /*border: 1px solid #173395;*/
+  /*padding: 15px*/
+  /*0px;*/
 }
 
-.qna-boardDetail-comment {
-  width: 1000px;
+.qna-comment-list {
   background-color: #e2c2f6;
   border: 2px solid white;
   padding: 5px;
+  display: flex;
 }
 /*----- 3.boardview.html의 스타일속성 ---- */
 
 #qna-comments-bg {
   /*width: 1000px;*/
   text-align: center;
-  background-color: rgb(255, 245, 193);
+  background-color: #fdf4e3;
   /*opacity: 0.5;*/
 }
 
@@ -134,14 +141,34 @@
 #qna-write {
   /*width: 1000px;*/
   text-align: center;
-  background-color: rgb(255, 245, 193);
+  background-color: #fdf4e3;
   /*opacity: 0.5;*/
 }
 
 .qna-write-btn {
-  background-color: lightgreen;
+  background-color: #95e0c8;
   padding: 8px 15px;
   border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.qna-write-search-box {
+  background-color: #fab53e;
+  padding: 8px 20px;
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  float: right;
+}
+
+.qna-write-search-btn {
+  /*background-color: #a1a2a2;*/
+  /*padding: 3px 10px;*/
+  /*border-radius: 5px;*/
   color: white;
   font-size: 15px;
   font-weight: 600;

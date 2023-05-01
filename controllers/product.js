@@ -15,6 +15,10 @@ exports.addProduct = async (req, res, next) => {
     if (req.body.p_img === '') {
         req.body.p_img = null;
     }
+    console.log('addProduct!!!!!!!!!!!!!!!!!!!!!');
+    console.log('req : ', req);
+    console.log('req.body : ', req.body);
+    console.log('req.file : ', req.file);
     try {
         await products.create({
             p_no: null,
@@ -29,7 +33,6 @@ exports.addProduct = async (req, res, next) => {
         console.error(e);
         next(e);
     }
-
 }
 
 exports.listProduct = async (req, res) => {
@@ -119,5 +122,29 @@ exports.deleteProduct = async (req, res)=>{
     }catch (e) {
         console.error(e);
         res.status(400).json(e);
+    }
+}
+
+exports.testAxios = async (req, res)=>{
+    const {p_no, p_name, p_price, p_desc, s_no, p_img}= req.body;
+    try{
+        const product = await products.create({
+            p_no: null,
+            p_name,
+            p_price,
+            p_desc,
+            s_no,
+            p_img:req.file.filename
+        })
+        if(product === null){
+            console.error('게시물 등록 에러');
+            res.status(400).json({msg : 'uploadError'});
+        }else{
+            console.log('게시물 등록 완료');
+            res.status(200).json({msg: 'uploadSuccess'});
+        }
+    }catch (err) {
+        console.error(err);
+        res.status(500).json({msg :err})
     }
 }

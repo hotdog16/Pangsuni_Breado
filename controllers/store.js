@@ -1,9 +1,21 @@
 const {stores, users, orders, products, regions} = require("../models");
 
-exports.list = async (req, res) => {
-    const store = await stores.findAll();
-    const mapAPI = process.env.KAKAO_MAP;
-    res.render('store/list', {stores: store, mapAPI});
+exports.selectListRegionStores = async (req, res) => {
+    try{
+        console.log('지역번호 : ', req.body);
+        // const r_no = req.params.r_no;
+        const r_no = req.body.r_no;
+        const store = await stores.findAll({
+            where:{
+                r_no
+            }
+        })
+        // console.log('controllers : ',store);
+        return res.status(200).json({stores:store})
+    }catch (e) {
+        console.error(e);
+        return res.status(500).json({store:e});
+    }
 };
 
 exports.detailStore = async (req, res) => {
@@ -29,22 +41,3 @@ exports.createStore = async (req, res) => {
         console.error(e);
     }
 };
-
-// exports.detailStoreTest = async (req, res)=>{
-//     try{
-//         const s_no = req.params.no;
-//         const store = await stores.findOne({
-//             where: {
-//                 s_no
-//             }
-//         });
-//         const product = await products.findAll({
-//             where: {
-//                 s_no
-//             }
-//         });
-//         res.status(400).json({stores: store, products: product});
-//     }catch (e) {
-//         res.status(200).json(e);
-//     }
-// }

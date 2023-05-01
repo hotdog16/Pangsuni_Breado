@@ -1,6 +1,6 @@
 const { notice } = require("../models");
-
-exports.addBoard  = async (req, res, next) => {
+const { BoardList } = require("../controllers/board");
+exports.NoticeList  = async (req, res, next) => {
     console.log('컨트롤러에 들어옴');
     console.log(req.body);
     try {
@@ -23,3 +23,9 @@ exports.addBoard  = async (req, res, next) => {
         next(e);
     }
 };
+exports.NoticeWrite =(req,res)=>{
+    res.send('OK');
+}
+exports.NoticeForm =(req,res)=>{
+    res.send('OK');
+}
