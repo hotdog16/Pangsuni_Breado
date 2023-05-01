@@ -1,0 +1,114 @@
+{% extends 'layout.html' %}
+
+{% block style %}
+
+{% endblock %}
+
+{% block body %}
+
+<div id="qna-border">
+    <h1>공지사항</h1>
+    <p>빵수니 브래두에서 공지드립니다!!</p><br>
+        <h1>list {{str}}</h1>
+    <form id ="notice_write" action="/notice" method="post">
+    <div class="notice-list">
+        <ul class="notice-title">
+            <li>No</li>
+            <li>작성자ID</li>
+            <li>제목</li>
+<!--            <li>내용</li>-->
+            <li>등록일</li>
+            <li>조회수</li>
+<!--            <li>삭제</li>-->
+        </ul>
+        {% for i in board.rows %}
+        <div class="qna-con">
+            <div>
+                <ul class="qna-list-con" value="{{i.b_no}}">
+                <li><a href="/board/view/{{i.b_no}}">{{i.b_no}}</a></li>
+                <li><a href="/board/view/{{i.b_no}}">{{i.u_id}}</a></li>
+                <li><a href="/board/view/{{i.b_no}}">{{i.b_title}}</a></li>
+<!--<!-             <li>{{i.b_content}}</li>-->
+                <li><a href="/board/view/{{i.b_no}}">{{ i.b_reg_dt | date('YYYY-MM-DD') }}</a></li>
+                <li>{{i.b_cnt}}</li>
+<!--                <li>{{i.b_done}}</li>-->
+<!--                <li><button id="delete" value="{{i.b_no}}">삭제</button></li>-->
+            </ul>
+            </div>
+        </div>
+
+        {% endfor %}
+
+    </div>
+    </form>
+</div>
+<br>
+<!-- 아래부터 페이지 네비게이션-->
+<div>
+    <ul class="board-paging-num">
+        {% set nowPage = (currentPage/10) + 1 %}
+        {% if num[0] > 10 %}
+        <li><a href="?page={{(checkNum-9)}}">prev</a></li>
+        {% endif %}
+        {% for n in num %}
+        <li><a href="?page={{n}}">{{n}}</a></li>
+        {% endfor %}
+        {% if currentPage+10 < board.count %}
+        {% if num.length == 10 %}
+        <li><a href="?page={{checkNum+11}}">next</a></li>
+        {% endif %}
+        {% endif %}
+    </ul>
+</div>
+<div>
+    <p class="qna-paging-align"> currentPage : {{currentPage+10}}</p>
+    <p class="qna-paging-align"> board.count : {{board.count}}</p>
+</div>
+<button class="qna-write-btn"><a href="/notice/write">글쓰기</a></button>
+<span class="qna-write-search-box">
+<input type = "text">&nbsp<button class="qna-write-search-btn">
+    <a href="/board/write">검색</a></button>
+</span>
+
+<!--아래 script 부분-->
+<!--로게시판 리스트에서 삭제버튼 클릭시-->
+<!--게시물 삭제 하기 했는데 게시물 상세보기에서 -->
+<!--삭제하기로 해서 주석처리함-->
+
+<!--<script>-->
+
+<!--    // document.getElementById("li_*").addEventListener('click',(event)=>{-->
+<!--    //     alert("/board/delete/${event.target.value}");-->
+<!--    //    location.href="/board/delete/${event.target.value}";-->
+<!--    // });-->
+
+<!--    document.getElementById("delete").addEventListener('click', (event)=> {-->
+<!--        // alert(`/board/delete/${event.target.value}`)-->
+
+<!--        let b_no = event.target.value;-->
+
+<!--        let url = `/board/delete/${b_no}`;-->
+<!--        // alert(url);-->
+
+<!--        axios({-->
+<!--            method: 'post', // 통신할 방식-->
+<!--            url: url, // 통신할 웹문서-->
+<!--            data: { // 인자로 보낼 데이터-->
+<!--                b_no: b_no,-->
+<!--            },-->
+<!--            responseType: 'json',-->
+<!--            responseEncoding: 'utf-8'-->
+<!--        }).then((res) => {-->
+<!--            if (res.data.msg === "삭제완료") {-->
+<!--                // confirm("게시물을 삭제 했습니다.");-->
+<!--                location.href = "/board";-->
+<!--            }-->
+<!--        }).catch((error) => {-->
+
+<!--            console.error(error);-->
+
+<!--        })-->
+<!--    });-->
+
+<!--</script>-->
+{% endblock %}

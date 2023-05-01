@@ -24,45 +24,45 @@
     {% endfor %}
 </div><br>
 
-<button id="delete" value="{{i.b_no}}">게시물삭제</button>
+<button id="delete" value="{{i.b_no}}"><a href="/board/delete/{{boards.b_no}}">게시물삭제</a></button>
 <br><br>
 <!--해당 페이지 게시물 삭제 게시판메인으로 돌아가기-->
-<script>
+<!--<script>-->
 
-    // document.getElementById("li_*").addEventListener('click',(event)=>{
-    //     alert("/board/delete/${event.target.value}");
-    //    location.href="/board/delete/${event.target.value}";
-    // });
+<!--    // document.getElementById("li_*").addEventListener('click',(event)=>{-->
+<!--    //     alert("/board/delete/${event.target.value}");-->
+<!--    //    location.href="/board/delete/${event.target.value}";-->
+<!--    // });-->
 
-    document.getElementById("delete").addEventListener('click', (event)=> {
-        // alert(`/board/delete/${event.target.value}`)
+<!--    document.getElementById("delete").addEventListener('click', (event)=> {-->
+<!--        // alert(`/board/delete/${event.target.value}`)-->
 
-        let b_no = event.target.value;
+<!--        let b_no = event.target.value;-->
 
-        let url = `/board/view/${b_no}`;
-        // alert(url);
+<!--        let url = `/board/view/${b_no}`;-->
+<!--        // alert(url);-->
 
-        axios({
-            method: 'post', // 통신할 방식
-            url: url, // 통신할 웹문서
-            data: { // 인자로 보낼 데이터
-                b_no: b_no,
-            },
-            responseType: 'json',
-            responseEncoding: 'utf-8'
-        }).then((res) => {
-            if (res.data.msg === "삭제완료") {
-                // confirm("게시물을 삭제 했습니다.");
-                location.href = "/board";
-            }
-        }).catch((error) => {
+<!--        axios({-->
+<!--            method: 'post', // 통신할 방식-->
+<!--            url: url, // 통신할 웹문서-->
+<!--            data: { // 인자로 보낼 데이터-->
+<!--                b_no: b_no,-->
+<!--            },-->
+<!--            responseType: 'json',-->
+<!--            responseEncoding: 'utf-8'-->
+<!--        }).then((res) => {-->
+<!--            if (res.data.msg === "삭제완료") {-->
+<!--                // confirm("게시물을 삭제 했습니다.");-->
+<!--                location.href = "/board";-->
+<!--            }-->
+<!--        }).catch((error) => {-->
 
-            console.error(error);
+<!--            console.error(error);-->
 
-        })
-    });
+<!--        })-->
+<!--    });-->
 
-</script>
+<!--</script>-->
 
 <!--댓글달기 폼 시작 : 테스트 -->
 <div id="qna-comments-bg">
