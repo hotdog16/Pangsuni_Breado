@@ -33,7 +33,6 @@ exports.addProduct = async (req, res, next) => {
         console.error(e);
         next(e);
     }
-
 }
 
 exports.listProduct = async (req, res) => {
@@ -127,8 +126,6 @@ exports.deleteProduct = async (req, res)=>{
 }
 
 exports.testAxios = async (req, res)=>{
-    console.log('req : ', req);
-    console.log('req : ', req.file.filename);
     const {p_no, p_name, p_price, p_desc, s_no, p_img}= req.body;
     try{
         const product = await products.create({
