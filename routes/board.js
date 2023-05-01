@@ -15,6 +15,7 @@ router.get("/write", BoardForm); // 게시판 글쓰기 창
 router.post("/write", BoardWrite); // 게시판 글 등록하기
 
 router.get("/view/:no",BoardView);
+router.get("/delete/:b_no", DeleteBoardList);
 router.post("/delete/:b_no", DeleteBoardList);
 
 router.post("/commentswrite", CommentWrite);
