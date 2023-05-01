@@ -1,5 +1,5 @@
 #mypage {
-  width: 1440px;
+  width: 100%;
   text-align: center;
   margin: 0 auto;
 }
@@ -16,7 +16,7 @@
   border-radius: 10px;
   margin: 0 auto;
   margin-top: 40px;
-  padding: 30px 20px;
+  padding: 0 20px 30px 20px;
 }
 
 #mypage .mypage-list li {
@@ -31,7 +31,7 @@
 
 #mypage .btn {
   padding: 10px 20px;
-  margin: 20px 10px;
+  margin: 40px 10px 0 10px;
   border: none;
   background-color: #ffd56f;
   border-radius: 10px;

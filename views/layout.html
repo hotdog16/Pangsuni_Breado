@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="/stylesheets/style.css"/>
     <link rel="stylesheet" href="/stylesheets/board.css"/>
     <link rel="stylesheet" href="/stylesheets/mypage.css"/>
+    <link rel="stylesheet" href="/stylesheets/store.css"/>
     {% block style %}{% endblock %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -43,7 +44,7 @@
             <!-- <p>user => {{user.u_id}}</p> -->
             {% if user and user.u_id %}
         <div class="logout">
-            <div class="header-profile">환영합니다!<br><span>{{ user.u_id +  '님'}}</span></div>
+            <div class="header-profile">환영합니다!<br><span>{{ user.u_name +  '님'}}</span></div>
             <ul class="logout-category">
                 <li><a href="/logout">로그아웃</a></li>
                 <li><a href="/users/mypage">마이페이지</a></li>

@@ -1,0 +1,41 @@
+#store{
+    text-align: center;
+}
+#store h4{
+    margin-top: 50px;
+    font-size: 26px;
+}
+
+#store .region-list{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+#store .region-list li{
+    padding: 5px 30px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 400;
+    border: 1px solid #333;
+}
+
+#store .region-list li:hover{
+    background-color: #333;
+    color: #fff;
+}
+
+#store #regionStore{
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+#store #regionStore .store{
+    border: 1px solid #333;
+    width: 33.3%;
+    padding: 10px 50px;
+}
