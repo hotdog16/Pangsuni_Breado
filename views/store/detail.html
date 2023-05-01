@@ -1,12 +1,44 @@
 {% extends 'layout.html' %}
 {% block style %}
+<style>
+    .main-container{
+        margin: 0;
+    }
+    #header{
+        position: fixed;
+        background-color: rgba(249, 250, 183);
+        z-index: 1000;
+        margin-top: -160px;
+        padding-top: 10px;
+    }
+
+    #header .logout-category{
+        font-size: 14px;
+    }
+
+    #header .logout{
+        margin-top: 10px;
+    }
+    #header .logo{
+        margin-top: 13px;
+        padding-top: 30px;
+    }
+    #header .logo a{
+        font-size: 30px;
+    }
+    #nav{
+        display: none;
+    }
+</style>
 {% endblock %}
 {% block body %}
-<h1>가게 상세정보</h1>
+<div id="store-detail">
+<!-- <h1>가게 상세정보</h1> -->
+<div class="back-page" onclick="history.back()"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> 돌아가기</div>
 <div>
-    <div>{{stores.s_name}}</div>
-    <div class="s_addr">{{stores.s_addr}}</div>
-    <div><img src="#" alt="가게 이미지"></div>
+    <div class="store-name">{{stores.s_name}}</div>
+    <div class="store-pic"><img src="#" alt="가게 이미지"></div>
+    <div class="s_addr"><i class="fa fa-map-marker" aria-hidden="true"></i> {{stores.s_addr}}</div>
     <div>
         <form method="post" action="/order/add">
             <div>
@@ -25,7 +57,7 @@
                 {% endfor %}
             </div>
             <div>{{mapAPI}}</div>
-            <div id="map" style="width: 400px; height: 300px"></div>
+            <div id="map" style="width: 80%; height: 400px"></div>
             <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
             <script type="text/javascript"
                     src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{mapAPI}}&libraries=services"></script>
@@ -52,6 +84,7 @@
             </div>
         </form>
     </div>
+</div>
 </div>
 <script>
     const p_cnt = document.querySelectorAll('.productCnt');
