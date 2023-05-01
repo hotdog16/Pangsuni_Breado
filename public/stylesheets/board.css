@@ -1,10 +1,5 @@
 /*-----1.게시판 board-메인-qna 부분 스타일속성-----*/
 
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
 .test {
   display: block;
 }
@@ -71,7 +66,7 @@ body {
   border-radius: 5px;
   color: white;
   font-size: 15px;
-  font-weight: 600;;
+  font-weight: 600;
   border: none;
 }
 
@@ -84,18 +79,16 @@ body {
 .qna-boardDetail-con {
   width: 1000px;
   border: 1px solid #173395;
-  padding: 15px
-  0px;
+  padding: 15px 0px;
 }
 
 .qna-boardDetail-comment {
   width: 1000px;
   background-color: #e2c2f6;
   border: 2px solid white;
-  padding : 5px;
+  padding: 5px;
 }
 /*----- 3.boardview.html의 스타일속성 ---- */
-
 
 #qna-comments-bg {
   /*width: 1000px;*/
@@ -110,7 +103,7 @@ body {
   border-radius: 5px;
   color: white;
   font-size: 15px;
-  font-weight: 600;;
+  font-weight: 600;
   border: none;
 }
 
@@ -151,7 +144,7 @@ body {
   border-radius: 5px;
   color: white;
   font-size: 15px;
-  font-weight: 600;;
+  font-weight: 600;
   border: none;
 }
 
@@ -169,4 +162,3 @@ body {
   font-weight: 600;
   border: none;
 }
-

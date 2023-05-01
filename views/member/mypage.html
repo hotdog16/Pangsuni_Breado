@@ -1,17 +1,32 @@
 {% extends 'layout.html' %} {% block body %}
 
-<div class="user-profile">{{'안녕하세요!' + user.u_id +'님'}}</div>
-<div>회원정보</div>
-<ul class="mypage-list">
-  <li>이름 :{{user.u_id}}</li>
-  <li>비밀번호 :****</li>
-  <li>이메일 :{{user.u_email}}</li>
-  <li>전화번호 :{{user.u_tel}}</li>
-  <li>가입날짜 :{{user.u_reg_dt}}</li>
-</ul>
-<!-- <button onclick="location.href='users/mypage/update'" class="mypage-update" \>회원정보수정</button> -->
-<button class="mypage-update" \><a href="/users/mypage/update">회원정보수정</a></button>
-<!-- <ul class="mypage-list">
+<div id="mypage">
+  <div class="user-profile">{{ user.u_id +'님의 profile'}}</div>
+  <div class="profile-container">
+    <!-- <div>회원정보</div> -->
+    <ul class="mypage-list">
+      <li>
+        이름
+        <p>{{user.u_id}}</p>
+      </li>
+      <li>
+        이메일
+        <p>{{user.u_email}}</p>
+      </li>
+      <li>
+        전화번호
+        <p>{{user.u_tel}}</p>
+      </li>
+      <li>
+        가입날짜
+        <p>{{user.u_reg_dt}}</p>
+      </li>
+    </ul>
+  </div>
+  <!-- <button onclick="location.href='users/mypage/update'" class="mypage-update" \>회원정보수정</button> -->
+  <button class="btn mypage-update" \><a href="/users/mypage/modify">회원정보수정</a></button>
+  <button class="btn mypage-delete" \><a href="">회원탈퇴하기</a></button>
+  <!-- <ul class="mypage-list">
   <li>이름 :<input type="text" placeholder="{{user.u_id}}" /></li>
   <li>비밀번호 :<input type="password" /></li>
   <li>이메일 :<input type="email" /></li>
@@ -19,4 +34,5 @@
   <li>회원등급 :<input type="text" /></li>
   <li>가입날짜 :<input type="datetime" /></li>
 </ul> -->
+</div>
 {% endblock %}

@@ -12,13 +12,13 @@ exports.mypage = async (req, res, next) => {
   });
 };
 
-exports.mypageUpdate = async (req, res) => {
+exports.modifyMypage = async (req, res) => {
   const user = req.user;
   console.log("mypageuser -------------------->", user);
-  res.render("member/mypage_update", { user });
+  res.render("member/mypage_modify", { user });
 };
 
-exports.mypageUpdateAdd = async (req, res, next) => {
+exports.modifyAddMypage = async (req, res, next) => {
   const user = req.user;
   console.log(req.body);
   const hash = await bcrypt.hash(req.body.u_pwd, 12);
