@@ -39,12 +39,12 @@ exports.adminMember = async (req, res, next) => {
   const { u_no, u_id, u_name, u_tel, u_email, u_grade } = req.body;
   try {
     const user_list = await users.findAll();
-    console.log("유저목록 -----------");
-    console.log(user_list);
+    // console.log("유저목록 -----------");
+    // console.log(user_list);
     for (u in user_list) {
       console.log(u);
     }
-    console.log("유저목록 끝 ============================");
+    // console.log("유저목록 끝 ============================");
     res.render("admin/member", { list: user_list });
   } catch (error) {
     console.error(error);

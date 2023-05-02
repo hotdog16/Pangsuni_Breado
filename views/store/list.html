@@ -29,9 +29,10 @@
                             const store = document.createElement('div');
                             store.className = 'store'
                             store.innerHTML = `<a href="/store/detail/${item.s_no}">
-                                                    <img class="store-img" src="${item.s_img}" alt="${item.s_name}의 이미지">
-                                                    <p>${item.s_name}</p><p>${item.s_desc}</p>
-                                                    <p>${item.s_addr}</p><p>${item.s_tel}</p>
+                                                <p class = "store-name">${item.s_name}</p>
+                                                <img class="store-img" src="${item.s_img}" alt="${item.s_name}의 이미지">
+                                                <p >${item.s_desc}</p>
+                                                <p>${item.s_addr}</p><p>${item.s_tel}</p>
                                                </a>`;
                             regionStore.append(store);
                         }

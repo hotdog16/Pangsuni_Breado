@@ -16,8 +16,12 @@ module.exports = () => {
         try {
           const exUser = await users.findOne({ where: { u_id } });
 
+
+
           if (exUser) {
             const result = await bcrypt.compare(u_pwd, exUser.u_pwd);
+
+            console.log("exUser ----->",result);
             if (result) {
               done(null, exUser); //로그인완료
             } else {
