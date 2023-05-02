@@ -1,4 +1,5 @@
 const express = require("express");
+const passport = require("passport")
 
 const { join, login, logout, idCheck, emailCheck, telCheck, loginCheck } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin } = require("../controllers/page");
@@ -18,7 +19,7 @@ router.post("/", function (req, res, next) {
 });
 
 router.get("/login", renderLogin);
-router.post("/login", isNotLoggedIn, login);
+router.post("/login",isNotLoggedIn, login);
 
 // router.post("/loginCheck", loginCheck);
 

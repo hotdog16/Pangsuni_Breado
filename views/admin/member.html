@@ -8,17 +8,88 @@
     color: #fff;
   }
 
+
   #admin-member .user-list{
+    width: 90%;
     display: flex;
+    border-bottom: 1px solid #333;
+    margin-top: 30px;
+    justify-content: space-around;
   }
 
   #admin-member .user-list li{
+    padding: 20px 0;
+    text-align: center;
   }
 
+  #admin-member .user-list li:first-child{
+    width: 5%;
+  }
+
+  #admin-member .user-list li:nth-child(2),
+  #admin-member .user-list li:nth-child(3),
+  #admin-member .user-list li:nth-child(6){
+    width: 10%;
+  }
+
+  #admin-member .user-list li:nth-child(4),
+  #admin-member .user-list li:nth-child(5){
+    width: 13%;
+  }
+  
+  #admin-member .user-list li:nth-child(7){
+    width: 30%;
+  }
+
+  #admin-member .user-list li:nth-child(8),
+  #admin-member .user-list li:nth-child(9){
+    width: 7%;
+  }
+  
+  #admin-member .btn{
+    padding: 3px 7px;
+    font-size: 14px; 
+    background-color: #fff;
+    border: 1px solid #999;
+    cursor: pointer;
+    transition: .3s;
+  }
+
+  #admin-member .btn:hover{
+    background-color: #666;
+    color: #fff;
+  }
+
+  #admin-member .member-modify{
+    margin-right: 7px;
+  }
+
+  .m-popup{
+    position: absolute;
+    width: 80%;
+    height: 800px;
+    background-color: #fff;
+    border: 1px solid #777;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+
+  }
+
+  .m-popup table tr,td{
+    border: 1px solid #999;
+  }
+  
 
 
 </style>
 {% endblock %} {% block body %}
+
+<div class="m-popup">
+  <h5>회원정보</h5>
+
+
+</div>
 
 <h2>회원관리</h2>
 
@@ -33,9 +104,17 @@
         <li>{{u.u_email}}</li>
         <li>{{u.u_grade}}</li>
         <li>{{u.u_reg_dt}}</li>
+        <li><button class="btn member-des">회원정보</button></li>
+        <li><button class="btn member-modify">수정</button><button class="btn member-delete">삭제</button></li>
       </ul>
     </a>
   </div>
 </div>
 
-{% endfor %}  {% endblock %} {% block script %} {% endblock %}
+{% endfor %}  {% endblock %} {% block script %} 
+<script>
+  // $('.member-des').click(function(){
+    
+  // })
+</script>
+{% endblock %}

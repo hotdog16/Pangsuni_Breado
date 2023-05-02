@@ -63,8 +63,14 @@
     background-color: #333;
     background-image: url('../images/store_bread.jpg');
     background-position: 50%;
-    margin-top: 15px;
+    margin: 15px 0;
     border-radius: 10%;
+}
+
+#store .store-name{
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 10px;
 }
 
 
@@ -130,6 +136,8 @@
 #store-detail .store-pic{
     background-image: url("../images/store_bread.jpg");
     height: 500px;
+    width: 80%;
+    margin: 0 auto;
     margin-top: 40px;
 }
 

@@ -85,28 +85,38 @@ exports.telCheck = async (req, res) => {
   }
 };
 
-exports.login = async (req, res, next) => {
-  passport.authenticate("local", async (authError, user, info) => {
-    console.log("req--------------", req.body);
-    if (authError) {
-      console.error(authError);
-      return next(authError);
+exports.login = (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    console.log("passport.authenticalte callback ");
+    if (err) {
+      console.error(err);
+      return next(err);
     }
-
-    if (!user) {
-      return res.redirect(`/?loginError=${info.message}`);
-    }
-
-    return req.login(user, (loginError) => {
-      if (loginError) {
-        console.error(loginError);
-        res.status(405).json({ msg: "로그인에러" });
-        // return next(loginError);
+    if (info) {
+      if (info.errorCode == 409) {
+        return res.status(409).json({ responseText: "retiredcustomer" });
+      } else {
+        return res.status(401).json(info);
       }
+    }
+    return req.login(user, (loginErr) => {
+      // 이 부분 callback 실행
+      console.log("req.login callback");
+      if (loginErr) {
+        let error = "usernotfind";
+        res.status(405).json({ responseText: error });
+        // return next(loginErr);
+      }
+      const fillteredUser = { ...user.dataValues };
 
-      return res.redirect("/");
+      delete fillteredUser.u_pwd;
+      console.log("req.login callback->", fillteredUser);
+
+      return res.status(200).json({ "responseText": "loginsuccess","msg":fillteredUser});
+
+      // return res.json(fillteredUser);
     });
-  })(req, res, next); // 미들웨어 내의 미들웨어에는 (req, res, next)를 붙입니다.
+  })(req, res, next);
 };
 
 exports.logout = (req, res) => {
