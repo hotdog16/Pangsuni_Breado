@@ -1,5 +1,5 @@
 const { notice } = require("../models");
-const { BoardList } = require("./qna");
+// const { BoardList } = require("./qna");
 
 exports.NoticeList  = async (req, res, next) => {
     console.log('컨트롤러에 들어옴');
