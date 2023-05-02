@@ -24,7 +24,8 @@
     {% endfor %}
 </div><br>
 
-<button id="delete" value="{{i.b_no}}"><a href="/board/delete/{{boards.b_no}}">게시물삭제</a></button>
+<button id="delete" value="{{i.b_no}}"><a href="/qna/delete/{{boards.b_no}}">게시물삭제</a></button>
+<button id="modify" value="{{i.b_no}}"><a href="/qna/modify/{{boards.b_no}}">게시물수정</a></button>
 <br><br>
 <!--해당 페이지 게시물 삭제 게시판메인으로 돌아가기-->
 <!--<script>-->
@@ -66,7 +67,7 @@
 
 <!--댓글달기 폼 시작 : 테스트 -->
 <div id="qna-comments-bg">
-    <form id="board_form" action="/board/commentsview/{{boards.b_no}}" method="post"><br><br>
+    <form id="board_form" action="/qna/commentsview/{{boards.b_no}}" method="post"><br><br>
         <!--    <p>{{bNo}} 게시판 번호</p>-->
         게시판번호<input name="b_no" value="{{boards.b_no}}" readonly size="3">
         <div class="input-group">
@@ -75,8 +76,8 @@
             <input name="bt_no" value="2" size="3"><br>
             <h1>댓글(comments)전송하기</h1><br><br><br>
             <label>작성자 </label>
-            <input name="u_id" value="hotdog"><br><br>
-            <!--      <input name="u_id" value="{{uid}}">-->
+<!--            <input name="u_id" value="hotdog">-->
+            <input name="u_id" value="{{user.u_id}}" readonly><br><br>
         </div>
         <div class="input-group">
             <label>내용</label><br>
@@ -89,7 +90,7 @@
 </div>
 <!--댓글달기 폼 끝 : 테스트 -->
 <button class="qna-home-btn">
-    <a href="/board/">게시판홈</a>
+    <a href="/qna/">QNA게시판홈</a>
 </button>
 <!--<button type="submit" class="comments-btn">전체내용삭제</button>-->
 
