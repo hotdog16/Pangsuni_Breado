@@ -1,11 +1,44 @@
 {% extends 'layout.html' %}
 {% block style %}
+<style>
+    .main-container{
+        margin: 0;
+    }
+    #header{
+        position: fixed;
+        background-color: rgba(249, 250, 183);
+        z-index: 1000;
+        margin-top: -160px;
+        padding-top: 10px;
+    }
+
+    #header .logout-category{
+        font-size: 14px;
+    }
+
+    #header .logout{
+        margin-top: 10px;
+    }
+    #header .logo{
+        margin-top: 13px;
+        padding-top: 30px;
+    }
+    #header .logo a{
+        font-size: 30px;
+    }
+    #nav{
+        display: none;
+    }
+</style>
 {% endblock %}
 {% block body %}
-<h1>가게 상세정보</h1>
+<div id="store-detail">
+<!-- <h1>가게 상세정보</h1> -->
+<div class="back-page" onclick="history.back()"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> 돌아가기</div>
 <div>
-    <div>{{stores.s_name}}</div>
-    <div><img src="#" alt="가게 이미지"></div>
+    <div class="store-name">{{stores.s_name}}</div>
+    <div class="store-pic"><img src="#" alt="가게 이미지"></div>
+    <div class="s_addr"><i class="fa fa-map-marker" aria-hidden="true"></i> {{stores.s_addr}}</div>
     <div>
         <form method="post" action="/order/add">
             <div>
@@ -23,6 +56,11 @@
                 <hr>
                 {% endfor %}
             </div>
+            <div>{{mapAPI}}</div>
+            <div id="map" style="width: 80%; height: 400px"></div>
+            <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+            <script type="text/javascript"
+                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{mapAPI}}&libraries=services"></script>
             <div>
                 <div>
                     픽업 가능 날짜
@@ -40,10 +78,13 @@
                     <label>총 금액 : </label>
                     <input type="number" id="totalSum">
                 </div>
-                <div><button type="submit">예약</button></div>
+                <div>
+                    <button type="submit">예약</button>
+                </div>
             </div>
         </form>
     </div>
+</div>
 </div>
 <script>
     const p_cnt = document.querySelectorAll('.productCnt');
@@ -61,5 +102,29 @@
             resultSum.value = sum;
         })
     })
+</script>
+<script>
+    const mapContainer = document.getElementById('map'); // 지도를 표시할 div
+    const mapOption = {
+        center: new kakao.maps.LatLng(35.861292438004945, 128.5562526030231), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+    const map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    const geocoder = new kakao.maps.services.Geocoder(); // 주소-좌표 변환 객체를 생성합니다
+    const storeAddress = document.querySelector('.s_addr').textContent; // 주소를 가져오기 위함
+    geocoder.addressSearch(storeAddress, function (result, status) { // 주소로 좌표를 검색합니다
+        if (status === kakao.maps.services.Status.OK) { // 정상적으로 검색이 완료됐으면
+            const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            const marker = new kakao.maps.Marker({ // 결과값으로 받은 위치를 마커로 표시합니다
+                map: map,
+                position: coords
+            });
+            const infowindow = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">{{stores.s_name}}</div>' // 인포윈도우로 장소에 대한 설명을 표시합니다
+            });
+            infowindow.open(map, marker);
+            map.setCenter(coords); // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        }
+    });
 </script>
 {% endblock %}

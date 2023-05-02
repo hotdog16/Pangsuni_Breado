@@ -20,6 +20,8 @@ exports.selectListRegionStores = async (req, res) => {
 
 exports.detailStore = async (req, res) => {
     const s_no = req.params.no;
+    const mapAPI = process.env.KAKAO_MAP;
+    console.log('KAKAO MAP : ', mapAPI);
     const store = await stores.findOne({
         where: {
             s_no
@@ -30,7 +32,7 @@ exports.detailStore = async (req, res) => {
             s_no
         }
     });
-    res.render('store/detail', {stores: store, products: product});
+    res.render('store/detail', {stores: store, products: product, mapAPI:mapAPI});
 };
 
 exports.createStore = async (req, res) => {

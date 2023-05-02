@@ -1,6 +1,6 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  /* padding: 50px; */
+  font-family: "Noto Sans KR", sans-serif;
 }
 
 #login {
@@ -35,7 +35,10 @@ body {
   margin-top: 20px;
   font-size: 20px;
   font-weight: 600;
-  padding: 10px 20px;
+  padding: 5px 20px;
+  background-color: #ffd56f;
+  transition: 0.4s;
+  cursor: pointer;
 }
 
 #login p {
@@ -47,7 +50,11 @@ body {
   border-radius: 20px;
   margin-top: 15px;
   font-size: 16px;
-  padding: 10px 40px;
+  padding: 8px 40px;
+  background-color: #ffd56f;
+  transition: 0.4s;
+  cursor: pointer;
+  font-weight: 500;
 }
 
 #join {
