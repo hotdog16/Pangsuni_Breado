@@ -31,7 +31,7 @@ exports.QnaList = async (req, res) => {
             if (Number.isNaN(req.query.page) || req.query.page > navCheck) {
                 res.status(400).json('숫자만 눌러주세요! 현재 페이지는 없습니다!');
             }
-            res.render('board/qnalist');
+            res.render('board/qnalist', {board: qnaList, currentPage: offset, num, checkNum, user: req.user});
             // res.render('board/qnalist', {board: qnaList, currentPage: offset, num, checkNum, user: req.user});
         })
         .catch((err) => {
