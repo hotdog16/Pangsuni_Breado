@@ -3,7 +3,7 @@ const { regions, stores, products, board } = require("../models");
 const router = express.Router();
 
 // const {BoardList, BoardWrite, BoardForm, BoardView, CommentWrite, CommentView, CommentAdd, DeleteBoardList, ModifyBoardList} = require("../controllers/qna");
-const {QnaList, QnaAdd, QnaForm, QnaView, CommentView, CommentWrite, CommentAdd, DeleteQnaList, ModifyQnaList} = require("../controllers/qna");
+const {QnaList, QnaAdd, QnaForm, QnaView, CommentView, CommentWrite, CommentAdd, DeleteQnaList, ModifyQnaList, selectList} = require("../controllers/qna");
 // 여기는 주소가 http://localhost:3000/board/ get방식 qnaList
 // 여기는 주소가 http://localhost:3000/board/ poet방식 addBoard
 router.get("/", QnaList); // 게시판 리스트로이동
@@ -28,5 +28,8 @@ router.post("/commentswrite", CommentWrite);
 
 router.post("/commentsview/:no", CommentAdd);
 // router.post("/listpaging", qnaListPaging);
+
+router.post('/search', selectList);
+
 
 module.exports = router;
