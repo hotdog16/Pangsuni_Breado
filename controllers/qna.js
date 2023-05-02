@@ -66,7 +66,7 @@ exports.QnaAdd = async (req, res, next) => {
 // qnalist.html / 게시글 처음에서 글쓰기----------
 exports.QnaForm = (req, res, next) => {
     console.log('글쓰기에 들어오는창');
-    res.render("qna/qnaform");
+    res.render("board/qnaadd");
 };
 
 exports.QnaView = async (req, res) => {
@@ -90,7 +90,7 @@ exports.QnaView = async (req, res) => {
             b_no: req.params.no
         }
     })
-    res.render("qna/qnaview", {boards, commentList})
+    res.render("board/qnaview", {boards, commentList})
 }
 
 // qnalist.html / 게시글 처음에서 댓글달기(comments)----------
@@ -99,7 +99,7 @@ exports.CommentView = async (req, res, next) => {
     // const userId = req.user;
     // console.log('userId : ',userId);
     // console.log('boardNo : ', boardNo);
-    res.render("qna/commentsadd", {bNo: boardNo}); //(뷰,데이터)
+    res.render("board/commentsadd", {bNo: boardNo}); //(뷰,데이터)
 };
 
 exports.CommentWrite = async (req, res) => {
@@ -185,9 +185,6 @@ exports.selectList = async (req, res)=>{
     await board.findAndCountAll({ // 검색결과와 전체 count를 같이 보기 위해 사용
         limit: 10,
         offset: offset,
-        where:{
-            keyword: keyword2
-        }
         order: [['b_no', 'desc']], // 최신부터 보여주기 위해 역순으로 정렬
         // include: {
         //     model: stores,

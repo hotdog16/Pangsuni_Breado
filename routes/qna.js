@@ -13,7 +13,7 @@ router.post("/", QnaList); // 게시판 리스트로이동
 // router.get("/writeform", BoardForm);
 
 router.get("/qnaadd", QnaForm); // 게시판 글쓰기 창
-router.post("/qnaadd", QnaAdd); // 게시판 글 등록하기
+router.post("/qna", QnaAdd); // 게시판 글 등록하기
 router.get("/view/:no",QnaView);
 
 router.get("/delete/:b_no", DeleteQnaList);
@@ -33,3 +33,5 @@ router.post('/search', selectList);
 
 
 module.exports = router;
+
+
