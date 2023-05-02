@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div id="qna-write">
+<form id ="board_form" action="/qna/add" method="post"><br><br>
+
+    <div class="input-group">
+        <label>게시판타입</label>
+        <input name="bt_no" value="2"><br><br><br>
+        <h1>QnA 게시판 글쓰기</h1><br>
+    </div>
+    <div class="input-group">
+        <label>작성자</label>
+<!--        로그인 구현 후 u_id value에 {{user.u_id}}}-->
+        <input name="u_id" value="{{user.u_id}}" readonly><br><br>
+    </div>
+    <div class="input-group">
+        <label>제&nbsp&nbsp&nbsp목</label>
+        <input name="b_title" class="b_title" maxlength="10"><br><br>
+    </div>
+    <div class="input-group">
+        <label>내&nbsp&nbsp&nbsp용</label>
+<!--        <input name="b_content" class="b_content">-->
+        <textarea name="b_content" class="b_content"></textarea>
+        <br><br>
+    </div>
+<!--    <br>-->
+<!--        &nbsp&nbsp&nbsp&nbsp <form id="form" action="/upload" method="post" enctype="multipart/form-data">-->
+<!--           <input type="file" name="many" multiple />-->
+<!--           <input type="text" name="title" />-->
+<!--           <button type="submit">업로드</button>-->
+<!--       </form><br><br>-->
+        <p><button type="submit" class="write-btn">게시판 글 등록하기</button></p>
+        <br><br><br>
+<!--    </div>-->
+</form>
+</div>
+
+{% endblock %}
