@@ -3,6 +3,7 @@
 
 {% endblock %}
 {% block body %}
+<input type="hidden" class="bt_no" value="{{bt_no}}}">
 <div>
     <table class="list">
         <tr>
@@ -15,7 +16,7 @@
     </table>
         <ul class="pageContent"></ul>
     <div>
-        <button class="write">글쓰기</button>
+        <button class="write"><a href="/qna/qnaadd">글쓰기</a></button>
         <select class="searchType">
             <option value="u_id">글쓴이</option>
             <option value="b_title">제목</option>
@@ -35,11 +36,12 @@
 
     function listRender(page, keyword, type) { // 게시물 리스트를 출력하는 function
         list.innerHTML = '';
+        const bt_no = document.querySelector('.bt_no').value;
         const currentPage = (page ? page : 1);
         const searchKeyword = (keyword ? keyword : '');
         const searchType = (type ? type : '');
         return axios
-            .get(`/qna/test2?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`)
+            .get(`/qna/test2/${bt_no}?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`)
             .then((response) => {
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
