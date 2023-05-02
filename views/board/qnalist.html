@@ -72,7 +72,10 @@
         const searchOption = document.querySelector('.searchOption').value;
         console.log('검색 내용 : ', boardSearch);
         console.log('검색 대상 : ', searchOption);
-        axios.post('/qna/search', {keyword : boardSearch, keyword2:searchOption});
+        axios.get(`/qna?searchType=${searchOption}&keyword=${boardSearch}`)
+            .then(response=>{
+                console.log('response.data : ',response.data);
+            });
     })
 </script>
 {% endblock %}

@@ -1,7 +1,7 @@
 const express = require("express");
 const { regions, stores, products, board } = require("../models");
 const {NoticeList, NoticeWrite, NoticeForm} = require("../controllers/notice");
-const {NoticeView} = require("../controllers/qna");
+// const {NoticeView} = require("../controllers/qna");
 const router = express.Router();
 
 // 여기는 주소가 http://localhost:3000/notice/ get방식 noticeList
