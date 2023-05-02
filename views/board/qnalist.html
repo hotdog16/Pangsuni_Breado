@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+{% block style %}
+{% endblock %}
+{% block body %}
+<div id="qna-border">
+    <h1>QNA:묻고답하기</h1>
+    <p>빵수니 브래두를 찾아주셔서 감사합니다.<br>
+        이용중 궁금한 사항을 문의주시면 친절한 답변을 드립니다.</p>
+        <h1>list {{str}}</h1>
+    <form id ="qna_form" action="/qna" method="post">
+    <div class="qna-list">
+        <ul class="qna-title">
+            <li>No</li>
+            <li>작성자ID</li>
+            <li>제목</li>
+            <li>등록일</li>
+            <li>조회수</li>
+        </ul>
+        {% for i in board.rows %}
+        <div class="qna-con">
+            <div>
+                <ul class="qna-list-con" value="{{i.b_no}}">
+                <li><a href="/qna/view/{{i.b_no}}">{{i.b_no}}</a></li>
+                <li><a href="/qna/view/{{i.b_no}}">{{i.u_id}}</a></li>
+                <li><a href="/qna/view/{{i.b_no}}">{{i.b_title}}</a></li>
+                <li><a href="/qna/view/{{i.b_no}}">{{ i.b_reg_dt | date('YYYY-MM-DD') }}</a></li>
+                <li>{{i.b_cnt}}</li>
+            </ul>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    </form>
+</div>
+<br>
+<div>
+    <ul class="board-paging-num">
+        {% set nowPage = (currentPage/10) + 1 %}
+        {% if num[0] > 10 %}
+        <li><a href="?page={{(checkNum-9)}}">prev</a></li>
+        {% endif %}
+        {% for n in num %}
+        <li><a href="?page={{n}}">{{n}}</a></li>
+        {% endfor %}
+        {% if currentPage+10 < qna.count %}
+        {% if num.length == 10 %}
+        <li><a href="?page={{checkNum+11}}">next</a></li>
+        {% endif %}
+        {% endif %}
+    </ul>
+</div>
+<div>
+    <p class="qna-paging-align"> currentPage : {{currentPage+10}}</p>
+    <p class="qna-paging-align"> qna.count : {{qna.count}}</p>
+</div>
+<button class="qna-write-btn"><a href="/qna/qnaadd">글쓰기</a></button>
+<span class="qna-write-search-box">
+    <select class="searchOption">
+        <option value="u_id">글쓴이</option>
+        <option value="b_title">제목</option>
+        <option value="b_content">내용</option>
+        <option value="any">글쓴이 + 제목 + 내용</option>
+    </select>
+    <input class="boardSearch">&nbsp<button class="qna-write-search-btn">검색</button>
+</span>
+{% endblock %}
+{% block script %}
+<script>
+    const searchBtn = document.querySelector('.qna-write-search-btn');
+    searchBtn.addEventListener('click', function (){
+        const boardSearch = document.querySelector('.boardSearch').value;
+        const searchOption = document.querySelector('.searchOption').value;
+        console.log('검색 내용 : ', boardSearch);
+        console.log('검색 대상 : ', searchOption);
+        axios.get(`/qna?searchType=${searchOption}&keyword=${boardSearch}`)
+            .then(response=>{
+                console.log('response.data : ',response.data);
+            });
+    })
+</script>
+{% endblock %}
+
