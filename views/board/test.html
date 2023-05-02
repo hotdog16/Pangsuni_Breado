@@ -42,6 +42,7 @@
             .get(`/qna/test2?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`)
             .then((response) => {
                 console.log('result : ', response.data);
+                pageContent.innerHTML='';
                 for (let store of response.data.board.rows) {
                     console.log('게시글 번호 : ', store.b_no);
                     const qna_con = document.createElement('tr');
@@ -53,18 +54,16 @@
                                          <td>${store.b_cnt}</td>`;
                     list.append(qna_con);
                 }
-
+                pageNavigation(response.data);
             })
             .catch((err) => {
+                pageContent.innerHTML='검색결과가 없어요';
                 console.error(err);
-                alert('검색결과가 없어요');
             })
-        pageNavigation(response.data);
     }
 
     listRender();
     function pageNavigation(response){
-        pageContent.innerHTML='';
         const currentPage = Number(response.currentPage);
         const num = response.num;
         console.log('페이지네이션 확인 :', num);
