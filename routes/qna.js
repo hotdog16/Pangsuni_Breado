@@ -5,14 +5,14 @@ const {isLoggedIn, isNotLoggedIn} = require('../middlewares/index')
 const {qnaList, QnaAdd, QnaForm, QnaView, CommentView, CommentWrite, CommentAdd, DeleteQnaList, test2} = require("../controllers/qna");
 // 여기는 주소가 http://localhost:3000/board/ get방식 qnaList
 // 여기는 주소가 http://localhost:3000/board/ poet방식 addBoard
-router.get("/:bt_no", qnaList); // 게시판 리스트로이동
+router.get("/list/:bt_no", qnaList); // 게시판 리스트로이동
 router.post("/", qnaList); // 게시판 리스트로이동
 // router.get("/list", BoardList); // 상단과 동일한 경로임 /가 /list와 같음
 
 // router.get("/writeform", BoardForm);
 
 router.get("/qnaadd",isLoggedIn, QnaForm); // 게시판 글쓰기 창
-router.post("/qnaadd",isNotLoggedIn, QnaAdd); // 게시판 글 등록하기
+router.post("/qnaadd",isLoggedIn, QnaAdd); // 게시판 글 등록하기
 router.get("/view/:no",QnaView);
 
 router.get("/delete/:b_no", DeleteQnaList);

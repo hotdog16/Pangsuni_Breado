@@ -313,7 +313,7 @@ exports.QnaAdd = async (req, res, next) => {
         });
         console.log(req.body);
         // res.send("QnA 등록완료!!");
-        res.redirect("/qna/test");
+        res.redirect(`/qna/list/${bt_no}`);
     } catch (e) {
         console.error(e);
         next(e);

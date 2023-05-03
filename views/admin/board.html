@@ -4,6 +4,7 @@
     .category5 {
         background-color: #222;
     }
+
     .category5 a {
         color: #fff;
     }
@@ -16,6 +17,7 @@
     <thead>
     <tr>
         <th>게시글번호</th>
+        <th>게시판타입</th>
         <th>유저아이디</th>
         <th>제목</th>
         <th>작성시간</th>
@@ -24,40 +26,89 @@
         <th>삭제</th>
     </tr>
     </thead>
-    <tbody>
-<!--<tbody class="qnaList">-->
-{% for i in board.rows %}
-<tr>
-        <td>{{i.b_no}}</td>
-        <td>{{i.u_id}}</td>
-        <td>{{i.b_title}}</td>
-        <td>{{i.b_reg_dt | date('YYYY-MM-DD')}}</td>
-        <td>{{i.b_cnt}}</td>
-        <td><button data-id="{{i.b_no}}" class="modify">수정</button></td>
-        <td><button data-id="{{i.b_no}}" class="delete">삭제</button></td>
-</tr>
-{% endfor %}
+    <tbody class="boardList">
     </tbody>
-<!--</tbody>-->
 </table>
+<ul class="pageContent"></ul>
 {% endblock %}
 {% block script %}
 <script>
-    // function renderList() {
-    //     axios.get('/admin/selectListBoard')
-    //         .then((response)=>{
-    //             const boards = response.data;
-    //             console.log('boards : ', boards);
-    //
-    //         })
-    // }
-    const modifies = document.querySelectorAll('.modify');
-    modifies.forEach((modify)=>{
-        modify.addEventListener('click', function () {
-            console.log(this);
-            // 여기서 이동을 한다
-        })
-    })
+    const list = document.querySelector('.boardList'); // 리스트를 담기 위해 불러옴
+    const pageContent = document.querySelector('.pageContent'); // 페이지네비게이션 부분
+    function listRender(page) { // 리스트를 출력하기 위한 function
+        list.innerHTML = '';
+        const currentPage = (page ? page : 1);
+        return axios
+            .get(`/admin/board2/?page=${currentPage}`) // 실행부분
+            .then((response) => { // 성공했을시 수행됨
+                console.log('result : ', response.data);
+                pageContent.innerHTML='';
+                for (let board of response.data.board.rows) {
+                    console.log('게시글 번호 : ', board.b_no);
+                    const qna_con = document.createElement('tr');
+                    qna_con.className = 'qna-con';
+                    qna_con.innerHTML = `<td>${board.b_no}</td>
+                                         <td>${board.bt_no}</td>
+                                         <td>${board.u_id}</td>
+                                         <td>${board.b_title}</td>
+                                         <td>${board.b_reg_dt}</td>
+                                         <td>${board.b_cnt}</td>
+                                         <td><button>수정</button></td>
+                                         <td><button onclick="deleteBoard(${board.b_no})">삭제</button></td>`;
+                    list.append(qna_con);
+                }
+                pageNavigation(response.data);
+            })
+            .catch((err) => { // 실패했을시 수행됨
+                pageContent.innerHTML='검색결과가 없어요';
+                console.error(err);
+            })
+    }
+    function pageNavigation(response){
+        const currentPage = Number(response.currentPage);
+        const num = response.num;
+        console.log('페이지네이션 확인 :', num);
+        if(response.num[0]> 10){
+            const prev = document.createElement('li');
+            prev.setAttribute('data-page',`${(response.checkNum-9)}`);
+            prev.className = 'page';
+            prev.innerHTML = 'prev';
+            pageContent.append(prev);
+        }
+        for(let no of num){
+            const pageNav = document.createElement('li');
+            pageNav.setAttribute('data-page', `${no}`);
+            pageNav.setAttribute('onclick', `listRender(${no})`);
+            pageNav.className = 'page';
+            pageNav.innerHTML=`${Number(no)}`;
+            pageContent.append(pageNav);
+        }
+        if((currentPage+10 < response.board.count)&& (num.length == 10)){
+            const next =document.createElement('li');
+            next.setAttribute('data-page',`${(response.checkNum+11)}`);
+            next.className = 'page';
+            next.innerHTML = 'prev';
+            pageContent.append(next);
+        }
+    }
+    function deleteBoard (b_no){
+        //b_no를 받아서
+        console.log('삭제버튼 클릭');
+        // console.log(this);
+        console.log('삭제 대상 : ',b_no);
+        axios.post('/admin/board/delete',{b_no})
+            .then((response)=>{
+                console.log('성공');
+                console.log(response.data);
+                listRender();
+            })
+            .catch((err)=>{
+                console.log('실패');
+                console.log(err);
+                listRender();
+            })
+    }
+    listRender();
 </script>
 {% endblock %}
 
