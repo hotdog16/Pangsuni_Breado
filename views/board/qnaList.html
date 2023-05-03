@@ -19,7 +19,9 @@
     </table>
         <ul class="pageContent"></ul>
     <div>
+        {% if bt_no != 1 %}
         <button class="write"><a href="/qna/qnaadd/{{bt_no}}">글쓰기</a></button>
+        {% endif %}
         <select class="searchType">
             <option value="u_id">글쓴이</option>
             <option value="b_title">제목</option>
