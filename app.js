@@ -22,6 +22,7 @@ const usersRouter = require("./routes/users");
 const qnaRouter = require("./routes/qna");
 const storeRouter = require("./routes/store");
 const adminRouter = require("./routes/admin");
+const adminStoreRouter = require("./routes/admin/adminStore");
 const { sequelize } = require("./models");
 const passportConfig = require("./passport");
 passportConfig(); // 패스포트 설정
@@ -81,6 +82,7 @@ app.use("/order", orderRouter);
 app.use("/qna", qnaRouter);
 app.use("/store", storeRouter);
 app.use("/admin", adminRouter);
+app.use("/admin/store", adminStoreRouter);
 
 
 app.use((req, res, next) => {

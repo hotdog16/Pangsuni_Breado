@@ -9,8 +9,8 @@ const router = express.Router();
 router.get("/", isLoggedIn, selectListRegions);
 // router.post("/:r_no", isLoggedIn, selectListRegionStores);
 router.post("/", isLoggedIn, selectListRegionStores);
-router.get("/add", isLoggedIn, createStore);
-router.post("/add", isLoggedIn, createStore);
+// router.get("/add", isLoggedIn, createStore);
+// router.post("/add", isLoggedIn, createStore);
 
 router.get("/detail/:no", isLoggedIn, detailStore);
 router.post("/detail/:no", isLoggedIn, detailStore);
