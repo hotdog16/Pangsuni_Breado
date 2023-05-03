@@ -1,13 +1,38 @@
-{% extends 'admin/admin.html' %} {% block body %} {% block style %}
+{% extends 'admin/admin.html' %}
+{% block style %}
 <style>
-  .category4 {
-    background-color: #222;
-  }
-  .category4 a {
-    color: #fff;
-  }
+    .category5 {
+        background-color: #222;
+    }
+    .category5 a {
+        color: #fff;
+    }
 </style>
 {% endblock %}
-<h2>게시판관리</h2>
+{% block body %}
 
+<h2>게시판 관리</h2>
+<table>
+    <thead>
+    <tr>
+        <th>주문번호</th>
+        <th>유저아이디</th>
+        <th>제목</th>
+        <th>작성시간</th>
+        <th>조회수</th>
+    </tr>
+    </thead>
+<!--<tbody class="qnaList">-->
+{% for i in board.rows %}
+<tr>
+        <td><{{i.b_no}}</td>
+        <td>{{i.u_id}}</td>
+        <td>{{i.b_title}}</td>
+        <td>{{i.b_reg_dt | date('YYYY-MM-DD')}}</td>
+        <td>{{i.b_cnt}}</td>
+</tr>
+{% endfor %}
+<!--</tbody>-->
+</table>
 {% endblock %}
+
