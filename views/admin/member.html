@@ -10,7 +10,7 @@
 
 
   #admin-member .user-list{
-    width: 90%;
+    width: 70%;
     display: flex;
     border-bottom: 1px solid #333;
     margin-top: 30px;
@@ -73,11 +73,30 @@
     transform: translate(-50%,-50%);
     top: 50%;
     left: 50%;
+    display: none;
+  }
 
+  .m-popup h5{
+    margin-top: 50px;
+    font-size: 30px;
   }
 
   .m-popup table tr,td{
     border: 1px solid #999;
+  }
+
+  .user-table{
+    width: 80%;
+    border-collapse: collapse; 
+    margin-top: 20px;
+  }
+
+  td{
+    padding: 10px;
+  }
+
+  .td-name{
+    background-color: rgba(0, 0, 0, 0.1);
   }
   
 
@@ -87,7 +106,35 @@
 
 <div class="m-popup">
   <h5>회원정보</h5>
+  <table class="user-table">
+    <tbody>
+      <tr>
+        <td class="td-name">이름</td>
+        <td class="user-name">{{u.u_name}}</td>
+        <td class="td-name">아이디</td>
+        <td class="user-id">{{u.u_id}}</td>
+      </tr>
+      <tr>
+        <td class="td-name">전화번호</td>
+        <td class="user-tel">{{u.u_tel}}</td>
+        <td class="td-name">이메일</td>
+        <td class="user-email">{{u.u_email}}</td>
+      </tr>
+      <tr>
+        <td class="td-name">회원등급</td>
+        <td class="user-grade">{{u.u_grade}}</td>
+        <td class="td-name">가입날짜</td>
+        <td class="user-date">{{u.u_reg_dt}}</td>
+      </tr>
+    </tbody>
+    </table>
 
+    <h5>주문정보</h5>
+    <ul>
+      <li></li>
+    </ul>
+
+    <button class="pclose-btn">닫기</button>
 
 </div>
 
@@ -96,15 +143,12 @@
 {% for u in list %}
 <div id="admin-member">
   <div>
-      <ul class="user-list">
+      <ul data-user-id="{{u.u_no}}" class="user-list">
         <li>{{u.u_no}}</li>
         <li>{{u.u_id}}</li>
         <li>{{u.u_name}}</li>
-        <li>{{u.u_tel}}</li>
-        <li>{{u.u_email}}</li>
-        <li>{{u.u_grade}}</li>
         <li>{{u.u_reg_dt}}</li>
-        <li><button class="btn member-des">회원정보</button></li>
+        <li><button class="btn member-des"  data-id="{{u.u_no}}">회원정보</button></li>
         <li><button class="btn member-modify">수정</button><button class="btn member-delete">삭제</button></li>
       </ul>
     </a>
@@ -113,8 +157,34 @@
 
 {% endfor %}  {% endblock %} {% block script %} 
 <script>
-  // $('.member-des').click(function(){
-    
-  // })
+  $('.member-des').click(function(e){
+    $('.m-popup').fadeIn();
+    const userOne = axios.get("/admin/memberDetail/"+e.target.dataset.id)
+    // const userOrder = axios.get("/admin/memberDetailOrder/"+e.target.dataset.id)
+    .then((res)=>{
+      if(res.status === 200){
+        console.log("userone---->", res.data.userdetail.u_name);
+        $('.user-name').html(res.data.userdetail.u_name)
+        $('.user-id').html(res.data.userdetail.u_id)
+        $('.user-tel').html(res.data.userdetail.u_tel)
+        $('.user-email').html(res.data.userdetail.u_email)
+        $('.user-grade').html(res.data.userdetail.u_grade)
+        $('.user-date').html(res.data.userdetail.u_reg_dt)
+
+        console.log("userOrder---->", res.data.userdetailorder.p_no);
+      }
+
+
+
+    }).catch((error)=>{
+      console.error(error);
+    })
+
+
+  })
+
+  $('.pclose-btn').click(function(){
+    $('.m-popup').fadeOut();
+  })
 </script>
 {% endblock %}
