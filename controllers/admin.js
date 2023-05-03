@@ -1,5 +1,5 @@
 const { Sequelize } = require("sequelize");
-const { users,orders,products } = require("../models");
+const { users,orders,products,board } = require("../models");
 
 exports.adminOrder = async (req, res) => {
   let limit = 10; // sql select 쿼리문의 order by limit 부분
@@ -52,8 +52,10 @@ exports.adminMember = async (req, res, next) => {
   }
 };
 
-exports.adminBoard = (req, res) => {
-  res.render("admin/board", { title: "게시판관리" });
+exports.adminBoard = async (req, res) => {
+  const boards = await board.findAndCountAll();
+  console.log('boards : ', boards);
+  res.render("admin/board", { title: "게시판관리", board:boards });
 };
 
 exports.adminStore = (req, res) => {

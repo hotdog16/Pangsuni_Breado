@@ -15,24 +15,49 @@
 <table>
     <thead>
     <tr>
-        <th>주문번호</th>
+        <th>게시글번호</th>
         <th>유저아이디</th>
         <th>제목</th>
         <th>작성시간</th>
         <th>조회수</th>
+        <th>수정</th>
+        <th>삭제</th>
     </tr>
     </thead>
+    <tbody>
 <!--<tbody class="qnaList">-->
 {% for i in board.rows %}
 <tr>
-        <td><{{i.b_no}}</td>
+        <td>{{i.b_no}}</td>
         <td>{{i.u_id}}</td>
         <td>{{i.b_title}}</td>
         <td>{{i.b_reg_dt | date('YYYY-MM-DD')}}</td>
         <td>{{i.b_cnt}}</td>
+        <td><button data-id="{{i.b_no}}" class="modify">수정</button></td>
+        <td><button data-id="{{i.b_no}}" class="delete">삭제</button></td>
 </tr>
 {% endfor %}
+    </tbody>
 <!--</tbody>-->
 </table>
+{% endblock %}
+{% block script %}
+<script>
+    // function renderList() {
+    //     axios.get('/admin/selectListBoard')
+    //         .then((response)=>{
+    //             const boards = response.data;
+    //             console.log('boards : ', boards);
+    //
+    //         })
+    // }
+    const modifies = document.querySelectorAll('.modify');
+    modifies.forEach((modify)=>{
+        modify.addEventListener('click', function () {
+            console.log(this);
+            // 여기서 이동을 한다
+        })
+    })
+</script>
 {% endblock %}
 
