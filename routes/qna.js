@@ -11,7 +11,7 @@ router.post("/", qnaList); // 게시판 리스트로이동
 
 // router.get("/writeform", BoardForm);
 
-router.get("/qnaadd",isLoggedIn, QnaForm); // 게시판 글쓰기 창
+router.get("/qnaadd/:bt_no",isLoggedIn, QnaForm); // 게시판 글쓰기 창
 router.post("/qnaadd",isLoggedIn, QnaAdd); // 게시판 글 등록하기
 router.get("/view/:no",QnaView);
 

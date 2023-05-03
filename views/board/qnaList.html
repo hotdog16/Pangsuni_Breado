@@ -5,7 +5,8 @@
 {% block body %}
 <input type="hidden" class="bt_no" value="{{bt_no}}}">
 <div>
-    <table class="list">
+    <table>
+        <thead>
         <tr>
             <th>No</th>
             <th>작성자 ID</th>
@@ -13,10 +14,12 @@
             <th>등록일</th>
             <th>조회수</th>
         </tr>
+        </thead>
+        <tbody class="list"></tbody>
     </table>
         <ul class="pageContent"></ul>
     <div>
-        <button class="write"><a href="/qna/qnaadd">글쓰기</a></button>
+        <button class="write"><a href="/qna/qnaadd/{{bt_no}}">글쓰기</a></button>
         <select class="searchType">
             <option value="u_id">글쓴이</option>
             <option value="b_title">제목</option>
@@ -47,12 +50,13 @@
                 pageContent.innerHTML='';
                 for (let store of response.data.board.rows) {
                     console.log('게시글 번호 : ', store.b_no);
+                    const regDate = new Date(store.b_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
                     const qna_con = document.createElement('tr');
                     qna_con.className = 'qna-con';
                     qna_con.innerHTML = `<td>${store.b_no}</td>
                                          <td>${store.u_id}</td>
                                          <td>${store.b_title}</td>
-                                         <td>${store.b_reg_dt}</td>
+                                         <td>${regDate}</td>
                                          <td>${store.b_cnt}</td>`;
                     list.append(qna_con);
                 }
