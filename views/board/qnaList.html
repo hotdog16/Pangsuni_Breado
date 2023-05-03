@@ -3,8 +3,10 @@
 
 {% endblock %}
 {% block body %}
+<input type="hidden" class="bt_no" value="{{bt_no}}}">
 <div>
-    <table class="list">
+    <table>
+        <thead>
         <tr>
             <th>No</th>
             <th>작성자 ID</th>
@@ -12,10 +14,14 @@
             <th>등록일</th>
             <th>조회수</th>
         </tr>
+        </thead>
+        <tbody class="list"></tbody>
     </table>
         <ul class="pageContent"></ul>
     <div>
-        <button class="write">글쓰기</button>
+        {% if bt_no != 1 %}
+        <button class="write"><a href="/qna/qnaadd/{{bt_no}}">글쓰기</a></button>
+        {% endif %}
         <select class="searchType">
             <option value="u_id">글쓴이</option>
             <option value="b_title">제목</option>
@@ -35,22 +41,24 @@
 
     function listRender(page, keyword, type) { // 게시물 리스트를 출력하는 function
         list.innerHTML = '';
+        const bt_no = document.querySelector('.bt_no').value;
         const currentPage = (page ? page : 1);
         const searchKeyword = (keyword ? keyword : '');
         const searchType = (type ? type : '');
         return axios
-            .get(`/qna/test2?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`)
+            .get(`/qna/test2/${bt_no}?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`)
             .then((response) => {
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
                 for (let store of response.data.board.rows) {
                     console.log('게시글 번호 : ', store.b_no);
+                    const regDate = new Date(store.b_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
                     const qna_con = document.createElement('tr');
                     qna_con.className = 'qna-con';
                     qna_con.innerHTML = `<td>${store.b_no}</td>
                                          <td>${store.u_id}</td>
                                          <td>${store.b_title}</td>
-                                         <td>${store.b_reg_dt}</td>
+                                         <td>${regDate}</td>
                                          <td>${store.b_cnt}</td>`;
                     list.append(qna_con);
                 }

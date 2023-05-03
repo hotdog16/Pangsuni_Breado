@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { DetailOrderMember,DetailMember, adminOrder, adminProduct, adminMember, adminBoard, adminStore, member } = require("../controllers/admin");
+const { DetailOrderMember,DetailMember,adminOrder, adminProduct, adminMember, adminBoard, adminStore,adminBoard2,deleteBoard, member } = require("../controllers/admin");
 
 router.use((req, res, next) => {
   res.locals.user = req.user;
@@ -12,11 +12,14 @@ router.get("/order", adminOrder);
 router.get("/product", adminProduct);
 
 router.get("/member", adminMember);
+
 router.get("/memberDetail/:id", DetailMember);
 router.get("/memberDetailOrder/:id", DetailOrderMember);
 router.post("/member", member)
 
-router.get("/board", adminBoard);
+router.get("/board", adminBoard); // 화면이동
+router.get("/board2", adminBoard2); // axios를 이용한 비동기 (이름 바꿔야함)
+router.post("/board/delete", deleteBoard);
 
 router.get("/store", adminStore);
 

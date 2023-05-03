@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +7,8 @@
   <title>Document</title>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <!-- css 연결 -->
+  <link rel="stylesheet" href="/stylesheets/admin.css"/>
 </head>
 {% block style %}
 {% endblock %} 
@@ -84,10 +85,6 @@
 
   #nav{display: none;}
 </style>
-
-
-<body>
-
 <body>
   <div id="admin-container">
     <h2 class="admin-title">admin</h2>
@@ -95,33 +92,17 @@
       <li class="category category1" data-tab="tab-1"><a href="/admin/product">상품등록</a></li>
       <li class="category category2" data-tab="tab-2"><a href="/admin/member">회원관리</a></li>
       <li class="category category3" data-tab="tab-3"><a href="/admin/order">주문내역</a></li>
-      <li class="category category4" data-tab="tab-4">
-        <a href="/admin/board">게시판관리</a>
-      </li>
+      <li class="category category4" data-tab="tab-4"><a href="/admin/board">게시판관리</a></li>
       <li class="category category5" data-tab="tab-5"><a href="/admin/store">store관리</a></li>
     </ul>
     {% block body %}
     {% endblock %}
 
     {% block script %}
-  <script>
 
-// $(document).ready(function () {
-//       // 탭메뉴구현
-//       let tabBtn = $(".admin-category > li");
 
-//       tabBtn.click(function (e) {
-//         e.preventDefault();
-//        let target = $(this);
-//         let index = target.index();
-//         tabBtn.removeClass("active");
-//         target.addClass("active");
-
-//       });
-//     });
-
-  </script>
-
+    {% endblock %}
+  </div>
 </body>
 </html>
-{% endblock %}
+

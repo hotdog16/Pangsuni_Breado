@@ -2,11 +2,11 @@
 
 {% block body %}
 <div id="qna-write">
-<form id ="board_form" action="/qna/add" method="post"><br><br>
+<form id ="board_form" action="/qna/qnaadd" method="post"><br><br>
 
     <div class="input-group">
         <label>게시판타입</label>
-        <input name="bt_no" value="2"><br><br><br>
+        <input name="bt_no" value="{{bt_no}}"><br><br><br>
         <h1>QnA 게시판 글쓰기</h1><br>
     </div>
     <div class="input-group">
