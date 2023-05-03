@@ -1,4 +1,4 @@
-// const { users } = require("../models");
+const { users } = require("../models");
 const bcrypt = require("bcrypt");
 
 exports.mypage = async (req, res, next) => {
@@ -42,3 +42,23 @@ exports.modifyAddMypage = async (req, res, next) => {
     next(e);
   }
 };
+
+exports.deleteUser = async (req, res)=>{
+  const user = req.user;
+  console.log('delete======================>', req.user)
+  try{
+      await user.destroy({
+          where:{
+              u_id :req.body.u_id
+          }
+      });
+
+      console.log("Delete ----->", user);
+
+      // res.status(200).json({"msg":"삭제완료"});
+      res.redirect('/');
+  }catch (e) {
+      console.error(e);
+      res.status(400).json(e);
+  }
+}

@@ -64,8 +64,13 @@ app.use(
     },
   })
 );
+
+
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
@@ -76,6 +81,7 @@ app.use("/order", orderRouter);
 app.use("/qna", qnaRouter);
 app.use("/store", storeRouter);
 app.use("/admin", adminRouter);
+
 
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
