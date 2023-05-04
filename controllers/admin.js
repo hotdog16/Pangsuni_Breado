@@ -154,7 +154,6 @@ exports.DetailMember = async(req,res) =>{
   // }
 }
 
-
 exports.deleteMember = async (req, res) => {
   try {
     const {u_no} = req.body;
