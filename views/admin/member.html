@@ -160,18 +160,17 @@
   $('.member-des').click(function(e){
     $('.m-popup').fadeIn();
     const userOne = axios.get("/admin/memberDetail/"+e.target.dataset.id)
-    // const userOrder = axios.get("/admin/memberDetailOrder/"+e.target.dataset.id)
     .then((res)=>{
       if(res.status === 200){
-        console.log("userone---->", res.data.userdetail.u_name);
-        $('.user-name').html(res.data.userdetail.u_name)
-        $('.user-id').html(res.data.userdetail.u_id)
-        $('.user-tel').html(res.data.userdetail.u_tel)
-        $('.user-email').html(res.data.userdetail.u_email)
-        $('.user-grade').html(res.data.userdetail.u_grade)
-        $('.user-date').html(res.data.userdetail.u_reg_dt)
+        console.log("userone---->", res.data.userdetailorder);
+        // $('.user-name').html(res.data.userdetail.u_name)
+        // $('.user-id').html(res.data.userdetail.u_id)
+        // $('.user-tel').html(res.data.userdetail.u_tel)
+        // $('.user-email').html(res.data.userdetail.u_email)
+        // $('.user-grade').html(res.data.userdetail.u_grade)
+        // $('.user-date').html(res.data.userdetail.u_reg_dt)
 
-        console.log("userOrder---->", res.data.userdetailorder.p_no);
+        console.log("userOrder---->", res.data.userdetailorder.p_name);
       }
 
 
