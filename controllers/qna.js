@@ -288,7 +288,7 @@ exports.CommentWrite = async (req, res) => {
     await comments.create({
         c_no: null,
         b_no: req.body.b_no,
-        u_id: req.body.u_id,
+        u_no: req.body.u_no,
         c_content: req.body.c_content,
         c_reg_dt: Sequelize.Sequelize.literal('now()'),
         c_mod_dt: null
@@ -301,11 +301,11 @@ exports.CommentAdd = async (req, res) => {
     console.log('comment : ', req.body);
     // res.json(req.body);
     /// create
-    const {b_no, u_id, c_content} = req.body;
+    const {b_no, u_no, c_content} = req.body;
     await comments.create({
         c_no: null,
         b_no,
-        u_id,
+        u_no,
         c_content,
         c_reg_dt: Sequelize.Sequelize.literal('now()'),
         c_mod_dt : null

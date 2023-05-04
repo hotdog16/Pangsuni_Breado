@@ -1,0 +1,163 @@
+{% extends 'admin/admin.html' %} {% block style %}
+<style>
+  .category2 {
+    background-color: #222;
+  }
+
+  .category2 a {
+    color: #fff;
+  }
+
+  table{
+    border-collapse : collapse;
+    border-spacing : 0;
+  }
+
+  #admin-member .user-list {
+    width: 70%;
+    display: flex;
+    border-bottom: 1px solid #333;
+    margin-top: 30px;
+    justify-content: space-around;
+  }
+
+  #admin-member .user-list li {
+    padding: 20px 0;
+    text-align: center;
+  }
+
+
+
+</style>
+{% endblock %} {% block body %}
+
+<div id="admin-member">
+
+
+
+<h2>회원관리</h2>
+
+<!-- {% for u in list %}
+<div id="admin-member">
+  <div>
+      <ul data-user-id="{{u.u_no}}" class="user-list">
+        <li>{{u.u_no}}</li>
+        <li>{{u.u_id}}</li>
+        <li>{{u.u_name}}</li>
+        <li>{{u.u_reg_dt}}</li>
+        <li><button class="btn member-des"  data-id="{{u.u_no}}">회원정보</button></li>
+        <li><button class="btn member-modify">수정</button><button class="btn member-delete">삭제</button></li>
+      </ul>
+    </a>
+  </div>
+</div>
+
+{% endfor %}  -->
+
+<table>
+  <thead>
+    <tr>
+      <th>회원번호</th>
+      <th>아이디</th>
+      <th>이메일</th>
+      <th>전화번호</th>
+
+      <!-- <th>수정</th>
+      <th>삭제</th> -->
+    </tr>
+  </thead>
+  <tbody class="userList">
+  </tbody>
+</table>
+<ul class="pageContent"></ul>
+</div>
+{% endblock %} {% block script %}
+<script>
+
+  const list = document.querySelector('.userList'); // 리스트를 담기 위해 불러옴
+  const pageContent = document.querySelector('.pageContent'); // 페이지네비게이션 부분
+  function listRender(page) { // 리스트를 출력하기 위한 function
+    list.innerHTML = '';
+    const currentPage = (page ? page : 1);
+    return axios
+      .get(`/admin/member/select/?page=${currentPage}`) // 실행부분
+      .then((response) => { // 성공했을시 수행됨
+        console.log('result : ', response.data);
+        pageContent.innerHTML = '';
+        for (let users of response.data.users.rows) {
+          console.log('회원번호 : ', users.u_no);
+          const member_con = document.createElement('tr');
+          member_con.className = 'member-con';
+          member_con.innerHTML = `<td>${users.u_no}</td>
+                                         <td>${users.u_id}</td>
+                                         <td>${users.u_email}</td>
+                                         <td>${users.u_tel}</td>
+                                         <td><button class="btn"><a href="#" onclick="window.open('/admin/member/detail','detail','width=800 height=800 resizable=no toolbars=no menubar=no')">상세보기</a></buttonutton>
+                                          <button class="btn">수정</button>
+                                          <button class="btn" onclick="deleteMember(${users.u_no})">삭제</button></td>`;
+          list.append(member_con);
+        }
+        pageNavigation(response.data);
+      })
+      .catch((err) => { // 실패했을시 수행됨
+        pageContent.innerHTML = '검색결과가 없어요';
+        console.error(err);
+      })
+  }
+
+  function pageNavigation(response) {
+    const currentPage = Number(response.currentPage);
+    const num = response.num;
+    console.log('페이지네이션 확인 :', num);
+    if (response.num[0] > 10) {
+      const prev = document.createElement('li');
+      prev.setAttribute('data-page', `${(response.checkNum-9)}`);
+      prev.className = 'page';
+      prev.innerHTML = 'prev';
+      pageContent.append(prev);
+    }
+    for (let no of num) {
+      const pageNav = document.createElement('li');
+      pageNav.setAttribute('data-page', `${no}`);
+      pageNav.setAttribute('onclick', `listRender(${no})`);
+      pageNav.className = 'page';
+      pageNav.innerHTML = `${Number(no)}`;
+      pageContent.append(pageNav);
+    }
+    if ((currentPage + 10 < response.users.count) && (num.length == 10)) {
+      const next = document.createElement('li');
+      next.setAttribute('data-page', `${(response.checkNum+11)}`);
+      next.className = 'page';
+      next.innerHTML = 'prev';
+      pageContent.append(next);
+    }
+  }
+
+  function deleteMember(u_no) {
+    //b_no를 받아서
+    console.log('삭제버튼 클릭');
+    // console.log(this);
+    console.log('삭제 대상 : ', u_no);
+    confirm("정말로 삭제하시겠습니까?")
+    if(confirm == true){
+      axios.post('/admin/member/delete', {
+        u_no
+      })
+      .then((response) => {
+        console.log('성공');
+        console.log(response.data);
+        listRender();
+      })
+      .catch((err) => {
+        console.log('실패');
+        console.log(err);
+        listRender();
+      })
+    }else{
+      return false;
+    }
+    
+  }
+  listRender();
+</script>
+{% endblock %}

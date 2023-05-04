@@ -13,14 +13,16 @@ router.get("/order", adminOrder);
 router.get("/product", adminProduct);
 
 router.get("/member", adminMember);
-router.get("/member2", member);
-router.get("/memberDetail/:id", DetailMember);
+router.get("/member/select", member);
+router.get("/member/detail", DetailMember);
 // router.get("/memberDetailOrder/:id", DetailOrderMember);
 router.post("/member/delete", deleteMember)
 
 router.get("/board", adminBoard); // 화면이동
 router.get("/board2", adminBoard2); // axios를 이용한 비동기 (이름 바꿔야함)
 router.post("/board/delete", deleteBoard);
+
+
 
 // router.get("/store", adminStore);
 // router.get('/store/selectList', selectListStore);

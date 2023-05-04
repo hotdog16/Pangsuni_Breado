@@ -15,12 +15,12 @@ module.exports = function(sequelize, DataTypes) {
         key: 'bt_no'
       }
     },
-    u_id: {
-      type: DataTypes.STRING(10),
+    u_no: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'users',
-        key: 'u_id'
+        key: 'u_no'
       }
     },
     b_title: {
@@ -65,10 +65,10 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "u_id",
+        name: "u_no",
         using: "BTREE",
         fields: [
-          { name: "u_id" },
+          { name: "u_no" },
         ]
       },
       {

@@ -36,22 +36,7 @@ exports.adminProduct = (req, res) => {
 };
 
 exports.adminMember = async (req, res, next) => {
-  const u_no = req.params.u_no;
-  console.log('req.body ====> admin', req.user)
-  try {
-    const user_list = await users.findAll();
-    // console.log("유저목록 -----------");
-    // console.log(user_list);
-    for (u in user_list) {
-      console.log(u);
-    }
-
-    // console.log("유저목록 끝 ============================");
-    res.render("admin/member", { list: user_list });
-  } catch (error) {
-    console.error(error);
-    return next(error);
-  }
+  res.render("admin/member/member", { title: "회원관리" });
 };
 
 exports.adminBoard = async (req, res) => {
@@ -116,7 +101,7 @@ exports.member = async (req,res) =>{
       offset: offset,
       order: [['u_id', 'desc']], // 최신부터 보여주기 위해 역순으로 정렬
     })
-    let navCheck = Math.ceil(qnaList.count / 10) * 10; // 페이지 네비게이션을 체크하기 위한 변수로 초기화
+    let navCheck = Math.ceil(memberList.count / 10) * 10; // 페이지 네비게이션을 체크하기 위한 변수로 초기화
     navCheck = navCheck / 10; // 초기화 후 쉽게 체크하기 위해 재할당
     const num = []; // 페이지 네비게이션에 나올 숫자들을 담을 배열을 선언
     for (let i = checkNum; i < checkNum + 10; i++) { // checkNum 변수를 이용해서 10개씩 담기 위한 반복문 사용
@@ -135,37 +120,51 @@ exports.member = async (req,res) =>{
 }
 
 exports.DetailMember = async(req,res) =>{
-
-  console.log("userdetail111=======>",req.params);
-
+  try{
   const {id} = req.params;
-  const user = req.user;
-  const userdetailorder = await orders.findAll({
-    raw: true,
-    include : [{
-      model: products,
-      as : 'p_no_product',
-    },{
-      model:users,
-      as:'u',
-    }]
-  })
-  console.log("userdetail=======>",userdetailorder);
-  if(userdetailorder){
-    res.status(200).json({userdetailorder});
-  }
+    const memberdetail = await users.findOne({
+      raw:true,
+      id : users.u_id
+    })
+    console.log('user----->',memberdetail)
+    return res.json({user:memberdetail})
+  }catch (e) {
+      console.error(e);
+      return res.status(500).json({msg:'실패!'});
+    }
+
+  // const {id} = req.params;
+  // const user = req.user;
+  // const userdetailorder = await orders.findAll({
+  //   raw: true,
+  //   include : [{
+  //     model: products,
+  //     as : 'p_no_product',
+  //   },{
+  //     model:users,
+  //     as:'u_no_user',
+  //   }]
+  // })
+  // console.log("userdetail=======>",userdetailorder);
+  // if(userdetailorder){
+  //   res.status(200).json({userdetailorder});
+  // }
 }
 
 
 exports.deleteMember = async (req, res)=>{
   try{
-    const user = req.user;
+    const {u_no} = req.body;
     await users.destroy({
-      where:user.u_id
+      where:{u_no}
     });
     return res.json({msg: '성공'});
   }catch (e) {
     console.error(e);
     return res.status(500).json({msg:'실패!'});
   }
+}
+
+exports.adminStore = (req, res) => {
+  res.render("admin/store", { title: "스토어관리" });
 }

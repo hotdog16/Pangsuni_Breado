@@ -11,7 +11,7 @@ exports.addOrder = async (req, res) => {
             if (Number(o_cnt[i]) !== 0) {
                 await orders.create({
                     o_no: null,
-                    u_id: req.user.u_id,
+                    u_no: req.user.u_no,
                     p_no: p_no[i],
                     o_reg_dt: Sequelize.Sequelize.literal('now()'),
                     o_pickup_dt: pickupDay,
@@ -28,7 +28,7 @@ exports.addOrder = async (req, res) => {
 exports.userOrderList = async (req, res) => {
     const order = await orders.findAll({
         where: {
-            u_id: req.user.u_id
+            u_no: req.user.u_no
         },
         include: {
             model: products,

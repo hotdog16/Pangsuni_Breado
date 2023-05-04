@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="member-detail">
+        <div class="m-popup">
+  <h5>회원정보</h5>
+  <table class="user-table">
+    <tbody>
+      <tr>
+        <td class="td-name">이름</td>
+        <td class="user-name">{{u.u_name}}</td>
+        <td class="td-name">아이디</td>
+        <td class="user-id">{{u.u_id}}</td>
+      </tr>
+      <tr>
+        <td class="td-name">전화번호</td>
+        <td class="user-tel">{{u.u_tel}}</td>
+        <td class="td-name">이메일</td>
+        <td class="user-email">{{u.u_email}}</td>
+      </tr>
+      <tr>
+        <td class="td-name">회원등급</td>
+        <td class="user-grade">{{u.u_grade}}</td>
+        <td class="td-name">가입날짜</td>
+        <td class="user-date">{{u.u_reg_dt}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h5>주문정보</h5>
+  <ul>
+    <li></li>
+  </ul>
+
+  <button class="pclose-btn">닫기</button>
+
+    </div>
+<script>
+          const userOne = axios.get("/admin/member/detail"+e.target.dataset.id)
+          .then((res)=>{
+            if(res.status === 200){
+              console.log("userone---->", res.data.userdetailorder);
+              $('.user-name').html(res.data.userdetail.u_name)
+              $('.user-id').html(res.data.userdetail.u_id)
+              $('.user-tel').html(res.data.userdetail.u_tel)
+              $('.user-email').html(res.data.userdetail.u_email)
+              $('.user-grade').html(res.data.userdetail.u_grade)
+              $('.user-date').html(res.data.userdetail.u_reg_dt)
+      
+              console.log("userOrder---->", res.data.userdetailorder.p_name);
+            }
+      
+          }).catch((error)=>{
+            console.error(error);
+          })
+
+    </script>
+</body>
+</html>
