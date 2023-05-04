@@ -13,7 +13,7 @@ router.get("/order", adminOrder);
 router.get("/product", adminProduct);
 
 router.get("/member", adminMember);
-
+router.get("/member2", member);
 router.get("/memberDetail/:id", DetailMember);
 // router.get("/memberDetailOrder/:id", DetailOrderMember);
 router.post("/member/delete", deleteMember)
