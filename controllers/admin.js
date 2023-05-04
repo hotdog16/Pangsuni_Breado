@@ -122,7 +122,6 @@ exports.DetailMember = async(req,res) =>{
   const user = req.user;
   const userdetailorder = await orders.findAll({
     raw: true,
-    
     include : [{
       model: products,
       as : 'p_no_product',
@@ -137,25 +136,17 @@ exports.DetailMember = async(req,res) =>{
   }
 }
 
-// exports.DetailOrderMember = async(req,res) =>{
 
-//   console.log("userdetail111=======>",req.params);
-
-//   const {id} = req.params;
-//   const user = req.user;
-
-//   const userdetailorder = await orders.findAll({
-//     raw: true,
-//     include : [{
-//       model: products,
-//       as : 'p_no_product',
-//     },{
-//       model:users,
-//       as:'u',
-//     }]
-//   })
-//   console.log("userdetailorder=======>",userdetailorder);
-//   if(userdetailorder){
-//     res.status(200).json({userdetailorder});
-//   }
-// }
+exports.deleteMember = async (req, res)=>{
+  try{
+    const {u_id} = req.body;
+    console.log('deleteMemgber req.body======================================>',req.body)
+    await users.destroy({
+      where: {u_id}
+    });
+    return res.json({msg: '삭제완료'});
+  }catch (error) {
+    console.error(error);
+    return res.status(500).json({msg:'삭제권한 없음'});
+  }
+}

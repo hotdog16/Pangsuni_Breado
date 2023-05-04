@@ -173,17 +173,25 @@
         console.log("userOrder---->", res.data.userdetailorder.p_name);
       }
 
-
-
     }).catch((error)=>{
       console.error(error);
     })
-
-
   })
 
   $('.pclose-btn').click(function(){
     $('.m-popup').fadeOut();
   })
+
+  $('.member-delete').click(function(){
+    // console.log('memberhtml ----------------------', u_id)
+    // axios.post('/admin/member', 
+    //       {u_id},
+    //   ).then((res) =>{
+    //     console.log(res)
+    //   }).catch((error)=>{
+    //   console.error(error);
+    // })
+  })
+
 </script>
 {% endblock %}
