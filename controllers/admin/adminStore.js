@@ -1,5 +1,5 @@
 const {stores,regions} = require("../../models");
-const {Op} = require("sequelize");
+const {Op, where} = require("sequelize");
 
 exports.adminStore = async (req, res) => {
     console.log('adminStore Router');
@@ -76,9 +76,14 @@ exports.selectOneStore = async (req,res)=>{
         const store = await stores.findOne({
             where:{
                 s_no,
+            },
+            include:{
+                model:regions,
+                as:'r_no_region'
             }
-        })
-        res.render('admin/store/adminSelectOneStore',{store});
+        });
+        const region = await regions.findAll();
+        res.render('admin/store/adminSelectOneStore',{store,regions:region});
     }catch (err) {
         console.error(err);
         res.status(500).json({msg: err});
@@ -118,5 +123,41 @@ exports.addStore2 = async (req, res)=>{
         console.error(err);
         res.status(500).json({msg: err});
     }
-    const {}=req.body;
+    // const {}=req.body;
+}
+
+exports.modifyStore = async (req,res)=>{
+    const {s_no, s_name, s_desc, s_tel, r_no, s_addr} = req.body;
+    try {
+        if(!req.file.file){
+            const store = stores.update({
+                s_name,
+                s_desc,
+                s_tel,
+                r_no: Number(r_no),
+                s_addr,
+            }, {
+                where: {
+                    s_no
+                }
+            })
+        }else{
+            const store = stores.update({
+                s_name,
+                s_desc,
+                s_tel,
+                r_no: Number(r_no),
+                s_addr,
+                s_img: req.file.filename,
+            }, {
+                where: {
+                    s_no
+                }
+            })
+        }
+        res.status(200).json({msg: 'success'})
+    }catch (err) {
+        console.error(err);
+        res.status(500).json({msg: 'false'})
+    }
 }

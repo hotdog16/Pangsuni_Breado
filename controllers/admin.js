@@ -16,7 +16,7 @@ exports.adminOrder = async (req, res) => {
       required: true
     },{
       model:users,
-      as:'u',
+      as:'u_no_user',
       required:true
     }]
   });
@@ -155,25 +155,21 @@ exports.DetailMember = async(req,res) =>{
 }
 
 
-exports.deleteMember = async (req, res)=>{
-  try{
-<<<<<<< HEAD
+exports.deleteMember = async (req, res) => {
+  try {
     const {u_no} = req.body;
     await users.destroy({
-      where:{u_no}
-=======
-    const {u_id} = req.body;
-    console.log('deleteMemgber req.body======================================>',req.body)
-    await users.destroy({
-      where: {u_id}
->>>>>>> 97e619cacfaf24e25fe1fe6a542931bc2ff5eba6
-    });
-    return res.json({msg: '삭제완료'});
-  }catch (error) {
-    console.error(error);
-    return res.status(500).json({msg:'삭제권한 없음'});
+      where: {u_no},
+      });
+      return res.json({msg: '삭제완료'});
+    }
+  catch
+    (error)
+    {
+      console.error(error);
+      return res.status(500).json({msg: '삭제권한 없음'});
+    }
   }
-}
 
 exports.adminStore = (req, res) => {
   res.render("admin/store", { title: "스토어관리" });
