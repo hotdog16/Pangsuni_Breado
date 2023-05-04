@@ -109,33 +109,9 @@ exports.adminStore = (req, res) => {
 };
 
 
-exports.member = async (req,res) =>{
-  try {
-    let limit = 10; // sql select 쿼리문의 order by limit 부분
-    let offset = 0 + Number((req.query.page ? req.query.page : 1) - 1) * limit; // sql select 쿼리문의 order by offset 부분
-    let checkNum = (req.query.page ? req.query.page : 1); // 페이지 네비게이션 부분에 페이징을 위한 변수 초기화
-    checkNum = Math.floor(checkNum / 10) * 10; // 10자리에서 내림을 해서 10개씩 끊어주려고 위해 재할당
-    const memberList = await users.findAndCountAll({ // 검색결과와 전체 count를 같이 보기 위해 사용
-      limit: 10,
-      offset: offset,
-      order: [['u_id', 'desc']], // 최신부터 보여주기 위해 역순으로 정렬
-    })
-    let navCheck = Math.ceil(qnaList.count / 10) * 10; // 페이지 네비게이션을 체크하기 위한 변수로 초기화
-    navCheck = navCheck / 10; // 초기화 후 쉽게 체크하기 위해 재할당
-    const num = []; // 페이지 네비게이션에 나올 숫자들을 담을 배열을 선언
-    for (let i = checkNum; i < checkNum + 10; i++) { // checkNum 변수를 이용해서 10개씩 담기 위한 반복문 사용
-      if (i < navCheck) {
-        num.push(i + 1);
-      }
-    }
-    if (Number.isNaN(req.query.page) || req.query.page > navCheck) {
-      return res.status(400).json('숫자만 눌러주세요! 현재 페이지는 없습니다!');
-    }
-    return res.json({users: memberList, currentPage: offset, num, checkNum, user: req.user});
-  } catch (e) {
-    console.error(e);
-    return res.status(500).json(e);
-  }
+exports.member = (req,res) =>{
+  const user = req.user;
+  console.log("req.user ===> admin=======>",req.user)
 }
 
 exports.DetailMember = async(req,res) =>{
@@ -163,13 +139,14 @@ exports.DetailMember = async(req,res) =>{
 
 exports.deleteMember = async (req, res)=>{
   try{
-    const user = req.user;
+    const {u_id} = req.body;
+    console.log('deleteMemgber req.body======================================>',req.body)
     await users.destroy({
-      where:user.u_id
+      where: {u_id}
     });
-    return res.json({msg: '성공'});
-  }catch (e) {
-    console.error(e);
-    return res.status(500).json({msg:'실패!'});
+    return res.json({msg: '삭제완료'});
+  }catch (error) {
+    console.error(error);
+    return res.status(500).json({msg:'삭제권한 없음'});
   }
 }
