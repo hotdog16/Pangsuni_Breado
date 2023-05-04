@@ -45,7 +45,7 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "products_ibfk_1",
+        name: "s_no",
         using: "BTREE",
         fields: [
           { name: "s_no" },

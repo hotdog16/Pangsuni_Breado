@@ -28,12 +28,20 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     s_tel: {
-      type: DataTypes.STRING(15),
+      type: DataTypes.STRING(14),
       allowNull: false
     },
     s_img: {
       type: DataTypes.STRING(100),
       allowNull: true
+    },
+    s_latitude: {
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
+    s_longitude: {
+      type: DataTypes.STRING(100),
+      allowNull: false
     }
   }, {
     sequelize,
@@ -49,7 +57,7 @@ module.exports = function(sequelize, DataTypes) {
         ]
       },
       {
-        name: "stores_ibfk_1",
+        name: "r_no",
         using: "BTREE",
         fields: [
           { name: "r_no" },
