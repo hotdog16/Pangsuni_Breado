@@ -116,34 +116,42 @@ exports.DetailMember = async(req,res) =>{
 
   const {id} = req.params;
   const user = req.user;
-
-  const userdetail = await users.findOne({
+  const userdetailorder = await orders.findAll({
     raw: true,
-    where: {
-      u_no : id
-    }
-  })
-  console.log("userdetail=======>",userdetail);
-  if(userdetail){
-    res.status(200).json({userdetail});
-  }
-}
-
-exports.DetailOrderMember = async(req,res) =>{
-
-  console.log("userdetail111=======>",req.params);
-
-  const {id} = req.params;
-  const user = req.user;
-
-  const userdetailorder = await orders.findOne({
-    raw: true,
-    where: {
-      u_id : id
-    }
+    
+    include : [{
+      model: products,
+      as : 'p_no_product',
+    },{
+      model:users,
+      as:'u',
+    }]
   })
   console.log("userdetail=======>",userdetailorder);
   if(userdetailorder){
     res.status(200).json({userdetailorder});
   }
 }
+
+// exports.DetailOrderMember = async(req,res) =>{
+
+//   console.log("userdetail111=======>",req.params);
+
+//   const {id} = req.params;
+//   const user = req.user;
+
+//   const userdetailorder = await orders.findAll({
+//     raw: true,
+//     include : [{
+//       model: products,
+//       as : 'p_no_product',
+//     },{
+//       model:users,
+//       as:'u',
+//     }]
+//   })
+//   console.log("userdetailorder=======>",userdetailorder);
+//   if(userdetailorder){
+//     res.status(200).json({userdetailorder});
+//   }
+// }
