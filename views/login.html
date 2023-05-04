@@ -38,7 +38,7 @@
           console.log("axios3->", res.status);
           if (res.status  === 200 && res.data.fillteredUser.u_grade === '일반회원') {
             location.href = "/";
-          }else if(res.status  === 200 && res.data.fillteredUser.u_grade === '총관리자'){
+          }else if(res.status  === 200 && res.data.fillteredUser.u_grade === '관리자'){
             location.href = "/admin";
           }
         })
