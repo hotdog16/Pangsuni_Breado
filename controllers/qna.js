@@ -1,4 +1,4 @@
-const {board, comments} = require("../models");
+const {board, comments,users} = require("../models");
 const {Sequelize, Op} = require("sequelize");
 
 // <!-- 아래부터 페이지 네비게이션-->
@@ -199,7 +199,11 @@ exports.test2 = async (req, res) => {
             limit: 10,
             offset: offset,
             order: [['b_no', 'desc']], // 최신부터 보여주기 위해 역순으로 정렬
-            where
+            where,
+            include:{
+                model: users,
+                as:'u_no_user'
+            }
         })
         let navCheck = Math.ceil(qnaList.count / 10) * 10; // 페이지 네비게이션을 체크하기 위한 변수로 초기화
         navCheck = navCheck / 10; // 초기화 후 쉽게 체크하기 위해 재할당
@@ -222,12 +226,13 @@ exports.test2 = async (req, res) => {
 exports.QnaAdd = async (req, res, next) => {
     console.log("컨트롤러에 들어옴");
     console.log(req.body);
+    const u_no = req.user.u_no;
     const {bt_no, u_id, b_title, b_content} = req.body;
     try {
         await board.create({
             b_no: null,
             bt_no,
-            u_id,
+            u_no,
             b_title,
             b_content,
             b_done: 1,
