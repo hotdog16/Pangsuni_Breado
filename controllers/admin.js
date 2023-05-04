@@ -154,21 +154,19 @@ exports.DetailMember = async(req,res) =>{
   // }
 }
 
-exports.deleteMember = async (req, res) => {
-  try {
+
+exports.deleteMember = async (req, res)=>{
+  try{
     const {u_no} = req.body;
     await users.destroy({
-      where: {u_no},
-      });
-      return res.json({msg: '삭제완료'});
-    }
-  catch
-    (error)
-    {
-      console.error(error);
-      return res.status(500).json({msg: '삭제권한 없음'});
-    }
+      where:{u_no}
+    });
+    return res.json({msg: '삭제완료'});
+  }catch (error) {
+    console.error(error);
+    return res.status(500).json({msg:'삭제권한 없음'});
   }
+}
 
 exports.adminStore = (req, res) => {
   res.render("admin/store", { title: "스토어관리" });
