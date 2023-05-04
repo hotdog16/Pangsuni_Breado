@@ -157,16 +157,9 @@ exports.DetailMember = async(req,res) =>{
 
 exports.deleteMember = async (req, res)=>{
   try{
-<<<<<<< HEAD
     const {u_no} = req.body;
     await users.destroy({
       where:{u_no}
-=======
-    const {u_id} = req.body;
-    console.log('deleteMemgber req.body======================================>',req.body)
-    await users.destroy({
-      where: {u_id}
->>>>>>> 97e619cacfaf24e25fe1fe6a542931bc2ff5eba6
     });
     return res.json({msg: '삭제완료'});
   }catch (error) {
