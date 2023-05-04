@@ -9,6 +9,11 @@
 </style>
 {% endblock %}
 <h2>스토어 관리</h2>
+<!--<select>-->
+<!--    <option>게시판번호역순</option>-->
+<!--    <option></option>-->
+<!--    <option></option>-->
+<!--</select>-->
 <table>
     <thead>
         <th class="sort" value="s_no">가게 번호</th>
@@ -41,7 +46,7 @@
                     qna_con.className = 'qna-con';
                     qna_con.innerHTML = `<td>${store.s_no}</td>
                                          <td>${store.r_no_region.r_name}</td>
-                                         <td>${store.s_name}</td>
+                                         <td><a href="/admin/store/selectOne/${store.s_no}">${store.s_name}</a></td>
                                          <td>${store.s_addr}</td>
                                          <td>${store.s_tel}</td>
                                          <td><button onclick="deleteStore(${store.s_no})">삭제</button></td>`;
@@ -97,12 +102,12 @@
             })
     }
 
-    sort.forEach((item)=>{
-        item.addEventListener('click', function () {
-            console.log('정렬 펑션!');
-            listRender(null, this.value);
-        })
-    })
+    // sort.forEach((item)=>{
+    //     item.addEventListener('click', function () {
+    //         console.log('정렬 펑션!');
+    //         listRender(null, this.value);
+    //     })
+    // })
 
     listRender();
 </script>
