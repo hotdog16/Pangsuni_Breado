@@ -10,11 +10,15 @@ exports.adminOrder = async (req, res) => {
     limit,
     offset,
     order:[['o_no', 'desc']],
-    include:{
+    include:[{
       model:products,
       as:'p_no_product',
       required: true
-    }
+    },{
+      model:users,
+      as:'u',
+      required:true
+    }]
   });
   let navCheck = Math.ceil(listOrder.count / 10) * 10; // 페이지 네비게이션을 체크하기 위한 변수로 초기화
   navCheck = navCheck / 10; // 초기화 후 쉽게 체크하기 위해 재할당

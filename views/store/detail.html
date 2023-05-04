@@ -1,10 +1,11 @@
 {% extends 'layout.html' %}
 {% block style %}
 <style>
-    .main-container{
+    .main-container {
         margin: 0;
     }
-    #header{
+
+    #header {
         position: fixed;
         background-color: rgba(249, 250, 183);
         z-index: 1000;
@@ -12,51 +13,54 @@
         padding-top: 10px;
     }
 
-    #header .logout-category{
+    #header .logout-category {
         font-size: 14px;
     }
 
-    #header .logout{
+    #header .logout {
         margin-top: 10px;
     }
-    #header .logo{
+
+    #header .logo {
         margin-top: 13px;
         padding-top: 30px;
     }
-    #header .logo a{
+
+    #header .logo a {
         font-size: 30px;
     }
-    #nav{
+
+    #nav {
         display: none;
     }
 </style>
 {% endblock %}
 {% block body %}
 <div id="store-detail">
-<!-- <h1>가게 상세정보</h1> -->
-<div class="back-page" onclick="history.back()"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> 돌아가기</div>
-<div>
-    <div class="store-name">{{stores.s_name}}</div>
-    <div class="store-pic"><img src="#" alt="가게 이미지"></div>
-    <div class="s_addr"><i class="fa fa-map-marker" aria-hidden="true"></i> {{stores.s_addr}}</div>
+    <!-- <h1>가게 상세정보</h1> -->
+    <div class="back-page" onclick="history.back()"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> 돌아가기
+    </div>
     <div>
-        <form method="post" action="/order/add">
-            <div>
-                {% for p in products %}
+        <div class="store-name">{{stores.s_name}}</div>
+        <div class="store-pic"><img src="#" alt="가게 이미지"></div>
+        <div class="s_addr"><i class="fa fa-map-marker" aria-hidden="true"></i> {{stores.s_addr}}</div>
+        <div>
+            <form method="post" action="/order/add">
                 <div>
-                    <input type="hidden" value="{{p.p_no}}" name="p_no">
-                    <p>{{p.p_name}}</p>
-                    <p><img src="{{p.p_img}}" alt="메뉴 이미지"></p>
-                    <p>
-                        <span class="p_price">{{p.p_price}}</span>원
-                        <input type="number" max="100" min="0" class="productCnt" name="o_cnt">
-                    </p>
-                    <p><label>총 금액 : </label><input class="p_result" type="number" readonly></p>
+                    {% for p in products %}
+                    <div>
+                        <input type="hidden" value="{{p.p_no}}" name="p_no">
+                        <p>{{p.p_name}}</p>
+                        <p><img src="{{p.p_img}}" alt="메뉴 이미지"></p>
+                        <p>
+                            <span class="p_price">{{p.p_price}}</span>원
+                            <input type="number" max="100" min="0" class="productCnt" name="o_cnt">
+                        </p>
+                        <p><label>총 금액 : </label><input class="p_result" type="number" readonly></p>
+                    </div>
+                    <hr>
+                    {% endfor %}
                 </div>
-                <hr>
-                {% endfor %}
-            </div>
-         
                 <div>
                     픽업 가능 날짜
                     <select name="o_pickup_dt">
@@ -76,17 +80,13 @@
                 <div>
                     <button type="submit">예약</button>
                 </div>
-            </div>
-
-            <div>{{mapAPI}}</div>
-            <div id="map" style="width: 80%; height: 400px"></div>
-            <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-            <script type="text/javascript"
-                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{mapAPI}}&libraries=services"></script>
-            <div>
-        </form>
+            </form>
+        </div>
+        <div>{{mapAPI}}</div>
+        <div id="map" style="width: 80%; height: 400px"></div>
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{mapAPI}}&libraries=services"></script>
     </div>
-</div>
 </div>
 <script>
     const p_cnt = document.querySelectorAll('.productCnt');
