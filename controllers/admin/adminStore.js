@@ -84,3 +84,39 @@ exports.selectOneStore = async (req,res)=>{
         res.status(500).json({msg: err});
     }
 }
+
+exports.addStore = async (req,res)=>{
+    try{
+        const region = await regions.findAll();
+        res.render('admin/store/adminAddStore',{regions:region});
+    }catch (err) {
+        console.error(err);
+    }
+}
+
+exports.addStore2 = async (req, res)=>{
+    const {s_name, r_no, s_desc, s_addr, s_tel} =req.body;
+    try{
+        const store = await stores.create({
+            s_no:null,
+            s_name,
+            r_no,
+            s_desc,
+            s_addr,
+            s_tel,
+            s_img:req.file.filename
+        })
+        if(store === null){
+            console.log('등록 실패');
+            res.status(400).json({msg:'UploadError'});
+        }
+        else{
+            console.log('등록 완료');
+            res.status(200).json({msg: 'uploadSuccess'});
+        }
+    }catch (err) {
+        console.error(err);
+        res.status(500).json({msg: err});
+    }
+    const {}=req.body;
+}

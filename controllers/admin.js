@@ -10,11 +10,15 @@ exports.adminOrder = async (req, res) => {
     limit,
     offset,
     order:[['o_no', 'desc']],
-    include:{
+    include:[{
       model:products,
       as:'p_no_product',
       required: true
-    }
+    },{
+      model:users,
+      as:'u',
+      required:true
+    }]
   });
   let navCheck = Math.ceil(listOrder.count / 10) * 10; // 페이지 네비게이션을 체크하기 위한 변수로 초기화
   navCheck = navCheck / 10; // 초기화 후 쉽게 체크하기 위해 재할당
@@ -116,8 +120,7 @@ exports.member = async (req,res) =>{
   } catch (e) {
     console.error(e);
     return res.status(500).json(e);
-  }
-}
+  }}
 
 exports.DetailMember = async(req,res) =>{
   try{
@@ -154,14 +157,21 @@ exports.DetailMember = async(req,res) =>{
 
 exports.deleteMember = async (req, res)=>{
   try{
+<<<<<<< HEAD
     const {u_no} = req.body;
     await users.destroy({
       where:{u_no}
+=======
+    const {u_id} = req.body;
+    console.log('deleteMemgber req.body======================================>',req.body)
+    await users.destroy({
+      where: {u_id}
+>>>>>>> 97e619cacfaf24e25fe1fe6a542931bc2ff5eba6
     });
-    return res.json({msg: '성공'});
-  }catch (e) {
-    console.error(e);
-    return res.status(500).json({msg:'실패!'});
+    return res.json({msg: '삭제완료'});
+  }catch (error) {
+    console.error(error);
+    return res.status(500).json({msg:'삭제권한 없음'});
   }
 }
 

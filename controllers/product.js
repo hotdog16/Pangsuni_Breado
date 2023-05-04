@@ -1,6 +1,6 @@
 const {stores, products} = require('../models');
 
-exports.createProduct = (req, res) => {
+exports.selectOneProduct = (req, res) => {
     stores.findAll()
         .then((stores2) => {
             res.render('product/add', {store: stores2});
