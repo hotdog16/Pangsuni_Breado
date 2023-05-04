@@ -18,7 +18,7 @@ router.post("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-router.get("/login", renderLogin);
+router.get("/login",isNotLoggedIn, renderLogin);
 router.post("/login",isNotLoggedIn, login);
 
 // router.post("/loginCheck", loginCheck);

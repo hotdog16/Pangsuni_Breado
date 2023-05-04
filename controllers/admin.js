@@ -10,11 +10,15 @@ exports.adminOrder = async (req, res) => {
     limit,
     offset,
     order:[['o_no', 'desc']],
-    include:{
+    include:[{
       model:products,
       as:'p_no_product',
       required: true
-    }
+    },{
+      model:users,
+      as:'u',
+      required:true
+    }]
   });
   let navCheck = Math.ceil(listOrder.count / 10) * 10; // 페이지 네비게이션을 체크하기 위한 변수로 초기화
   navCheck = navCheck / 10; // 초기화 후 쉽게 체크하기 위해 재할당
@@ -36,7 +40,8 @@ exports.adminProduct = (req, res) => {
 };
 
 exports.adminMember = async (req, res, next) => {
-  const { u_no, u_id, u_name, u_tel, u_email, u_grade } = req.body;
+  const u_no = req.params.u_no;
+  console.log('req.body ====> admin', req.user)
   try {
     const user_list = await users.findAll();
     // console.log("유저목록 -----------");
@@ -44,6 +49,7 @@ exports.adminMember = async (req, res, next) => {
     for (u in user_list) {
       console.log(u);
     }
+
     // console.log("유저목록 끝 ============================");
     res.render("admin/member", { list: user_list });
   } catch (error) {
@@ -101,3 +107,46 @@ exports.deleteBoard = async (req, res)=>{
 exports.adminStore = (req, res) => {
   res.render("admin/store", { title: "스토어관리" });
 };
+
+
+exports.member = (req,res) =>{
+  const user = req.user;
+  console.log("req.user ===> admin=======>",req.user)
+}
+
+exports.DetailMember = async(req,res) =>{
+
+  console.log("userdetail111=======>",req.params);
+
+  const {id} = req.params;
+  const user = req.user;
+  const userdetailorder = await orders.findAll({
+    raw: true,
+    include : [{
+      model: products,
+      as : 'p_no_product',
+    },{
+      model:users,
+      as:'u',
+    }]
+  })
+  console.log("userdetail=======>",userdetailorder);
+  if(userdetailorder){
+    res.status(200).json({userdetailorder});
+  }
+}
+
+
+exports.deleteMember = async (req, res)=>{
+  try{
+    const {u_id} = req.body;
+    console.log('deleteMemgber req.body======================================>',req.body)
+    await users.destroy({
+      where: {u_id}
+    });
+    return res.json({msg: '삭제완료'});
+  }catch (error) {
+    console.error(error);
+    return res.status(500).json({msg:'삭제권한 없음'});
+  }
+}

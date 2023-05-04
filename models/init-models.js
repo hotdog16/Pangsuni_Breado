@@ -30,8 +30,8 @@ function initModels(sequelize) {
     stores.hasMany(products, {as: "products", foreignKey: "s_no"});
     board.belongsTo(users, {as: "u", foreignKey: "u_id"});
     users.hasMany(board, {as: "boards", foreignKey: "u_id"});
-    comments.belongsTo(users, {as: "u", foreignKey: "u_id"});
-    users.hasMany(comments, {as: "comments", foreignKey: "u_id"});
+    comments.belongsTo(users, {as: "u_no_user", foreignKey: "u_no"});
+    users.hasMany(comments, {as: "comments", foreignKey: "u_no"});
     orders.belongsTo(users, {as: "u", foreignKey: "u_id"});
     users.hasMany(orders, {as: "orders", foreignKey: "u_id"});
 

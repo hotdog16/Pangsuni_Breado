@@ -24,6 +24,7 @@
   body{
     position: relative;
   }
+
   #admin-container {
     max-width: 90%;
   }
@@ -37,7 +38,12 @@
     text-align: center;
     font-size: 30px;
     margin-top: 40px;
+  }
 
+  .home{
+    position: absolute;
+    top: 20px;
+    right: 30%
   }
   #admin-container .admin-category {
     display: flex;
@@ -86,6 +92,7 @@
 </style>
 <body>
   <div id="admin-container">
+    <div class="home"><a href="/">홈페이지가기</a></div>
     <h2 class="admin-title">admin</h2>
     <ul class="admin-category">
       <li class="category category1" data-tab="tab-1"><a href="/admin/product">상품등록</a></li>
