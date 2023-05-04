@@ -169,7 +169,6 @@ exports.test2 = async (req, res) => {
                 where = {
                     bt_no,
                     [Op.or]: [
-                        {u_id:{[Op.like]:[`%${keyword}%`]}},
                         {b_content:{[Op.like]:[`%${keyword}%`]}},
                         {b_title:{[Op.like]:[`%${keyword}%`]}},
                     ]
@@ -178,11 +177,6 @@ exports.test2 = async (req, res) => {
                 where = {
                     bt_no,
                     b_content:{[Op.like]:[`%${keyword}%`]}
-                }
-            } else if (searchType === 'u_id') {
-                where = {
-                    bt_no,
-                    u_id:{[Op.like]:[`%${keyword}%`]}
                 }
             } else {
                 where = {

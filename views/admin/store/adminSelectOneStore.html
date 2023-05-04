@@ -10,73 +10,73 @@
 </style>
 {% endblock %}
 <h2>가게상세화면</h2>
-<input type="hidden" name="s_no" value="{{store.s_no}}">
-<div class="storeDetail">
+<form class="storeDetail">
     <div class="store"><img src="../../../images/{{store.s_img}}"></div>
     <div class="store">{{store.s_name}}</div>
     <div class="store">{{store.r_no_region.r_name}}</div>
     <div class="store">{{store.s_desc}}</div>
     <div class="store">{{store.s_addr}}</div>
     <div class="store">{{store.s_tel}}</div>
-</div>
+</form>
 <div><button>수정</button></div>
 {% endblock %}
 {% block script %}
 <script>
-    // const store = document.querySelectorAll('.store');
+    const form = document.querySelector('form');
     const storeDetail = document.querySelector('.storeDetail');
     const btn = document.querySelector('button');
     btn.addEventListener('click', async function () {
-        // console.log(this);
-        if(this.textContent === '수정'){
-            console.log('변경해보자');
-            storeDetail.innerHTML = `<p><label>이미지 : </label><input type="file" name="s_img"></p>
-<p><label>이름 : </label><input name="s_name" value="{{store.s_name}}"></p>
-<p><label>지역 : </label><select name="r_no">
-{% for region in regions %}
-{% if region.r_no == store.r_no %}
-<option value="{{region.r_no}}" selected>{{region.r_name}}</option>
-{% else %}
-<option value="{{region.r_no}}">{{region.r_name}}</option>
-{% endif %}
-{% endfor %}
-</select></p>
-<p><label>설명: </label><textarea name="s_desc">{{store.s_desc}}</textarea></p>
-<p><label>주소 : </label><input name="s_addr" value="{{store.s_addr}}"></p>
-<p><label>전화번호 : </label><input name="s_tel" value="{{store.s_tel}}"></p>`;
-            this.innerHTML = '완료';
-        }else{
-            console.log('비동기로 보내자');
-            const s_no = document.querySelector('input[name="s_no"]').value;
-            const s_name = document.querySelector('input[name="s_name"]').value;
-            const s_img = document.querySelector('input[name="s_img"]').value;
-            const r_no = document.querySelector('select[name="r_no"]').value;
-            const s_desc = document.querySelector('textarea[name="s_desc"]').value;
-            const s_tel = document.querySelector('input[name="s_tel"]').value;
-            const s_addr = document.querySelector('input[name="s_addr"]').value;
-            console.log(`s_no : ${s_no}, s_name : ${s_name} , s_img : ${s_img} , r_no : ${r_no} , s_desc : ${s_desc} , s_tel : ${s_tel} , s_addr : ${s_addr}`);
-            const formData = new FormData();
-            formData.append(s_no);
-            formData.append(s_name);
-            formData.append(s_img);
-            formData.append(r_no);
-            formData.append(s_desc);
-            formData.append(s_tel);
-            formData.append(s_addr);
-            this.innerHTML = '수정';
-            try{
-                const response = await axios.post('/admin/store/modify', formData, {
-                    headers:{
-                        'Content-Type': 'multipart/form-data'
-                    }
-                });
-                if(response.data.msg === 'success'){
-                    window.location.replace('');
-                }
-            }catch (err) {
-                console.error(err);
-            }
-        }
+        storeDetail.innerHTML = `<form method="post" enctype="multipart/form-data">
+        <input type="hidden" name="s_no" value="{{store.s_no}}">
+        <p><label>이미지 : </label><input type="file" name="s_img"></p>
+        <p><label>이름 : </label><input name="s_name" value="{{store.s_name}}"></p>
+        <p><label>지역 : </label><select name="r_no">
+        {% for region in regions %}
+        {% if region.r_no == store.r_no %}
+        <option value="{{region.r_no}}" selected>{{region.r_name}}</option>
+        {% else %}
+        <option value="{{region.r_no}}">{{region.r_name}}</option>
+        {% endif %}
+        {% endfor %}
+        </select></p>
+        <p><label>설명: </label><textarea name="s_desc">{{store.s_desc}}</textarea></p>
+        <p><label>주소 : </label><input name="s_addr" value="{{store.s_addr}}"></p>
+        <p><label>전화번호 : </label><input name="s_tel" value="{{store.s_tel}}"></p>
+        <p><button type="submit">전송</button></p></form>`;
+        this.remove();
+    });
+    form.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        console.log('들어왔나');
+        // const s_no = Number(document.querySelector('input[name="s_no"]').value);
+        // const s_name = document.querySelector('input[name="s_name"]').value;
+        // const s_img = document.querySelector('input[name="s_img"]').value;
+        // const r_no = document.querySelector('select[name="r_no"]').value;
+        // const s_desc = document.querySelector('textarea[name="s_desc"]').value;
+        // const s_tel = document.querySelector('input[name="s_tel"]').value;
+        // const s_addr = document.querySelector('input[name="s_addr"]').value;
+        // console.log(`s_no : ${s_no}, s_name : ${s_name} , s_img : ${s_img} , r_no : ${r_no} , s_desc : ${s_desc} , s_tel : ${s_tel} , s_addr : ${s_addr}`);
+        // const formData = new FormData();
+        // formData.append(s_no);
+        // formData.append(s_name);
+        // formData.append(s_img);
+        // formData.append(r_no);
+        // formData.append(s_desc);
+        // formData.append(s_tel);
+        // formData.append(s_addr);
+        // this.innerHTML = '수정';
+        // try{
+        //     const response = await axios.post('/admin/store/modify', formData, {
+        //         headers:{
+        //             'Content-Type': 'multipart/form-data'
+        //         }
+        //     });
+        //     if(response.data.msg === 'success'){
+        //         window.location.replace('');
+        //     }
+        // }catch (err) {
+        //     console.error(err);
+        // }
     })
 </script>
 {% endblock %}

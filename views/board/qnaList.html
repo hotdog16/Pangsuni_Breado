@@ -3,7 +3,7 @@
 
 {% endblock %}
 {% block body %}
-<input type="hidden" class="bt_no" value="{{bt_no}}}">
+<input type="hidden" class="bt_no" value="{{bt_no}}">
 <div>
     <table>
         <thead>
@@ -23,10 +23,9 @@
         <button class="write"><a href="/qna/qnaadd/{{bt_no}}">글쓰기</a></button>
         {% endif %}
         <select class="searchType">
-            <option value="u_id">글쓴이</option>
+            <option value="any">글쓴이 + 제목 + 내용</option>
             <option value="b_title">제목</option>
             <option value="b_content">내용</option>
-            <option value="any">글쓴이 + 제목 + 내용</option>
         </select>
         <input class="keyword">
         <button class="searchBtn">검색</button>
@@ -56,7 +55,7 @@
                     const qna_con = document.createElement('tr');
                     qna_con.className = 'qna-con';
                     qna_con.innerHTML = `<td>${store.b_no}</td>
-                                         <td>${store.u_no_user.u_name}</td>
+                                         <td>${store.u_no_user.u_id}</td>
                                          <td>${store.b_title}</td>
                                          <td>${regDate}</td>
                                          <td>${store.b_cnt}</td>`;
