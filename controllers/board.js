@@ -154,7 +154,7 @@ exports.CommentAdd = async (req, res) => {
         c_reg_dt: Sequelize.Sequelize.literal('now()'),
         c_mod_dt : null
     });
-    res.redirect(`/qna/view/${req.body.b_no}`);
+    res.redirect(`/board/view/${req.body.b_no}`);
 };
 // 게시판 글 삭제 버튼
 exports.deleteBoard = async (req, res)=>{

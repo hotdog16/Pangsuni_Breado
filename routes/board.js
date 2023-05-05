@@ -18,6 +18,7 @@ router.post("/delete/:b_no", deleteBoard);
 // router.get("/modify/:b_no", ModifyQnaList);
 // router.post("/modify/:b_no", ModifyQnaList);
 
+// 댓글 기능은 따로 router와 컨트롤러 만들어야 함
 router.get("/commentsview/:no", CommentView);
 
 router.post("/commentswrite", CommentWrite);
