@@ -127,26 +127,29 @@ exports.addStore2 = async (req, res)=>{
 }
 
 exports.modifyStore = async (req,res)=>{
+    console.log('modifyStore!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+    console.log('req.file : ',req.file);
     const {s_no, s_name, s_desc, s_tel, r_no, s_addr} = req.body;
     try {
-        if(!req.file.file){
-            const store = stores.update({
+        let store;
+        if(typeof req.file == 'undefined'){
+            store = stores.update({
                 s_name,
                 s_desc,
                 s_tel,
-                r_no: Number(r_no),
-                s_addr,
+                r_no,
+                s_addr
             }, {
                 where: {
                     s_no
                 }
             })
         }else{
-            const store = stores.update({
+            store = stores.update({
                 s_name,
                 s_desc,
                 s_tel,
-                r_no: Number(r_no),
+                r_no,
                 s_addr,
                 s_img: req.file.filename,
             }, {
@@ -155,9 +158,15 @@ exports.modifyStore = async (req,res)=>{
                 }
             })
         }
-        res.status(200).json({msg: 'success'})
+        if(store === null){
+            console.error('게시물 등록 에러');
+            res.status(400).json({msg : 'uploadError'});
+        }else{
+            console.log('게시물 등록 완료');
+            res.status(200).json({msg: 'uploadSuccess'});
+        }
     }catch (err) {
         console.error(err);
-        res.status(500).json({msg: 'false'})
+        res.status(500).json({msg: err})
     }
 }

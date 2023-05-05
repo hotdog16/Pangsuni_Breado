@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { adminStore,selectListStore, deleteStore,selectOneStore,addStore,addStore2,modifyStore} = require("../../controllers/admin/adminStore");
-const {isLoggedIn}=require('../../middlewares/index');
+const {isLoggedIn,isNotLoggedIn}=require('../../middlewares/index');
 const {upload} = require('../../middlewares/uploads');
 router.use((req, res, next) => {
     res.locals.user = req.user;
