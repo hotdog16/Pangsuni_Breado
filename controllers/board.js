@@ -1,12 +1,12 @@
-const {board, comments,users} = require("../models");
+const {board, comments,users,board_type} = require("../models");
 const {Sequelize, Op} = require("sequelize");
 
 
 
-exports.qnaList = async (req, res) => {
+exports.selectListBoard = async (req, res) => {
     try {
         const bt_no = req.params.bt_no;
-        res.render('board/qnaList',{bt_no});
+        res.render('board/selectListBoard',{bt_no});
     } catch (e) {
         console.error(e);
         return res.status(500).json(e);
@@ -74,7 +74,7 @@ exports.test2 = async (req, res) => {
     }
 }
 
-exports.QnaAdd = async (req, res, next) => {
+exports.addBoard = async (req, res, next) => {
     console.log("컨트롤러에 들어옴");
     console.log(req.body);
     const u_no = req.user.u_no;
@@ -91,20 +91,20 @@ exports.QnaAdd = async (req, res, next) => {
         });
         console.log(req.body);
         // res.send("QnA 등록완료!!");
-        res.redirect(`/qna/list/${bt_no}`);
+        res.redirect(`/board/list/${bt_no}`);
     } catch (e) {
         console.error(e);
         next(e);
     }
 };
-// qnaList.html / 게시글 처음에서 글쓰기----------
-exports.QnaForm = (req, res) => {
+// selectListBoard.html / 게시글 처음에서 글쓰기----------
+exports.formBoard = (req, res) => {
     console.log('글쓰기에 들어오는창');
     const bt_no = req.params.bt_no;
-    res.render("board/qnaadd",{bt_no});
+    res.render("board/addBoard",{bt_no});
 };
 
-exports.QnaView = async (req, res) => {
+exports.selectOneBoard = async (req, res) => {
     const boards = await board.findOne({
         where: {
             b_no: req.params.no
@@ -122,9 +122,9 @@ exports.QnaView = async (req, res) => {
             b_no: req.params.no
         }
     })
-    res.render("board/qnaview", {boards, commentList})
+    res.render("board/selectOneBoard", {boards, commentList})
 }
-// qnaList.html / 게시글 처음에서 댓글달기(comments)----------
+// selectListBoard.html / 게시글 처음에서 댓글달기(comments)----------
 exports.CommentView = async (req, res) => {
     const boardNo = req.params.no;
     res.render("qna/commentsadd", {bNo: boardNo}); //(뷰,데이터)
@@ -157,7 +157,7 @@ exports.CommentAdd = async (req, res) => {
     res.redirect(`/qna/view/${req.body.b_no}`);
 };
 // 게시판 글 삭제 버튼
-exports.DeleteQnaList = async (req, res)=>{
+exports.deleteBoard = async (req, res)=>{
     try{
         const { b_no } = req.params;
         await board.destroy({

@@ -1,22 +1,19 @@
 const express = require("express");
-const { regions, stores, products, board } = require("../models");
 const router = express.Router();
-const {isLoggedIn, isNotLoggedIn} = require('../middlewares/index')
-const {qnaList, QnaAdd, QnaForm, QnaView, CommentView, CommentWrite, CommentAdd, DeleteQnaList, test2} = require("../controllers/qna");
+const {isLoggedIn} = require('../middlewares/index')
+const {selectListBoard, addBoard, formBoard, selectOneBoard, CommentView, CommentWrite, CommentAdd, deleteBoard, test2} = require("../controllers/board");
 // 여기는 주소가 http://localhost:3000/board/ get방식 qnaList
 // 여기는 주소가 http://localhost:3000/board/ poet방식 addBoard
-router.get("/list/:bt_no", qnaList); // 게시판 리스트로이동
-router.post("/", qnaList); // 게시판 리스트로이동
+router.get("/list/:bt_no", selectListBoard); // 게시판 리스트로이동
+router.post("/", selectListBoard); // 게시판 리스트로이동
 // router.get("/list", BoardList); // 상단과 동일한 경로임 /가 /list와 같음
 
-// router.get("/writeform", BoardForm);
+router.get("/qnaadd/:bt_no",isLoggedIn, formBoard); // 게시판 글쓰기 창
+router.post("/add",isLoggedIn, addBoard); // 게시판 글 등록하기
+router.get("/view/:no",selectOneBoard);
 
-router.get("/qnaadd/:bt_no",isLoggedIn, QnaForm); // 게시판 글쓰기 창
-router.post("/qnaadd",isLoggedIn, QnaAdd); // 게시판 글 등록하기
-router.get("/view/:no",QnaView);
-
-router.get("/delete/:b_no", DeleteQnaList);
-router.post("/delete/:b_no", DeleteQnaList);
+router.get("/delete/:b_no", deleteBoard);
+router.post("/delete/:b_no", deleteBoard);
 
 // router.get("/modify/:b_no", ModifyQnaList);
 // router.post("/modify/:b_no", ModifyQnaList);

@@ -56,7 +56,7 @@ exports.NoticeList  = async (req, res, next) => {
 //         })
 // }
 //
-// // qnaList.html / 게시글 처음에서 글쓰기----------
+// // selectListBoard.html / 게시글 처음에서 글쓰기----------
 // exports.NoticeForm =(req,res)=>{
 //     res.send('글쓰기에 들어오는');
 // }
