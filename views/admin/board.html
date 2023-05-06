@@ -8,28 +8,80 @@
     .category5 a {
         color: #fff;
     }
+
+    #admin-board .board-title{
+    display: flex;
+    border-bottom: 2px solid #333;
+    margin-top: 30px;
+  }
+
+  #admin-board .board-title li{
+    text-align: center;
+    padding: 15px 0;
+  }
+
+  #admin-board .boardList ul {
+    display: flex;
+    border-bottom: 1px solid #888;
+  }
+
+  #admin-board .boardList ul li{
+    text-align: center; 
+    padding: 10px 0;
+    line-height: 35px;
+  }
+
+  #admin-board .board-container{
+    width: 80%;
+  }
+
+  .px50{
+    width: 50px;
+  }
+
+  .px80{
+    width: 80px;
+  }
+
+  .px100{
+    width: 100px;
+  }
+
+  .px150{
+    width: 150px;
+  }
+
+  .px200{
+    width: 200px;
+  }
+
+  #admin-board .btn{
+    padding: 5px 10px;
+  }
+
+
 </style>
 {% endblock %}
 {% block body %}
-
+<div id="admin-board">
 <h2>게시판 관리</h2>
 <br>
-<table>
-    <thead>
-    <tr>
-        <th>게시글번호</th>
-        <th>게시판타입</th>
-        <th>유저아이디</th>
-        <th>제목</th>
-        <th>작성시간</th>
-        <th>조회수</th>
-        <th>수정</th>
-        <th>삭제</th>
-    </tr>
-    </thead>
-    <tbody class="boardList">
-    </tbody>
-</table>
+<div class="board-container">
+    <ul class="board-title">
+        <li class="px80">게시글번호</li>
+        <li class="px80">게시판타입</li>
+        <li class="px100">유저아이디</li>
+        <li class="px150">제목</li>
+        <li class="px200">작성시간</li>
+        <li class="px50">조회수</li>
+        <li class="px80">수정</li>
+        <li class="px80">삭제</li>
+    </ul>
+
+    <div class="boardList">
+    </div>
+</div>
+</div>
 <ul class="pageContent"></ul>
 {% endblock %}
 {% block script %}
@@ -46,16 +98,16 @@
                 pageContent.innerHTML='';
                 for (let board of response.data.board.rows) {
                     console.log('게시글 번호 : ', board.b_no);
-                    const qna_con = document.createElement('tr');
+                    const qna_con = document.createElement('ul');
                     qna_con.className = 'qna-con';
-                    qna_con.innerHTML = `<td>${board.b_no}</td>
-                                         <td>${board.bt_no}</td>
-                                         <td>${board.u_id}</td>
-                                         <td>${board.b_title}</td>
-                                         <td>${board.b_reg_dt}</td>
-                                         <td>${board.b_cnt}</td>
-                                         <td><button>수정</button></td>
-                                         <td><button onclick="deleteBoard(${board.b_no})">삭제</button></td>`;
+                    qna_con.innerHTML = `<li class="px80">${board.b_no}</li>
+                                         <li class="px80">${board.bt_no}</li>
+                                         <li class="px100">${board.u_id}</li>
+                                         <li class="px150">${board.b_title}</li>
+                                         <li class="px200">${board.b_reg_dt}</li>
+                                         <li class="px50">${board.b_cnt}</li>
+                                         <li class="px80"><button class="btn">수정</button></li>
+                                         <li class="px80"><button class="btn" onclick="deleteBoard(${board.b_no})">삭제</button></li>`;
                     list.append(qna_con);
                 }
                 pageNavigation(response.data);

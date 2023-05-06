@@ -124,34 +124,35 @@ exports.member = async (req,res) =>{
 
 exports.DetailMember = async(req,res) =>{
   try{
-  const {id} = req.params;
+  const {u_no} = req.params.no;
     const memberdetail = await users.findOne({
       raw:true,
-      id : users.u_id
+      u_no
     })
+
+    const userdetailorder = await orders.findAll({
+      raw: true,
+      include : [{
+        model: products,
+        as : 'p_no_product',
+      },{
+        model:users,
+        as:'u_no_user',
+      }]
+    })
+    console.log("userdetail=======>",userdetailorder);
     console.log('user----->',memberdetail)
-    return res.json({user:memberdetail})
+    return res.json({user:memberdetail,order:userdetailorder})
+
+    // if(userdetailorder){
+    //   res.status(200).json({userdetailorder});
+    // }
   }catch (e) {
       console.error(e);
       return res.status(500).json({msg:'실패!'});
     }
 
-  // const {id} = req.params;
-  // const user = req.user;
-  // const userdetailorder = await orders.findAll({
-  //   raw: true,
-  //   include : [{
-  //     model: products,
-  //     as : 'p_no_product',
-  //   },{
-  //     model:users,
-  //     as:'u_no_user',
-  //   }]
-  // })
-  // console.log("userdetail=======>",userdetailorder);
-  // if(userdetailorder){
-  //   res.status(200).json({userdetailorder});
-  // }
+
 }
 
 
