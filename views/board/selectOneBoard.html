@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block style %}
+{% endblock %}
+{% block body %}
+<h3>QnA 질문 제목</h3>
+<div class="qna-boardDetail-con">
+    <li>{{boards.b_title}}</li>
+</div>
+<h3>QnA 질문 내용</h3>
+<div class="qna-boardDetail-con">
+    <li>{{boards.b_content}}</li>
+</div>
+<div>
+    <h1>댓글 list</h1>
+    {% for c in commentList %}
+    <div class="qna-comment-list">
+        <p>{{c.c_content}}</p>
+        {% if c.u_no === user.u_no %}
+        <button>삭제</button>
+        <button>수정</button>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div><br>
+{% if (boards.u_no === user.u_no) or (user.u_grade === '관리자') %}
+<button id="delete" value="{{i.b_no}}"><a href="/board/delete/{{boards.b_no}}">게시물삭제</a></button>
+<button id="modify" value="{{i.b_no}}"><a href="/board/modify/{{boards.b_no}}">게시물수정</a></button>
+{% endif %}
+<br><br>
+<!--해당 페이지 게시물 삭제 게시판메인으로 돌아가기-->
+<!--댓글달기 폼 시작 : 테스트 -->
+<div id="qna-comments-bg">
+    {% if user %}
+    <form id="board_form" action="/board/commentsview/{{boards.b_no}}" method="post"><br><br>
+        <!--    <p>{{bNo}} 게시판 번호</p>-->
+        게시판번호<input name="b_no" value="{{boards.b_no}}" readonly size="3">
+        <div class="input-group">
+            <!--        로그인 구현 후 u_id value에 {{user.u_id}}}-->
+            <label>게시판타입 </label>
+            <input name="bt_no" value="2" size="3"><br>
+            <h1>댓글(comments)전송하기</h1><br><br><br>
+            <label>작성자 </label><span>{{user.u_id}}</span>
+            <input type="hidden" name="u_no" value="{{user.u_no}}"><br><br>
+        </div>
+        <div class="input-group">
+            <label>내용</label><br>
+            <textarea cols="50" rows="5" name="c_content" class="b_content"></textarea>
+        </div><br>
+        <p>
+            <button type="submit" class="comments-btn">댓글(comments)전송하기</button>
+        </p><br><br><br>
+    </form>
+    {% endif %}
+</div>
+<button class="qna-home-btn">
+    <div onclick="history.back()">QNA게시판홈</div>
+</button>
+<p>{{user.u_no}}</p>
+<p>{{user.u_id}}</p>
+<p>{{user.u_grade}}</p>
+{% endblock %}

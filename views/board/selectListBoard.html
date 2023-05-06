@@ -3,14 +3,14 @@
 
 {% endblock %}
 {% block body %}
-<input type="hidden" class="bt_no" value="{{bt_no}}}">
+<input type="hidden" class="bt_no" value="{{bt_no}}">
 <div>
     <table>
         <thead>
         <tr>
             <th>No</th>
-            <th>작성자 ID</th>
-            <th>게시글 제목</th>
+            <th>작성자</th>
+            <th>제목</th>
             <th>등록일</th>
             <th>조회수</th>
         </tr>
@@ -20,13 +20,12 @@
         <ul class="pageContent"></ul>
     <div>
         {% if bt_no != 1 %}
-        <button class="write"><a href="/qna/qnaadd/{{bt_no}}">글쓰기</a></button>
+        <button class="write"><a href="/board/qnaadd/{{bt_no}}">글쓰기</a></button>
         {% endif %}
         <select class="searchType">
-            <option value="u_id">글쓴이</option>
+            <option value="any">제목 + 내용</option>
             <option value="b_title">제목</option>
             <option value="b_content">내용</option>
-            <option value="any">글쓴이 + 제목 + 내용</option>
         </select>
         <input class="keyword">
         <button class="searchBtn">검색</button>
@@ -46,7 +45,7 @@
         const searchKeyword = (keyword ? keyword : '');
         const searchType = (type ? type : '');
         return axios
-            .get(`/qna/test2/${bt_no}?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`)
+            .get(`/board/test2/${bt_no}?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`)
             .then((response) => {
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
@@ -56,8 +55,8 @@
                     const qna_con = document.createElement('tr');
                     qna_con.className = 'qna-con';
                     qna_con.innerHTML = `<td>${store.b_no}</td>
-                                         <td>${store.u_no_user.u_name}</td>
-                                         <td>${store.b_title}</td>
+                                         <td>${store.u_no_user.u_id}</td>
+                                         <td><a href="/board/view/${store.b_no}">${store.b_title}</a></td>
                                          <td>${regDate}</td>
                                          <td>${store.b_cnt}</td>`;
                     list.append(qna_con);
@@ -105,6 +104,9 @@
         console.log('searchType : ', searchType);
         listRender(null, keyword, searchType);
     })
+    function selectOneBoard(b_no){
+        window.location.href = `/board/view/${b_no}`;
+    }
 </script>
 {% endblock %}
 

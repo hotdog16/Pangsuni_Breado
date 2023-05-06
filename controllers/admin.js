@@ -16,7 +16,7 @@ exports.adminOrder = async (req, res) => {
       required: true
     },{
       model:users,
-      as:'u',
+      as:'u_no_user',
       required:true
     }]
   });
