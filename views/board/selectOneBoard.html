@@ -12,15 +12,8 @@
 </div>
 <div>
     <h1>댓글 list</h1>
-    {% for c in commentList %}
-    <div class="qna-comment-list">
-        <p>{{c.c_content}}</p>
-        {% if (c.u_no === user.u_no) or (user.u_grade === '관리자') %}
-        <button>삭제</button>
-        <button>수정</button>
-        {% endif %}
-    </div>
-    {% endfor %}
+    <div class="qna-comment-list"></div>
+    <ul class="pageContent"></ul>
 </div><br>
 {% if (boards.u_no === user.u_no) or (user.u_grade === '관리자') %}
 <button id="delete" value="{{i.b_no}}"><a href="/board/delete/{{boards.b_no}}">게시물삭제</a></button>
@@ -61,36 +54,71 @@
 {% endblock %}
 {% block script %}
 <script>
-    const commentList = document.querySelector('.qna-comment-list');
+    const list = document.querySelector('.qna-comment-list');
+    const pageContent = document.querySelector('.pageContent');
     function listRender(page, keyword, type) { // 게시물 리스트를 출력하는 function
         list.innerHTML = '';
-        // const bt_no = document.querySelector('.bt_no').value;
         const currentPage = (page ? page : 1);
-        const searchKeyword = (keyword ? keyword : '');
-        const searchType = (type ? type : '');
         return axios
-            .get(`/board/test2/${bt_no}?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`)
+            .get(`/comment/selectList/{{boards.b_no}}?page=${currentPage}`)
             .then((response) => {
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
-                for (let store of response.data.board.rows) {
-                    console.log('게시글 번호 : ', store.b_no);
-                    const regDate = new Date(store.b_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
-                    const qna_con = document.createElement('tr');
+                for (let comment of response.data.comments.rows) {
+                    console.log('게시글 번호 : ', comment.c_no);
+                    // const regDate = new Date(store.b_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
+                    const qna_con = document.createElement('div');
                     qna_con.className = 'qna-con';
-                    qna_con.innerHTML = `<td>${store.b_no}</td>
-                                         <td>${store.u_no_user.u_id}</td>
-                                         <td><a href="/board/view/${store.b_no}">${store.b_title}</a></td>
-                                         <td>${regDate}</td>
-                                         <td>${store.b_cnt}</td>`;
+                    if(comment.u_no_user.u_id === ('{{user.u_id}}')){
+                        qna_con.innerHTML = `<p><span>댓글번호 : ${comment.c_no}</span>
+                                         <span>댓글글쓴이 : ${comment.u_no_user.u_id}</span>
+                                         <span>댓글내용 : ${comment.c_content}</span>
+                                         <button>수정</button><button>삭제</button></p>`;
+                    }else{
+
+                        qna_con.innerHTML = `<p><span>댓글번호 : ${comment.c_no}</span>
+                                         <span>댓글글쓴이 : ${comment.u_no_user.u_id}</span>
+                                         <span>댓글내용 : ${comment.c_content}</span></p>`;
+                    }
+                    // qna_con.innerHTML = `<p><span>댓글번호 : ${comment.c_no}</span>
+                    //                      <span>댓글글쓴이 : ${comment.u_no_user.u_id}</span>
+                    //                      <span>댓글내용 : ${comment.c_content}</span></p>`;
                     list.append(qna_con);
                 }
                 pageNavigation(response.data);
             })
             .catch((err) => {
-                pageContent.innerHTML='검색결과가 없어요';
+                // pageContent.innerHTML='검색결과가 없어요';
                 console.error(err);
             })
     }
+    function pageNavigation(response){
+        const currentPage = Number(response.currentPage);
+        const num = response.num;
+        console.log('페이지네이션 확인 :', num);
+        if(response.num[0]> 10){
+            const prev = document.createElement('li');
+            prev.setAttribute('data-page',`${(response.checkNum-9)}`);
+            prev.className = 'page';
+            prev.innerHTML = 'prev';
+            pageContent.append(prev);
+        }
+        for(let no of num){
+            const pageNav = document.createElement('li');
+            pageNav.setAttribute('data-page', `${no}`);
+            pageNav.setAttribute('onclick', `listRender(${no})`);
+            pageNav.className = 'page';
+            pageNav.innerHTML=`${Number(no)}`;
+            pageContent.append(pageNav);
+        }
+        if((currentPage+10 < response.comments.count)&& (num.length == 10)){
+            const next =document.createElement('li');
+            next.setAttribute('data-page',`${(response.checkNum+11)}`);
+            next.className = 'page';
+            next.innerHTML = 'prev';
+            pageContent.append(next);
+        }
+    }
+    listRender();
 </script>
 {% endblock %}
