@@ -42,7 +42,7 @@
     </div>
     <div>
         <div class="store-name">{{stores.s_name}}</div>
-        <div class="store-pic"><img src="#" alt="가게 이미지"></div>
+        <div class="store-pic"><img src="../../images/{{stores.s_img}}" alt="가게 이미지"></div>
         <div class="s_addr"><i class="fa fa-map-marker" aria-hidden="true"></i> {{stores.s_addr}}</div>
         <div>
             <form method="post" action="/order/add">
@@ -51,7 +51,7 @@
                     <div>
                         <input type="hidden" value="{{p.p_no}}" name="p_no">
                         <p>{{p.p_name}}</p>
-                        <p><img src="{{p.p_img}}" alt="메뉴 이미지"></p>
+                        <p><img src="../../images/{{p.p_img}}" alt="메뉴 이미지"></p>
                         <p>
                             <span class="p_price">{{p.p_price}}</span>원
                             <input type="number" max="100" min="0" class="productCnt" name="o_cnt">
@@ -82,7 +82,6 @@
                 </div>
             </form>
         </div>
-        <div>{{mapAPI}}</div>
         <div id="map" style="width: 80%; height: 400px"></div>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{mapAPI}}&libraries=services"></script>
