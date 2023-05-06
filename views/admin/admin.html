@@ -1,8 +1,17 @@
-
-
-{% extends 'layout.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <!-- css 연결 -->
+  <link rel="stylesheet" href="/stylesheets/admin.css"/>
+</head>
 {% block style %}
-
+{% endblock %} 
 <style>
   * {
     list-style: none;
@@ -21,7 +30,7 @@
   }
 
   #admin-container .admin-title{
-    margin-top: 30px;
+    margin-top: 50px;
     margin-bottom: 50px;
   }
 
@@ -31,6 +40,11 @@
     margin-top: 40px;
   }
 
+  .home{
+    position: absolute;
+    top: 20px;
+    right: 30%
+  }
   #admin-container .admin-category {
     display: flex;
     width: 70%;
@@ -64,20 +78,7 @@
     font-size: 20px;
     display: block;
   }
-  
-  #header{
-    width:70%;
-  }
 
-  #header .header-profile{
-    padding-right: 0;
-    margin-right: -30%;
-  }
-
-  #header .logout-category{
-    margin-right: -50%;
-    padding: 20px 0;
-  }
 
   .search{
       display: none;
@@ -87,13 +88,11 @@
       margin-top: -20px;
   }
 
-
   #nav{display: none;}
 </style>
-{% endblock %} 
 <body>
-  {% block body %}
   <div id="admin-container">
+    <div class="home"><a href="/">홈페이지가기</a></div>
     <h2 class="admin-title">admin</h2>
     <ul class="admin-category">
       <li class="category category1" data-tab="tab-1"><a href="/admin/product">상품등록</a></li>
@@ -102,16 +101,12 @@
       <li class="category category4" data-tab="tab-4"><a href="/admin/board">게시판관리</a></li>
       <li class="category category5" data-tab="tab-5"><a href="/admin/store">store관리</a></li>
     </ul>
-
+    {% block body %}
     {% endblock %}
 
     {% block script %}
 
-    <script>
-      const mypage = document.querySelector('.mypage');
-      
-      mypage.innerHTML = `<div class="home"><a href="/">홈페이지가기</a></div>`
-    </script>
+
     {% endblock %}
   </div>
 </body>
