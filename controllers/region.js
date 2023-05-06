@@ -13,7 +13,7 @@ exports.selectListRegions = async (req, res) => {
         const mapAPI = process.env.KAKAO_MAP;
         // res.json(store);
         // res.render('store/list', {stores: store, mapAPI});
-        res.render('store/list', {regions:regionList});
+        res.render('store/selectListStore', {regions:regionList});
     }catch (e) {
         console.error(e);
     }

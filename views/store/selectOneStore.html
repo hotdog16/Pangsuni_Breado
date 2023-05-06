@@ -42,7 +42,7 @@
     </div>
     <div>
         <div class="store-name">{{stores.s_name}}</div>
-        <div class="store-pic"><img src="../../images/{{stores.s_img}}" alt="가게 이미지"></div>
+        <div class="store-pic"></div>
         <div class="s_addr"><i class="fa fa-map-marker" aria-hidden="true"></i> {{stores.s_addr}}</div>
         <div>
             <form method="post" action="/order/add">
@@ -105,6 +105,8 @@
     })
 </script>
 <script>
+    const store_pic = document.querySelector('.store-pic');
+    store_pic.style.backgroundImage = "url('../../images/{{stores.s_img}}')";
     const mapContainer = document.getElementById('map'); // 지도를 표시할 div
     const mapOption = {
         center: new kakao.maps.LatLng(35.861292438004945, 128.5562526030231), // 지도의 중심좌표
