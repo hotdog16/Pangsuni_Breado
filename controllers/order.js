@@ -41,5 +41,5 @@ exports.userOrderList = async (req, res) => {
             }
         }
     })
-    res.render('order/myPage', {user: req.user, order});
+    res.render('order/selectOneOrder', {user: req.user, order});
 }
