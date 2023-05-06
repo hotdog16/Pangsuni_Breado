@@ -32,7 +32,7 @@ exports.detailStore = async (req, res) => {
             s_no
         }
     });
-    res.render('store/detail', {stores: store, products: product, mapAPI:mapAPI});
+    res.render('store/selectOneStore', {stores: store, products: product, mapAPI:mapAPI});
 };
 
 exports.createStore = async (req, res) => {

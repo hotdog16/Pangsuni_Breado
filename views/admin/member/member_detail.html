@@ -45,6 +45,7 @@
           const userOne = axios.get("/admin/member/detail"+e.target.dataset.id)
           .then((res)=>{
             if(res.status === 200){
+              console.log('popup!! : ',res.data.user);
               console.log("userone---->", res.data.userdetailorder);
               $('.user-name').html(res.data.userdetail.u_name)
               $('.user-id').html(res.data.userdetail.u_id)

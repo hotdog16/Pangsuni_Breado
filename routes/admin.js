@@ -15,7 +15,7 @@ router.get("/product", selectOneProduct);
 
 router.get("/member", adminMember);
 router.get("/member/select", member);
-router.get("/member/detail/:no", DetailMember);
+router.get("/member/detail/:u_no", DetailMember);
 // router.get("/memberDetailOrder/:id", DetailOrderMember);
 router.post("/member/delete", deleteMember)
 

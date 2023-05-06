@@ -15,7 +15,7 @@
     {% for c in commentList %}
     <div class="qna-comment-list">
         <p>{{c.c_content}}</p>
-        {% if c.u_no === user.u_no %}
+        {% if (c.u_no === user.u_no) or (user.u_grade === '관리자') %}
         <button>삭제</button>
         <button>수정</button>
         {% endif %}
@@ -58,4 +58,39 @@
 <p>{{user.u_no}}</p>
 <p>{{user.u_id}}</p>
 <p>{{user.u_grade}}</p>
+{% endblock %}
+{% block script %}
+<script>
+    const commentList = document.querySelector('.qna-comment-list');
+    function listRender(page, keyword, type) { // 게시물 리스트를 출력하는 function
+        list.innerHTML = '';
+        // const bt_no = document.querySelector('.bt_no').value;
+        const currentPage = (page ? page : 1);
+        const searchKeyword = (keyword ? keyword : '');
+        const searchType = (type ? type : '');
+        return axios
+            .get(`/board/test2/${bt_no}?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`)
+            .then((response) => {
+                console.log('result : ', response.data);
+                pageContent.innerHTML='';
+                for (let store of response.data.board.rows) {
+                    console.log('게시글 번호 : ', store.b_no);
+                    const regDate = new Date(store.b_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
+                    const qna_con = document.createElement('tr');
+                    qna_con.className = 'qna-con';
+                    qna_con.innerHTML = `<td>${store.b_no}</td>
+                                         <td>${store.u_no_user.u_id}</td>
+                                         <td><a href="/board/view/${store.b_no}">${store.b_title}</a></td>
+                                         <td>${regDate}</td>
+                                         <td>${store.b_cnt}</td>`;
+                    list.append(qna_con);
+                }
+                pageNavigation(response.data);
+            })
+            .catch((err) => {
+                pageContent.innerHTML='검색결과가 없어요';
+                console.error(err);
+            })
+    }
+</script>
 {% endblock %}
