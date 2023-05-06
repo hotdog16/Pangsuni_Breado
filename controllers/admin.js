@@ -124,11 +124,16 @@ exports.member = async (req,res) =>{
 
 exports.DetailMember = async(req,res) =>{
   try{
-  const {u_no} = req.params.no;
+  const u_no = Number(req.params.u_no);
+    console.log('유저번호 : ', req.params);
+    console.log('유저번호 : ', req.params.u_no);
+    console.log('유저번호 : ', u_no);
     const memberdetail = await users.findOne({
-      raw:true,
-      u_no
-    })
+      // raw:true,
+      where:{
+        u_no
+      }
+    });
 
     const userdetailorder = await orders.findAll({
       raw: true,
