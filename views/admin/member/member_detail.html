@@ -41,8 +41,14 @@
   <button class="pclose-btn">닫기</button>
 
     </div>
+
+
+{% block script %}
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
-          const userOne = axios.get("/admin/member/detail"+e.target.dataset.id)
+  alert('수정중')
+          axios.post(`/admin/member/detail/${users.u_no}`)
           .then((res)=>{
             if(res.status === 200){
               console.log('popup!! : ',res.data.user);
@@ -62,5 +68,7 @@
           })
 
     </script>
+{% endblock %}
+         
 </body>
 </html>

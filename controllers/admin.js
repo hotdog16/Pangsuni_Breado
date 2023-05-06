@@ -122,44 +122,45 @@ exports.member = async (req,res) =>{
     return res.status(500).json(e);
   }}
 
-exports.DetailMember = async(req,res) =>{
-  try{
-  const u_no = Number(req.params.u_no);
-    console.log('유저번호 : ', req.params);
-    console.log('유저번호 : ', req.params.u_no);
-    console.log('유저번호 : ', u_no);
-    const memberdetail = await users.findOne({
-      // raw:true,
-      where:{
-        u_no
+  exports.DetailMember = async(req,res) =>{
+    try{
+    const u_no = Number(req.params.u_no);
+      console.log('유저번호 : ', req.params);
+      console.log('유저번호 : ', req.params.u_no);
+      console.log('유저번호 : ', u_no);
+      const memberdetail = await users.findOne({
+        // raw:true,
+        where:{
+          u_no
+        }
+      });
+  
+      const userdetailorder = await orders.findAll({
+        raw: true,
+        include : [{
+          model: products,
+          as : 'p_no_product',
+        },{
+          model:users,
+          as:'u_no_user',
+        }]
+      })
+      console.log("userdetail=======>",userdetailorder);
+      console.log('user----->',memberdetail)
+      return res.status(200).json({users:memberdetail,order:userdetailorder})
+      // if(userdetailorder){
+      //   res.status(200).json({userdetailorder});
+      // }
+    }catch (e) {
+        console.error(e);
+        return res.status(500).json({msg:'실패!'});
       }
-    });
-
-    const userdetailorder = await orders.findAll({
-      raw: true,
-      include : [{
-        model: products,
-        as : 'p_no_product',
-      },{
-        model:users,
-        as:'u_no_user',
-      }]
-    })
-    console.log("userdetail=======>",userdetailorder);
-    console.log('user----->',memberdetail)
-    return res.json({user:memberdetail,order:userdetailorder})
-
-    // if(userdetailorder){
-    //   res.status(200).json({userdetailorder});
-    // }
-  }catch (e) {
-      console.error(e);
-      return res.status(500).json({msg:'실패!'});
+  
     }
 
+    exports.detailmemberpage = async(req,res) =>{
 
-}
-
+    }
 
 exports.deleteMember = async (req, res)=>{
   try{
@@ -174,6 +175,7 @@ exports.deleteMember = async (req, res)=>{
   }
 }
 
-exports.adminStore = (req, res) => {
-  res.render("admin/store", { title: "스토어관리" });
-}
+
+exports.memberdetail = (req, res) => {
+  res.render("admin/member/member_detail", { title: "회원관리" });
+};

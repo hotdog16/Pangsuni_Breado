@@ -48,6 +48,17 @@
 
   #admin-member .btn{
     padding: 5px 10px;
+    background-color : transparent;
+    transition: .3s;
+    cursor: pointer;
+  }
+
+  #admin-member .btn:hover{
+    background-color: #333;
+  }
+
+  #admin-member .btn:hover a{
+    color: #fff;
   }
 
 
@@ -118,7 +129,7 @@
                                          <li class="px150">${users.u_id}</li>
                                          <li class="px150">${users.u_name}</li>
                                          <li class="px200">${users.u_reg_dt}</li>
-                                         <li class="px150"><button class="btn"><a href="#" onclick="window.open('/admin/member/detail/u_no','detail','width=900 height=800 resizable=no toolbars=no menubar=no')">상세보기</a></button></li>
+                                         <li class="px150"><button class="btn"><a href="#" onclick="window.open('/admin/member/detail/${users.u_no}','detail','width=900 height=800 resizable=no toolbars=no menubar=no')">상세보기</a></button></li>
                                         `;
           list.append(member_con);
         }
