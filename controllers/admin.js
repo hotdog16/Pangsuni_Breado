@@ -1,5 +1,5 @@
 const { Sequelize, Op} = require("sequelize");
-const { users,orders,products,board } = require("../models");
+const { users,orders,products,board,comments } = require("../models");
 
 exports.adminOrder = async (req, res) => {
   // let limit = 10; // sql select 쿼리문의 order by limit 부분
@@ -184,3 +184,18 @@ exports.deleteMember = async (req, res)=>{
 exports.memberdetail = (req, res) => {
   res.render("admin/member/member_detail", { title: "회원관리" });
 };
+
+exports.deleteComment = async (req, res) => {
+  try {
+    const {c_no} = req.body;
+    await comments.destroy({
+      where: {
+        c_no
+      }
+    });
+    return res.status(200).json({msg: '성공'});
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({msg: err});
+  }
+}
