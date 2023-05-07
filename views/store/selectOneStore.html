@@ -41,14 +41,19 @@
 
     .productItem{
         width: 350px;
-        display: inline-flex;
+        display: flex;
+        padding: 10px;
+        margin: 0 auto;
     }
 
     .productItem img{
         width: 250px;
         height: 250px;
-        border-radius: 125px;
+        border-radius: 50%;
+        border: 10px solid rgba(215, 220, 188, 0.6);
+        margin-right: 20px;
         display: block;
+
     }
 
     .productItem p{
@@ -72,9 +77,9 @@
         <div class="s_addr"><i class="fa fa-map-marker" aria-hidden="true"></i> {{stores.s_addr}}</div><br><br>
         <div class="productContent">
             <form method="post" action="/order/add">
-                <div>
+                <div class="productItem">
                     {% for p in products %}
-                    <div class="productItem">
+                    <div>
                         <input type="hidden" value="{{p.p_no}}" name="p_no">
                         <p>{{p.p_name}}</p>
                         <p><img src="../../images/{{p.p_img}}" alt="메뉴 이미지"></p>
