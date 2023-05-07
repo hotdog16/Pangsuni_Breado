@@ -44,22 +44,24 @@
             .then((response) => {
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
-                for (let store of response.data.board.rows) {
-                    console.log('게시글 번호 : ', store.b_no);
-                    const regDate = new Date(store.b_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
+                for (let order of response.data.orders.rows) {
+                    console.log('게시글 번호 : ', order.o_no);
+                    const regDate = new Date(order.o_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
+                    const pickupDate = new Date(order.o_pickup_dt).toLocaleDateString();
                     const qna_con = document.createElement('tr');
                     qna_con.className = 'qna-con';
-                    qna_con.innerHTML = `<td>${store.b_no}</td>
-                                         <td>${store.u_no_user.u_id}</td>
-                                         <td><a href="/board/view/${store.b_no}">${store.b_title}</a></td>
+                    qna_con.innerHTML = `<td>${order.o_no}</td>
+                                         <td>${order.u_no_user.u_id}</td>
+                                         <td>${order.p_no_product.s_no_store.s_name}</td>
+                                         <td>${order.p_no_product.p_name}</td>
                                          <td>${regDate}</td>
-                                         <td>${store.b_cnt}</td>`;
+                                         <td>${pickupDate}</td>
+                                         <td>${order.o_cnt}</td>`;
                     list.append(qna_con);
                 }
                 pageNavigation(response.data);
             })
             .catch((err) => {
-                pageContent.innerHTML='검색결과가 없어요';
                 console.error(err);
             })
     }
