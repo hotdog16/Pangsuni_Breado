@@ -58,6 +58,10 @@ exports.adminBoard2 = async (req, res) => {
       limit: 10,
       offset: offset,
       order: [['b_no', 'desc']], // 최신부터 보여주기 위해 역순으로 정렬
+      include:{
+        model:users,
+        as:'u_no_user'
+      }
     })
     let navCheck = Math.ceil(qnaList.count / 10) * 10; // 페이지 네비게이션을 체크하기 위한 변수로 초기화
     navCheck = navCheck / 10; // 초기화 후 쉽게 체크하기 위해 재할당

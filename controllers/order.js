@@ -19,7 +19,7 @@ exports.addOrder = async (req, res) => {
                 })
             }
         }
-        res.redirect('/store');
+        res.redirect('/order/myPage');
     } catch (e) {
         console.error(e);
     }
