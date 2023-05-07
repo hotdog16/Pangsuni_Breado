@@ -1,5 +1,32 @@
 {% extends 'layout.html' %}
 {% block style %}
+<style>
+    table{
+        border-collapse: collapse;
+    }
+    .list{
+        background-color: #e2c2f6;
+    }
+    .list tr{
+        width: 1000px;
+    }
+    .list td{
+        border: 2px solid white;
+        text-align: center;
+        padding: 0;
+    }
+    .list td:nth-child(3){
+        text-align: left;
+    }
+    .list button{
+        color: whitesmoke;
+        background-color: mediumpurple;
+        border: none;
+        outline: none;
+        width: 100%;
+        height: 100%;
+    }
+</style>
 {% endblock %}
 {% block body %}
 <h3>QnA 질문 제목</h3>
@@ -12,7 +39,18 @@
 </div>
 <div>
     <h1>댓글 list</h1>
-    <div class="qna-comment-list"></div>
+    <table>
+        <thead>
+        <tr>
+            <td>번호</td>
+            <td>작성자</td>
+            <td>내용</td>
+            <td>수정</td>
+            <td>삭제</td>
+        </tr>
+        </thead>
+        <tbody class="list"></tbody>
+    </table>
     <ul class="pageContent"></ul>
 </div><br>
 {% if (boards.u_no === user.u_no) or (user.u_grade === '관리자') %}
@@ -26,22 +64,24 @@
     {% if user %}
     <form id="board_form" action="/board/commentsview/{{boards.b_no}}" method="post"><br><br>
         <!--    <p>{{bNo}} 게시판 번호</p>-->
-        게시판번호<input name="b_no" value="{{boards.b_no}}" readonly size="3">
+        <input name="b_no" value="{{boards.b_no}}" readonly size="3" type="hidden">
         <div class="input-group">
             <!--        로그인 구현 후 u_id value에 {{user.u_id}}}-->
-            <label>게시판타입 </label>
-            <input name="bt_no" value="2" size="3"><br>
-            <h1>댓글(comments)전송하기</h1><br><br><br>
+            <label></label>
+            <input name="bt_no" value="2" size="3" type="hidden"><br>
+            <h1>댓글쓰기</h1><br>
             <label>작성자 </label><span>{{user.u_id}}</span>
             <input type="hidden" name="u_no" value="{{user.u_no}}"><br><br>
         </div>
         <div class="input-group">
             <label>내용</label><br>
             <textarea cols="50" rows="5" name="c_content" class="b_content"></textarea>
-        </div><br>
+        </div>
+        <br>
         <p>
-            <button type="submit" class="comments-btn">댓글(comments)전송하기</button>
-        </p><br><br><br>
+            <button type="submit" class="comments-btn">댓글저장</button>
+        </p>
+        <br><br><br>
     </form>
     {% endif %}
 </div>
@@ -54,7 +94,7 @@
 {% endblock %}
 {% block script %}
 <script>
-    const list = document.querySelector('.qna-comment-list');
+    const list = document.querySelector('.list');
     const pageContent = document.querySelector('.pageContent');
     function listRender(page, keyword, type) { // 게시물 리스트를 출력하는 function
         list.innerHTML = '';
@@ -67,19 +107,36 @@
                 for (let comment of response.data.comments.rows) {
                     console.log('게시글 번호 : ', comment.c_no);
                     // const regDate = new Date(store.b_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
-                    const qna_con = document.createElement('div');
+                    const qna_con = document.createElement('tr');
                     qna_con.className = 'qna-con';
+                    // qna_con.style.display = 'block';
+                    // if(comment.u_no_user.u_id === ('{{user.u_id}}')){
+                    //     qna_con.innerHTML = `<p><span>댓글번호 : ${comment.c_no}</span>
+                    //                      <span>댓글글쓴이 : ${comment.u_no_user.u_id}</span>
+                    //                      <span>댓글내용 : ${comment.c_content}</span>
+                    //                      <button>수정</button><button>삭제</button></p>`;
+                    // }else{
+                    //
+                    //     qna_con.innerHTML = `<p><span>댓글번호 : ${comment.c_no}</span>
+                    //                      <span>댓글글쓴이 : ${comment.u_no_user.u_id}</span>
+                    //                     <span>댓글내용 : ${comment.c_content}</span></p>`;
+                    // }
+                    // ---------------------------------------------
                     if(comment.u_no_user.u_id === ('{{user.u_id}}')){
-                        qna_con.innerHTML = `<p><span>댓글번호 : ${comment.c_no}</span>
-                                         <span>댓글글쓴이 : ${comment.u_no_user.u_id}</span>
-                                         <span>댓글내용 : ${comment.c_content}</span>
-                                         <button>수정</button><button>삭제</button></p>`;
+                        qna_con.innerHTML = `<td>${comment.c_no}</td>
+                                         <td>${comment.u_no_user.u_id}</td>
+                                         <td class="commentContent">${comment.c_content}</td>
+                                         <td><button onclick="updateComment(${comment.c_no})">수정</button></td>
+                                         <td><button onclick="deleteComment(${comment.c_no})">삭제</button></td>`;
                     }else{
 
-                        qna_con.innerHTML = `<p><span>댓글번호 : ${comment.c_no}</span>
-                                         <span>댓글글쓴이 : ${comment.u_no_user.u_id}</span>
-                                         <span>댓글내용 : ${comment.c_content}</span></p>`;
+                        qna_con.innerHTML = `<td>${comment.c_no}</td>
+                                         <td>${comment.u_no_user.u_id}</td>
+                                         <td>${comment.c_content}</td>`;
                     }
+                    // ---------------------------------------------
+
+
                     // qna_con.innerHTML = `<p><span>댓글번호 : ${comment.c_no}</span>
                     //                      <span>댓글글쓴이 : ${comment.u_no_user.u_id}</span>
                     //                      <span>댓글내용 : ${comment.c_content}</span></p>`;
@@ -118,6 +175,27 @@
             next.innerHTML = 'prev';
             pageContent.append(next);
         }
+    }
+    function addComment(b_no, u_no, c_content) {
+        //router
+    }
+    function updateComment(no) {
+        console.log(no);
+        // this.innerHTML = '적용';
+        console.log(this);
+    }
+    function  deleteComment(no) {
+        console.log(no);
+        axios.post(`/admin/comment/delete`,{c_no:no})
+            .then((response)=>{
+                console.log('성공');
+                console.log(response.data);
+            })
+            .catch((err)=>{
+                console.log('실패');
+                console.log(err);
+            })
+        listRender();
     }
     listRender();
 </script>

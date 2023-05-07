@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { memberdetail,detailmemberpage,deleteMember, DetailMember,adminOrder, adminProduct, adminMember, adminBoard,adminBoard2,deleteBoard, member,selectListStore} = require("../controllers/admin");
+const { memberdetail,deleteMember, DetailMember, adminMember, adminBoard,adminBoard2,deleteBoard, member, deleteComment} = require("../controllers/admin");
 const {selectOneProduct} = require("../controllers/product");
 
 
@@ -23,6 +23,7 @@ router.post("/member/delete", deleteMember)
 router.get("/board", adminBoard); // 화면이동
 router.get("/board2", adminBoard2); // axios를 이용한 비동기 (이름 바꿔야함)
 router.post("/board/delete", deleteBoard);
+router.post('/comment/delete', deleteComment);
 
 
 
