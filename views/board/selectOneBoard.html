@@ -45,6 +45,8 @@
             <td>번호</td>
             <td>작성자</td>
             <td>내용</td>
+            <td>작성시간</td>
+            <td>수정시간</td>
             <td>수정</td>
             <td>삭제</td>
         </tr>
@@ -62,7 +64,7 @@
 <!--댓글달기 폼 시작 : 테스트 -->
 <div id="qna-comments-bg">
     {% if user %}
-    <form id="board_form" action="/board/commentsview/{{boards.b_no}}" method="post"><br><br>
+<!--    <form id="board_form" action="/board/commentsview/{{boards.b_no}}" method="post"><br><br>-->
         <!--    <p>{{bNo}} 게시판 번호</p>-->
         <input name="b_no" value="{{boards.b_no}}" readonly size="3" type="hidden">
         <div class="input-group">
@@ -79,10 +81,11 @@
         </div>
         <br>
         <p>
-            <button type="submit" class="comments-btn">댓글저장</button>
+<!--            <button type="submit" class="comments-btn" id="commentBtn">댓글저장</button>-->
+            <button class="comments-btn" id="commentBtn">댓글저장</button>
         </p>
         <br><br><br>
-    </form>
+<!--    </form>-->
     {% endif %}
 </div>
 <button class="qna-home-btn">
@@ -96,6 +99,17 @@
 <script>
     const list = document.querySelector('.list');
     const pageContent = document.querySelector('.pageContent');
+    const commentBtn = document.querySelector('#commentBtn');
+    if(commentBtn){
+        commentBtn.addEventListener('click', function () {
+            // console.log(this);
+            if (this.textContent === '댓글저장') {
+                addComment();
+            } else {
+
+            }
+        });
+    }
     function listRender(page, keyword, type) { // 게시물 리스트를 출력하는 function
         list.innerHTML = '';
         const currentPage = (page ? page : 1);
@@ -106,46 +120,35 @@
                 pageContent.innerHTML='';
                 for (let comment of response.data.comments.rows) {
                     console.log('게시글 번호 : ', comment.c_no);
-                    // const regDate = new Date(store.b_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
+                    const regDate = new Date(comment.c_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
+                    let modDate = null;
+                    if(comment.c_mod_dt){
+                        modDate = new Date(comment.c_mod_dt).toLocaleDateString();
+                    }
                     const qna_con = document.createElement('tr');
                     qna_con.className = 'qna-con';
-                    // qna_con.style.display = 'block';
-                    // if(comment.u_no_user.u_id === ('{{user.u_id}}')){
-                    //     qna_con.innerHTML = `<p><span>댓글번호 : ${comment.c_no}</span>
-                    //                      <span>댓글글쓴이 : ${comment.u_no_user.u_id}</span>
-                    //                      <span>댓글내용 : ${comment.c_content}</span>
-                    //                      <button>수정</button><button>삭제</button></p>`;
-                    // }else{
-                    //
-                    //     qna_con.innerHTML = `<p><span>댓글번호 : ${comment.c_no}</span>
-                    //                      <span>댓글글쓴이 : ${comment.u_no_user.u_id}</span>
-                    //                     <span>댓글내용 : ${comment.c_content}</span></p>`;
-                    // }
-                    // ---------------------------------------------
                     if(comment.u_no_user.u_id === ('{{user.u_id}}')){
                         qna_con.innerHTML = `<td>${comment.c_no}</td>
                                          <td>${comment.u_no_user.u_id}</td>
                                          <td class="commentContent">${comment.c_content}</td>
-                                         <td><button onclick="updateComment(${comment.c_no})">수정</button></td>
+                                         <td>${regDate}</td>
+                                         <td>${modDate}</td>
+                                         <td><button onclick="modifyCommentForm(${comment.c_no})">수정</button></td>
                                          <td><button onclick="deleteComment(${comment.c_no})">삭제</button></td>`;
                     }else{
-
                         qna_con.innerHTML = `<td>${comment.c_no}</td>
                                          <td>${comment.u_no_user.u_id}</td>
-                                         <td>${comment.c_content}</td>`;
+                                         <td>${comment.c_content}</td>
+                                         <td>${regDate}</td>
+                                         <td>${modDate}</td>
+                                         <td>null</td>
+                                         <td>null</td>`;
                     }
-                    // ---------------------------------------------
-
-
-                    // qna_con.innerHTML = `<p><span>댓글번호 : ${comment.c_no}</span>
-                    //                      <span>댓글글쓴이 : ${comment.u_no_user.u_id}</span>
-                    //                      <span>댓글내용 : ${comment.c_content}</span></p>`;
                     list.append(qna_con);
                 }
                 pageNavigation(response.data);
             })
             .catch((err) => {
-                // pageContent.innerHTML='검색결과가 없어요';
                 console.error(err);
             })
     }
@@ -176,10 +179,22 @@
             pageContent.append(next);
         }
     }
-    function addComment(b_no, u_no, c_content) {
-        //router
+    function addComment() {
+        const b_no = document.querySelector('input[name="b_no"]').value;
+        const u_no = document.querySelector('input[name="u_no"]').value;
+        const c_content = document.querySelector('textarea[name="c_content"]').value;
+        console.log(`b_no : ${b_no} / u_no: ${u_no} / c_content : ${c_content}`);
+        axios.post('/comment/add2',{b_no, u_no, c_content})
+            .then((response)=>{
+                console.log('성공');
+                listRender();
+            })
+            .catch((err)=>{
+                console.log('실패');
+                console.error(err);
+            })
     }
-    function updateComment(no) {
+    function modifyCommentForm(no) {
         console.log(no);
         // this.innerHTML = '적용';
         console.log(this);
@@ -197,6 +212,7 @@
             })
         listRender();
     }
+
     listRender();
 </script>
 {% endblock %}

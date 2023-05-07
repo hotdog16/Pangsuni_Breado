@@ -54,7 +54,10 @@
     .productItem p{
         display: inline-block;
     }
-
+    .storeDesc{
+        width: 80%;
+        margin: 0 auto;
+    }
 </style>
 {% endblock %}
 {% block body %}
@@ -65,6 +68,7 @@
     <div>
         <div class="store-name">{{stores.s_name}}</div>
         <div class="store-pic"></div>
+        <div class="storeDesc">{{stores.s_desc}}</div>
         <div class="s_addr"><i class="fa fa-map-marker" aria-hidden="true"></i> {{stores.s_addr}}</div><br><br>
         <div class="productContent">
             <form method="post" action="/order/add">

@@ -1,4 +1,6 @@
 {% extends 'layout.html' %}
+{% block style %}
+{% endblock %}
 {% block body %}
 <div id="store">
     <h4>지역선택</h4>
@@ -31,7 +33,6 @@
                             store.innerHTML = `<a href="/store/detail/${item.s_no}">
                                                 <p class = "store-name">${item.s_name}</p>
                                                 <img class="store-img" src="images/${item.s_img}" alt="${item.s_name}의 이미지">
-                                                <p >${item.s_desc}</p>
                                                 <p>${item.s_addr}</p><p>${item.s_tel}</p>
                                                </a>`;
                             regionStore.append(store);

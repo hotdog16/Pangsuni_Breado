@@ -1,4 +1,5 @@
-const {comments,board,users} = require("../models");
+const {comments, board, users} = require("../models");
+const {Sequelize} = require("sequelize");
 
 exports.selectListComment = async (req, res) => {
     console.log('selectListComment!!!!!!!!!!!!!!!!!1');
@@ -12,7 +13,7 @@ exports.selectListComment = async (req, res) => {
             limit: 10,
             offset: offset,
             order: [['c_no', 'desc']], // 최신부터 보여주기 위해 역순으로 정렬
-            where:{
+            where: {
                 b_no
             },
             include: [{
@@ -23,7 +24,6 @@ exports.selectListComment = async (req, res) => {
                 as: 'u_no_user'
             }]
         });
-        console.log('comment를 생성!!!!');
         let navCheck = Math.ceil(commentList.count / 10) * 10; // 페이지 네비게이션을 체크하기 위한 변수로 초기화
         navCheck = navCheck / 10; // 초기화 후 쉽게 체크하기 위해 재할당
         const num = []; // 페이지 네비게이션에 나올 숫자들을 담을 배열을 선언
@@ -32,9 +32,6 @@ exports.selectListComment = async (req, res) => {
                 num.push(i + 1);
             }
         }
-        console.log('return 전이다!!!!!!!!!!!!!!!!!!!!!!!!!11');
-        console.log('page : ', req.query.page);
-        console.log('navCheck : ', navCheck);
         if (Number.isNaN(req.query.page) || req.query.page > navCheck) {
             return res.status(400).json('숫자만 눌러주세요! 현재 페이지는 없습니다!');
         }
@@ -44,3 +41,27 @@ exports.selectListComment = async (req, res) => {
         return res.status(500).json(e);
     }
 };
+
+exports.addComment = async (req, res) => {
+    console.log('req.body : ', req.body);
+    const {b_no, u_no, c_content} = req.body;
+    try{
+        const comment = await comments.create({
+            c_no:null,
+            b_no,
+            u_no,
+            c_content,
+            c_reg_dt: Sequelize.Sequelize.literal('now()'),
+            c_mod_dt: null
+        });
+        if(comment === null){
+            return res.status(400).json({msg: 'fail'});
+        }else{
+            return res.status(200).json({msg: 'success'});
+        }
+    }catch (err) {
+        console.error(err);
+        return res.status(500).json({msg: err});
+    }
+    return res.json({dd:'ddddd'});
+}
