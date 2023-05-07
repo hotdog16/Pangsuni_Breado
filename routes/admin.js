@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { memberdetail,detailmemberpage,deleteMember, DetailMember,adminOrder, adminProduct, adminMember, adminBoard, adminStore,adminBoard2,deleteBoard, member,selectListStore} = require("../controllers/admin");
+const { memberdetail,detailmemberpage,deleteMember, DetailMember,adminOrder, adminProduct, adminMember, adminBoard,adminBoard2,deleteBoard, member,selectListStore} = require("../controllers/admin");
 const {selectOneProduct} = require("../controllers/product");
 
 
@@ -9,8 +9,8 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get("/order", adminOrder);
-
+// router.get("/order", adminOrder);
+// router.get("/order/selectList", selectListOrder);
 router.get("/product", selectOneProduct);
 
 router.get("/member", adminMember);

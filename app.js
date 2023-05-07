@@ -23,6 +23,7 @@ const boardRouter = require("./routes/board");
 const storeRouter = require("./routes/store");
 const adminRouter = require("./routes/admin");
 const adminStoreRouter = require("./routes/admin/adminStore");
+const adminOrderRouter = require("./routes/admin/adminOrder");
 const { sequelize } = require("./models");
 const passportConfig = require("./passport");
 passportConfig(); // 패스포트 설정
@@ -83,6 +84,7 @@ app.use("/board", boardRouter);
 app.use("/store", storeRouter);
 app.use("/admin", adminRouter);
 app.use("/admin/store", adminStoreRouter);
+app.use("/admin/order", adminOrderRouter);
 
 
 app.use((req, res, next) => {

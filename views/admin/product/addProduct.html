@@ -5,12 +5,15 @@
         width: 300px;
         height: 300px;
     }
+    input[type="number"]::-webkit-inner-spin-button{
+        -webkit-appearance: none;
+    }
 </style>
 {% endblock %}
 {% block body %}
 <form method="post" enctype="multipart/form-data">
     <p><label>이름 : </label><input name="p_name" placeholder="이름을 꼭 입력해주세요!" class="p_name"></p>
-    <p><label>가격 : </label><input name="p_price" placeholder="가격을 꼭 입력해주세요!" class="p_price"></p>
+    <p><label>가격 : </label><input type="number" name="p_price" placeholder="가격을 꼭 입력해주세요!" class="p_price" maxlength="4"></p>
     <p><label>설명 : </label><textarea cols="100" rows="20" name="p_desc" class="p_desc"></textarea></p>
     <p><label>가게 : </label><select name="s_no" class="s_no">
         {% for s in store %}
