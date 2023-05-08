@@ -1,3 +1,4 @@
+const {next} = require("lodash/seq");
 exports.isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
@@ -15,3 +16,11 @@ exports.isNotLoggedIn = (req, res, next) => {
     res.redirect(`/`);
   }
 };
+
+exports.whoisAdmin = (req, res, next)=>{
+  if(req.user.u_grade === '관리자'){
+    next();
+  }else{
+    res.redirect(`/`);
+  }
+}
