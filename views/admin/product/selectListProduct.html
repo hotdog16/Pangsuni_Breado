@@ -1,13 +1,22 @@
 {% extends 'admin/admin.html' %}
 {% block style %}
 <style>
-    .category4 {background-color: #222;}
-    .category4 a {color: #fff;}
-    #admin-board .board-title{
+    .category1 {background-color: #222;}
+    .category1 a {color: #fff;}
+    #admin-board .product-title{
         display: flex;
         border-bottom: 2px solid #333;
         margin-top: 30px;
+        padding: 10px 0;
     }
+    .qna-con{
+        display: flex;
+    }
+
+    .qna-con li{
+        padding: 10px 0;
+    }
+
     #admin-board .board-title li{
         text-align: center;
         padding: 15px 0;
@@ -31,10 +40,11 @@
 </style>
 {% endblock %}
 {% block body %}
+<div id="admin-board">
  <h2>상품 관리</h2>
 
 
-<ul>
+<ul class="product-title">
     <li class=".px150"><button>빵번호</button></li>
     <li class=".px150"><button>지역</button></li>
     <li class=".px150"><button>가게이름</button></li>
@@ -53,6 +63,7 @@
     </select>
     <input placeholder="검색">
     <button>검색</button>
+</div>
 </div>
 {% endblock %}
 {% block script %}
