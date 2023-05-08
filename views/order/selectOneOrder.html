@@ -1,9 +1,18 @@
 {% extends 'layout.html' %}
 {% block style %}
+<style>
+    table{
+        border-collapse: collapse;
+    }
+    table td{
+        border: 2px solid #FF6D28;
+    }
+</style>
 {% endblock %}
 {% block body %}
 <h1>{{user.u_id}}님 예약조회</h1>
 <table>
+    <thead>
     <tr>
         <th>주문번호</th>
         <th>가게이름</th>
@@ -12,16 +21,81 @@
         <th>픽업날짜</th>
         <th>갯수</th>
     </tr>
-    {% for o in order %}
-    {% set p = o.p_no_product %}
-    <tr>
-    <td>{{o.o_no}}</td>
-    <td>{{p.s_no_store.s_name}}</td>
-    <td>{{p.p_name}}</td>
-    <td>{{ o.o_reg_dt | date('YYYY-MM-DD') }}</td>
-    <td>{{ o.o_pickup_dt | date('YYYY-MM-DD' )}}</td>
-    <td>{{o.o_cnt}}</td>
-    </tr>
-    {% endfor %}
+    </thead>
+    <tbody class="orderList">
+    </tbody>
 </table>
+<ul class="pageContent"></ul>
+{% endblock %}
+{% block script %}
+<script>
+    const list = document.querySelector('.orderList');
+    const pageContent = document.querySelector('.pageContent');
+    function listRender(page, keyword, type) { // 게시물 리스트를 출력하는 function
+        list.innerHTML = '';
+        const currentPage = (page ? page : 1);
+        return axios
+            .get(`/order/selectList/{{user.u_no}}?page=${currentPage}`)
+            .then((response) => {
+                console.log('result : ', response.data);
+                pageContent.innerHTML='';
+                for (let order of response.data.orders.rows) {
+                    console.log('게시글 번호 : ', order.o_no);
+                    const today = new Date().toLocaleDateString();
+                    console.log('오늘 : ', today);
+                    const regDate = new Date(order.o_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
+                    const pickupDate = new Date(order.o_pickup_dt).toLocaleDateString();
+                    console.log((today < pickupDate? '맞아':'아니야'));
+                    const qna_con = document.createElement('tr');
+                    qna_con.className = 'qna-con';
+                    qna_con.innerHTML = `<td>${order.o_no}</td>
+                                         <td>${order.p_no_product.s_no_store.s_name}</td>
+                                         <td>${order.p_no_product.p_name}</td>
+                                         <td>${regDate}</td>
+                                         <td class="pickupDate">${pickupDate}</td>
+                                         <td>${order.o_cnt}</td>`;
+                    if(today === pickupDate){
+                        qna_con.firstChild.style.backgroundColor = '#EA047E';
+                    }else{
+                        qna_con.firstChild.style.backgroundColor = '#FCE700';
+                    }
+                    qna_con.firstChild.style.textAlign = 'center';
+                    qna_con.lastChild.style.textAlign = 'center';
+                    list.append(qna_con);
+                }
+                pageNavigation(response.data);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+    }
+    function pageNavigation(response){
+        const currentPage = Number(response.currentPage);
+        const num = response.num;
+        console.log('페이지네이션 확인 :', num);
+        if(response.num[0]> 10){
+            const prev = document.createElement('li');
+            prev.setAttribute('data-page',`${(response.checkNum-9)}`);
+            prev.className = 'page';
+            prev.innerHTML = 'prev';
+            pageContent.append(prev);
+        }
+        for(let no of num){
+            const pageNav = document.createElement('li');
+            pageNav.setAttribute('data-page', `${no}`);
+            pageNav.setAttribute('onclick', `listRender(${no})`);
+            pageNav.className = 'page';
+            pageNav.innerHTML=`${Number(no)}`;
+            pageContent.append(pageNav);
+        }
+        if((currentPage+10 < response.orders.count)&& (num.length == 10)){
+            const next =document.createElement('li');
+            next.setAttribute('data-page',`${(response.checkNum+11)}`);
+            next.className = 'page';
+            next.innerHTML = 'next';
+            pageContent.append(next);
+        }
+    }
+    listRender();
+</script>
 {% endblock %}

@@ -63,5 +63,38 @@ exports.addComment = async (req, res) => {
         console.error(err);
         return res.status(500).json({msg: err});
     }
-    return res.json({dd:'ddddd'});
+}
+
+exports.selectOneComment = async (req,res)=>{
+    try{
+        const c_no = req.params.c_no;
+        const comment = await comments.findOne({
+            where:{
+                c_no
+            }
+        });
+        res.json({comment:comment});
+    }catch (err) {
+        console.error(err);
+        res.status(500).json({msg: err})
+    }
+}
+
+exports.modifyComment = async (req, res)=>{
+    try{
+        console.log('controller c_no : ',req.body.c_no);
+        const {c_no,c_content} = req.body;
+        await comments.update({
+            c_content,
+            c_mod_dt:Sequelize.Sequelize.literal('now()')
+        },{
+            where:{
+                c_no
+            }
+        })
+        res.json({msg: 'success'});
+    }catch (err) {
+        console.error(err);
+        res.status(500).json({msg: err});
+    }
 }
