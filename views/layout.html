@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="/stylesheets/store.css"/>
 
     <!-- admin css 연결 -->
-     <link rel="stylesheet" href="/stylesheets/admin.css"/>
+    <link rel="stylesheet" href="/stylesheets/admin.css"/>
 
     {% block style %}{% endblock %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -53,22 +53,22 @@
         <div class="top_container">
             <!-- <p>user => {{user.u_id}}</p> -->
             {% if user and user.u_id %}
-        <div class="logout">
-            <div class="header-profile">환영합니다!<br><span>{{ user.u_name +  '님'}}</span></div>
-            <ul class="logout-category">
-                <li><a href="/logout">로그아웃</a></li>
-                <li class="mypage"><a href="/users/mypage">마이페이지</a></li>
-            </ul>
-        </div>
-        {% else %}
+            <div class="logout">
+                <div class="header-profile">환영합니다!<br><span>{{ user.u_name +  '님'}}</span></div>
+                <ul class="logout-category">
+                    <li><a href="/logout">로그아웃</a></li>
+                    <li class="mypage"><a href="/users/mypage">마이페이지</a></li>
+                </ul>
+            </div>
+            {% else %}
 
-        <div class="top-category">
-            <ul>
-                <li><a href="/login">로그인</a></li>
-                <li><a href="/join">회원가입</a></li>
-                <!-- <li><a href="#">관리자로그인</a></li> -->
-            </ul>
-        </div>
+            <div class="top-category">
+                <ul>
+                    <li><a href="/login">로그인</a></li>
+                    <li><a href="/join">회원가입</a></li>
+                    <!-- <li><a href="#">관리자로그인</a></li> -->
+                </ul>
+            </div>
             {% endif %}
         </div>
 

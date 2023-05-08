@@ -2,41 +2,41 @@
 {% block body %}
 
 
-  <!-- <h1>{{title}}</h1> -->
+<!-- <h1>{{title}}</h1> -->
 
 
 
 
-   <!-- slide -->
-   <div class="swiper">
-   <!-- Additional required wrapper -->
-   <div class="swiper-wrapper">
-     <!-- Slides -->
-     <div class="swiper-slide"><img src="/images/brado-mainslide.png" alt=""></div>
-     <div class="swiper-slide"><img src="/images/brado-mainslide2.png" alt=""></div>
-     <div class="swiper-slide"><img src="/images/brado-mainslide3.png" alt=""></div>
-     ...
-   </div>
-   <!-- If we need pagination -->
-   <div class="swiper-pagination"></div>
- 
-   <!-- If we need navigation buttons -->
-   <div class="swiper-button-prev"></div>
-   <div class="swiper-button-next"></div>
- 
-   <!-- If we need scrollbar -->
-   <div class="swiper-scrollbar"></div>
- </div>
+<!-- slide -->
+<div class="swiper">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+        <!-- Slides -->
+        <div class="swiper-slide"><img src="/images/brado-mainslide.png" alt=""></div>
+        <div class="swiper-slide"><img src="/images/brado-mainslide2.png" alt=""></div>
+        <div class="swiper-slide"><img src="/images/brado-mainslide3.png" alt=""></div>
+        ...
+    </div>
+    <!-- If we need pagination -->
+    <div class="swiper-pagination"></div>
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+    <!-- If we need scrollbar -->
+    <div class="swiper-scrollbar"></div>
+</div>
 <!-- //slide -->
 
 <!-- content -->
 <div id="content">
-        <h3 class="best-title">오늘의 BEST 빵집!</h3>
+    <h3 class="best-title">오늘의 BEST 빵집!</h3>
     <!--best-->
     <div class="best">
         <div class="best-bread"><a href=""></a></div>
         <div class="best-bread"><a href=""></a></div>
-       <div class="best-bread"><a href=""></a></div>
+        <div class="best-bread"><a href=""></a></div>
         <div class="best-bread"><a href=""></a></div>
         <div class="best-bread"><a href=""></a></div>
         <div class="best-bread"><a href=""></a></div>
@@ -61,22 +61,22 @@
 </div>
 
 <script>
- var swiper = new Swiper(".swiper", {
-    loop:true,
-    spaceBetween: 30,
-      centeredSlides: true,
-      autoplay: {
-        delay: 2500,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
+    var swiper = new Swiper(".swiper", {
+        loop:true,
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
     });
 </script>
 
