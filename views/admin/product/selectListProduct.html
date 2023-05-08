@@ -63,7 +63,7 @@
         list.innerHTML = '';
         const currentPage = (page ? page : 1);
         return axios
-            .get(`/admin/selectListProduct/?page=${currentPage}`) // 실행부분
+            .get(`/admin/product/selectList/?page=${currentPage}`) // 실행부분
             .then((response) => { // 성공했을시 수행됨
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
@@ -72,8 +72,8 @@
                     const qna_con = document.createElement('ul');
                     qna_con.className = 'qna-con';
                     qna_con.innerHTML = `<li class="px150">${product.p_no}</li>
-                                         <li class="px150">${product.s_no_stores.r_no_regions.r_name}</li>
-                                         <li class="px150">${product.s_no_stores.s_name}</li>
+                                         <li class="px150">${product.s_no_store.r_no_region.r_name}</li>
+                                         <li class="px150">${product.s_no_store.s_name}</li>
                                          <li class="px150">${product.p_name}</li>
                                          <li class="px150"><button class="btn" onclick="deleteBoard(${product.p_no})">삭제</button></li>`;
                     list.append(qna_con);
