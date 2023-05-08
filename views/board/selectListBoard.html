@@ -56,7 +56,7 @@
                     qna_con.className = 'qna-con';
                     qna_con.innerHTML = `<td>${store.b_no}</td>
                                          <td>${store.u_no_user.u_id}</td>
-                                         <td><a href="/board/view/${store.b_no}">${store.b_title}</a></td>
+                                         <td><a href="/board/view/${store.b_no}?bt_no={{bt_no}}">${store.b_title}</a></td>
                                          <td>${regDate}</td>
                                          <td>${store.b_cnt}</td>`;
                     list.append(qna_con);

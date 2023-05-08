@@ -136,6 +136,8 @@
 #store-detail .store-pic{
     background-image: url("../images/store_bread.jpg");
     background-size: 100%;
+    /*background-position: 50% 50% ;*/
+    /*background-repeat: no-repeat;*/
     height: 500px;
     width: 80%;
     margin: 0 auto;
