@@ -13,6 +13,7 @@
     display: flex;
     border-bottom: 2px solid #333;
     margin-top: 30px;
+    background-color: rgba(208, 201, 201, 0.35);
   }
 
   #admin-board .board-title li{
@@ -97,7 +98,9 @@
 </div>
 <ul class="pageContent"></ul>
 <div>
-    <button>글쓰기</button>
+<!--    <button class="write"><a href="/board/qnaadd/{{bt_no}}">글쓰기</a></button>-->
+    <p><button type="submit" class="write-btn"><a href="/admin/board/add">게시판 글 등록하기</a></button></p>
+<!--    <button>글쓰기</button>-->
 </div>
 {% endblock %}
 {% block script %}

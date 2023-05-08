@@ -14,7 +14,7 @@ exports.adminMember = async (req, res, next) => {
 };
 
 exports.adminBoard = async (req, res) => {
-  res.render("admin/board", { title: "게시판관리"});
+  res.render("admin/board/board", { title: "게시판관리"});
 };
 
 exports.adminBoard2 = async (req, res) => {
