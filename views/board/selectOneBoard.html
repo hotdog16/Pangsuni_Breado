@@ -67,11 +67,12 @@
 <!--    <form id="board_form" action="/board/commentsview/{{boards.b_no}}" method="post"><br><br>-->
         <!--    <p>{{bNo}} 게시판 번호</p>-->
         <input name="b_no" value="{{boards.b_no}}" readonly size="3" type="hidden">
+        <input name="c_no" value="" readonly size="3" type="hidden">
         <div class="input-group">
             <!--        로그인 구현 후 u_id value에 {{user.u_id}}}-->
             <label></label>
             <input name="bt_no" value="2" size="3" type="hidden"><br>
-            <h1>댓글쓰기</h1><br>
+            <h1 class="commentFormTitle">댓글쓰기</h1><br>
             <label>작성자 </label><span>{{user.u_id}}</span>
             <input type="hidden" name="u_no" value="{{user.u_no}}"><br><br>
         </div>
@@ -102,11 +103,15 @@
     const commentBtn = document.querySelector('#commentBtn');
     if(commentBtn){
         commentBtn.addEventListener('click', function () {
+            const commentFormTitle = document.querySelector('.commentFormTitle');
             // console.log(this);
-            if (this.textContent === '댓글저장') {
+            if (commentFormTitle.textContent === '댓글쓰기') {
                 addComment();
             } else {
-
+                const cNo = document.querySelector('input[name="c_no"]').value;
+                const cContent = document.querySelector('.b_content').value;
+                modifyComment(cNo,cContent);
+                commentFormTitle.innerHTML='댓글쓰기';
             }
         });
     }
@@ -120,10 +125,10 @@
                 pageContent.innerHTML='';
                 for (let comment of response.data.comments.rows) {
                     console.log('게시글 번호 : ', comment.c_no);
-                    const regDate = new Date(comment.c_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
+                    const regDate = new Date(comment.c_reg_dt).toLocaleString(); // date 값을 보기 좋게 format하기 위함
                     let modDate = null;
                     if(comment.c_mod_dt){
-                        modDate = new Date(comment.c_mod_dt).toLocaleDateString();
+                        modDate = new Date(comment.c_mod_dt).toLocaleString();
                     }
                     const qna_con = document.createElement('tr');
                     qna_con.className = 'qna-con';
@@ -179,7 +184,7 @@
             pageContent.append(next);
         }
     }
-    function addComment() {
+    const addComment=async ()=> {
         const b_no = document.querySelector('input[name="b_no"]').value;
         const u_no = document.querySelector('input[name="u_no"]').value;
         const c_content = document.querySelector('textarea[name="c_content"]').value;
@@ -187,6 +192,8 @@
         axios.post('/comment/add2',{b_no, u_no, c_content})
             .then((response)=>{
                 console.log('성공');
+                const commentContent = document.querySelector('.b_content');
+                commentContent.value = '';
                 listRender();
             })
             .catch((err)=>{
@@ -194,14 +201,34 @@
                 console.error(err);
             })
     }
-    function modifyCommentForm(no) {
-        console.log(no);
-        // this.innerHTML = '적용';
-        console.log(this);
+    const modifyCommentForm= async (no)=> {
+        await axios.get(`/comment/selectOne/${no}`)
+            .then((response)=>{
+                const commentFormTitle = document.querySelector('.commentFormTitle');
+                const commentContent = document.querySelector('.b_content')
+                const cNo = document.querySelector('input[name="c_no"]');
+                commentFormTitle.innerHTML = '댓글수정';
+                commentContent.value = `${response.data.comment.c_content}`;
+                cNo.value = `${no}`;
+            })
+            .catch((err)=>{
+                console.error(err);
+            })
     }
-    function  deleteComment(no) {
+    const modifyComment = async (c_no,c_content)=>{
+        console.log('c_no : ',c_no);
+        await axios.post(`/comment/modify`,{c_no,c_content})
+            .then((response)=>{
+                console.log('수정 성공');
+                listRender();
+            })
+            .catch((err)=>{
+                console.error(err);
+            })
+    }
+    const deleteComment = async (no)=> {
         console.log(no);
-        axios.post(`/admin/comment/delete`,{c_no:no})
+        await axios.post(`/admin/comment/delete`,{c_no:no})
             .then((response)=>{
                 console.log('성공');
                 console.log(response.data);
