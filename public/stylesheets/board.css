@@ -89,11 +89,20 @@
   /*0px;*/
 }
 
+.qna-comment-border {
+  border: 2px solid white;
+  padding: 5px;
+}
+
+. list {
+  background-color: #e2c2f6;
+}
+
 .qna-comment-list {
   background-color: #e2c2f6;
   border: 2px solid white;
   padding: 5px;
-  display: flex;
+  display: block;
 }
 /*----- 3.boardview.html의 스타일속성 ---- */
 

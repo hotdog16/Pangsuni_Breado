@@ -112,7 +112,7 @@ exports.login = (req, res, next) => {
       delete fillteredUser.u_pwd;
       console.log("req.login callback->", fillteredUser);
 
-      return res.status(200).json({ "responseText": "loginsuccess",fillteredUser});
+      return res.status(200).json({ "responseText": "loginsuccess",fillteredUser, originalUrl: req.originalUrl});
 
       // return res.json(fillteredUser);
     });

@@ -83,6 +83,9 @@
 </div>
 </div>
 <ul class="pageContent"></ul>
+<div>
+    <button>글쓰기</button>
+</div>
 {% endblock %}
 {% block script %}
 <script>
@@ -102,7 +105,7 @@
                     qna_con.className = 'qna-con';
                     qna_con.innerHTML = `<li class="px80">${board.b_no}</li>
                                          <li class="px80">${board.bt_no}</li>
-                                         <li class="px100">${board.u_id}</li>
+                                         <li class="px100">${board.u_no_user.u_id}</li>
                                          <li class="px150">${board.b_title}</li>
                                          <li class="px200">${board.b_reg_dt}</li>
                                          <li class="px50">${board.b_cnt}</li>

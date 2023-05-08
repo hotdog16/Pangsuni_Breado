@@ -4,7 +4,7 @@ const {Op, where} = require("sequelize");
 exports.adminStore = async (req, res) => {
     console.log('adminStore Router');
     try {
-        res.render('admin/store/adminStore');
+        res.render('admin/store/adminSelectListStore');
     } catch (err) {
         console.error(err);
     }

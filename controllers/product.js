@@ -3,7 +3,7 @@ const {stores, products} = require('../models');
 exports.selectOneProduct = (req, res) => {
     stores.findAll()
         .then((stores2) => {
-            res.render('product/add', {store: stores2});
+            res.render('admin/product/addProduct', {store: stores2});
         })
 }
 

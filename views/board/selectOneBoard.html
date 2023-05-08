@@ -1,5 +1,32 @@
 {% extends 'layout.html' %}
 {% block style %}
+<style>
+    table{
+        border-collapse: collapse;
+    }
+    .list{
+        background-color: #e2c2f6;
+    }
+    .list tr{
+        width: 1000px;
+    }
+    .list td{
+        border: 2px solid white;
+        text-align: center;
+        padding: 0;
+    }
+    .list td:nth-child(3){
+        text-align: left;
+    }
+    .list button{
+        color: whitesmoke;
+        background-color: mediumpurple;
+        border: none;
+        outline: none;
+        width: 100%;
+        height: 100%;
+    }
+</style>
 {% endblock %}
 {% block body %}
 <h3>QnA 질문 제목</h3>
@@ -12,15 +39,21 @@
 </div>
 <div>
     <h1>댓글 list</h1>
-    {% for c in commentList %}
-    <div class="qna-comment-list">
-        <p>{{c.c_content}}</p>
-        {% if (c.u_no === user.u_no) or (user.u_grade === '관리자') %}
-        <button>삭제</button>
-        <button>수정</button>
-        {% endif %}
-    </div>
-    {% endfor %}
+    <table>
+        <thead>
+        <tr>
+            <td>번호</td>
+            <td>작성자</td>
+            <td>내용</td>
+            <td>작성시간</td>
+            <td>수정시간</td>
+            <td>수정</td>
+            <td>삭제</td>
+        </tr>
+        </thead>
+        <tbody class="list"></tbody>
+    </table>
+    <ul class="pageContent"></ul>
 </div><br>
 {% if (boards.u_no === user.u_no) or (user.u_grade === '관리자') %}
 <button id="delete" value="{{i.b_no}}"><a href="/board/delete/{{boards.b_no}}">게시물삭제</a></button>
@@ -31,25 +64,28 @@
 <!--댓글달기 폼 시작 : 테스트 -->
 <div id="qna-comments-bg">
     {% if user %}
-    <form id="board_form" action="/board/commentsview/{{boards.b_no}}" method="post"><br><br>
+<!--    <form id="board_form" action="/board/commentsview/{{boards.b_no}}" method="post"><br><br>-->
         <!--    <p>{{bNo}} 게시판 번호</p>-->
-        게시판번호<input name="b_no" value="{{boards.b_no}}" readonly size="3">
+        <input name="b_no" value="{{boards.b_no}}" readonly size="3" type="hidden">
         <div class="input-group">
             <!--        로그인 구현 후 u_id value에 {{user.u_id}}}-->
-            <label>게시판타입 </label>
-            <input name="bt_no" value="2" size="3"><br>
-            <h1>댓글(comments)전송하기</h1><br><br><br>
+            <label></label>
+            <input name="bt_no" value="2" size="3" type="hidden"><br>
+            <h1>댓글쓰기</h1><br>
             <label>작성자 </label><span>{{user.u_id}}</span>
             <input type="hidden" name="u_no" value="{{user.u_no}}"><br><br>
         </div>
         <div class="input-group">
             <label>내용</label><br>
             <textarea cols="50" rows="5" name="c_content" class="b_content"></textarea>
-        </div><br>
+        </div>
+        <br>
         <p>
-            <button type="submit" class="comments-btn">댓글(comments)전송하기</button>
-        </p><br><br><br>
-    </form>
+<!--            <button type="submit" class="comments-btn" id="commentBtn">댓글저장</button>-->
+            <button class="comments-btn" id="commentBtn">댓글저장</button>
+        </p>
+        <br><br><br>
+<!--    </form>-->
     {% endif %}
 </div>
 <button class="qna-home-btn">
@@ -61,36 +97,122 @@
 {% endblock %}
 {% block script %}
 <script>
-    const commentList = document.querySelector('.qna-comment-list');
+    const list = document.querySelector('.list');
+    const pageContent = document.querySelector('.pageContent');
+    const commentBtn = document.querySelector('#commentBtn');
+    if(commentBtn){
+        commentBtn.addEventListener('click', function () {
+            // console.log(this);
+            if (this.textContent === '댓글저장') {
+                addComment();
+            } else {
+
+            }
+        });
+    }
     function listRender(page, keyword, type) { // 게시물 리스트를 출력하는 function
         list.innerHTML = '';
-        // const bt_no = document.querySelector('.bt_no').value;
         const currentPage = (page ? page : 1);
-        const searchKeyword = (keyword ? keyword : '');
-        const searchType = (type ? type : '');
         return axios
-            .get(`/board/test2/${bt_no}?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`)
+            .get(`/comment/selectList/{{boards.b_no}}?page=${currentPage}`)
             .then((response) => {
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
-                for (let store of response.data.board.rows) {
-                    console.log('게시글 번호 : ', store.b_no);
-                    const regDate = new Date(store.b_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
+                for (let comment of response.data.comments.rows) {
+                    console.log('게시글 번호 : ', comment.c_no);
+                    const regDate = new Date(comment.c_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
+                    let modDate = null;
+                    if(comment.c_mod_dt){
+                        modDate = new Date(comment.c_mod_dt).toLocaleDateString();
+                    }
                     const qna_con = document.createElement('tr');
                     qna_con.className = 'qna-con';
-                    qna_con.innerHTML = `<td>${store.b_no}</td>
-                                         <td>${store.u_no_user.u_id}</td>
-                                         <td><a href="/board/view/${store.b_no}">${store.b_title}</a></td>
+                    if(comment.u_no_user.u_id === ('{{user.u_id}}')){
+                        qna_con.innerHTML = `<td>${comment.c_no}</td>
+                                         <td>${comment.u_no_user.u_id}</td>
+                                         <td class="commentContent">${comment.c_content}</td>
                                          <td>${regDate}</td>
-                                         <td>${store.b_cnt}</td>`;
+                                         <td>${modDate}</td>
+                                         <td><button onclick="modifyCommentForm(${comment.c_no})">수정</button></td>
+                                         <td><button onclick="deleteComment(${comment.c_no})">삭제</button></td>`;
+                    }else{
+                        qna_con.innerHTML = `<td>${comment.c_no}</td>
+                                         <td>${comment.u_no_user.u_id}</td>
+                                         <td>${comment.c_content}</td>
+                                         <td>${regDate}</td>
+                                         <td>${modDate}</td>
+                                         <td>null</td>
+                                         <td>null</td>`;
+                    }
                     list.append(qna_con);
                 }
                 pageNavigation(response.data);
             })
             .catch((err) => {
-                pageContent.innerHTML='검색결과가 없어요';
                 console.error(err);
             })
     }
+    function pageNavigation(response){
+        const currentPage = Number(response.currentPage);
+        const num = response.num;
+        console.log('페이지네이션 확인 :', num);
+        if(response.num[0]> 10){
+            const prev = document.createElement('li');
+            prev.setAttribute('data-page',`${(response.checkNum-9)}`);
+            prev.className = 'page';
+            prev.innerHTML = 'prev';
+            pageContent.append(prev);
+        }
+        for(let no of num){
+            const pageNav = document.createElement('li');
+            pageNav.setAttribute('data-page', `${no}`);
+            pageNav.setAttribute('onclick', `listRender(${no})`);
+            pageNav.className = 'page';
+            pageNav.innerHTML=`${Number(no)}`;
+            pageContent.append(pageNav);
+        }
+        if((currentPage+10 < response.comments.count)&& (num.length == 10)){
+            const next =document.createElement('li');
+            next.setAttribute('data-page',`${(response.checkNum+11)}`);
+            next.className = 'page';
+            next.innerHTML = 'prev';
+            pageContent.append(next);
+        }
+    }
+    function addComment() {
+        const b_no = document.querySelector('input[name="b_no"]').value;
+        const u_no = document.querySelector('input[name="u_no"]').value;
+        const c_content = document.querySelector('textarea[name="c_content"]').value;
+        console.log(`b_no : ${b_no} / u_no: ${u_no} / c_content : ${c_content}`);
+        axios.post('/comment/add2',{b_no, u_no, c_content})
+            .then((response)=>{
+                console.log('성공');
+                listRender();
+            })
+            .catch((err)=>{
+                console.log('실패');
+                console.error(err);
+            })
+    }
+    function modifyCommentForm(no) {
+        console.log(no);
+        // this.innerHTML = '적용';
+        console.log(this);
+    }
+    function  deleteComment(no) {
+        console.log(no);
+        axios.post(`/admin/comment/delete`,{c_no:no})
+            .then((response)=>{
+                console.log('성공');
+                console.log(response.data);
+            })
+            .catch((err)=>{
+                console.log('실패');
+                console.log(err);
+            })
+        listRender();
+    }
+
+    listRender();
 </script>
 {% endblock %}

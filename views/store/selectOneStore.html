@@ -33,6 +33,36 @@
     #nav {
         display: none;
     }
+    .productContent{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .productItem{
+        width: 350px;
+        display: flex;
+        padding: 10px;
+        margin: 0 auto;
+    }
+
+    .productItem img{
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        border: 10px solid rgba(215, 220, 188, 0.6);
+        margin-right: 20px;
+        display: block;
+
+    }
+
+    .productItem p{
+        display: inline-block;
+    }
+    .storeDesc{
+        width: 80%;
+        margin: 0 auto;
+    }
 </style>
 {% endblock %}
 {% block body %}
@@ -43,10 +73,11 @@
     <div>
         <div class="store-name">{{stores.s_name}}</div>
         <div class="store-pic"></div>
-        <div class="s_addr"><i class="fa fa-map-marker" aria-hidden="true"></i> {{stores.s_addr}}</div>
-        <div>
+        <div class="storeDesc">{{stores.s_desc}}</div>
+        <div class="s_addr"><i class="fa fa-map-marker" aria-hidden="true"></i> {{stores.s_addr}}</div><br><br>
+        <div class="productContent">
             <form method="post" action="/order/add">
-                <div>
+                <div class="productItem">
                     {% for p in products %}
                     <div>
                         <input type="hidden" value="{{p.p_no}}" name="p_no">
@@ -58,9 +89,9 @@
                         </p>
                         <p><label>총 금액 : </label><input class="p_result" type="number" readonly></p>
                     </div>
-                    <hr>
+<!--                    <hr>-->
                     {% endfor %}
-                </div>
+                </div> <br><br>
                 <div>
                     픽업 가능 날짜
                     <select name="o_pickup_dt">
@@ -75,10 +106,10 @@
                 </div>
                 <div>
                     <label>총 금액 : </label>
-                    <input type="number" id="totalSum">
+                    <input type="number" id="totalSum" readonly><br><br>
                 </div>
                 <div>
-                    <button type="submit">예약</button>
+                    <button type="submit" >예약하기</button><br><br>
                 </div>
             </form>
         </div>

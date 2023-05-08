@@ -18,11 +18,12 @@ const productRouter = require("./routes/product");
 const orderRouter = require("./routes/order");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
-// const boardRouter = require("./routes/board");
+const commentRouter = require("./routes/comment");
 const boardRouter = require("./routes/board");
 const storeRouter = require("./routes/store");
 const adminRouter = require("./routes/admin");
 const adminStoreRouter = require("./routes/admin/adminStore");
+const adminOrderRouter = require("./routes/admin/adminOrder");
 const { sequelize } = require("./models");
 const passportConfig = require("./passport");
 passportConfig(); // 패스포트 설정
@@ -78,11 +79,12 @@ app.use("/users", usersRouter);
 app.use("/notice", noticeRouter);
 app.use("/product", productRouter);
 app.use("/order", orderRouter);
-// app.use("/board", boardRouter);
+app.use("/comment", commentRouter);
 app.use("/board", boardRouter);
 app.use("/store", storeRouter);
 app.use("/admin", adminRouter);
 app.use("/admin/store", adminStoreRouter);
+app.use("/admin/order", adminOrderRouter);
 
 
 app.use((req, res, next) => {

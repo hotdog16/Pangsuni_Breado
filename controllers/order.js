@@ -19,7 +19,7 @@ exports.addOrder = async (req, res) => {
                 })
             }
         }
-        res.redirect('/store');
+        res.redirect('/order/myPage');
     } catch (e) {
         console.error(e);
     }
@@ -41,5 +41,5 @@ exports.userOrderList = async (req, res) => {
             }
         }
     })
-    res.render('order/myPage', {user: req.user, order});
+    res.render('order/selectOneOrder', {user: req.user, order});
 }
