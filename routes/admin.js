@@ -16,6 +16,7 @@ router.use((req, res, next) => {
 
 router.get("/member", adminMember);
 router.get("/member/select", member);
+// router.get("/member/detail/:u_no", memberdetail);
 router.get("/member/detail/:u_no", memberdetail);
 router.post("/member/detail/:u_no", DetailMember);
 // router.get("/memberDetailOrder/:id", DetailOrderMember);

@@ -24,7 +24,8 @@
   body{
     position: relative;
   }
-
+ 
+  
   #admin-container {
     max-width: 90%;
   }
@@ -79,6 +80,15 @@
     display: block;
   }
 
+  .pageContent{
+    display: flex;
+    align-items: center;
+    margin-bottom: 200px;
+    margin-top: 50px;
+    width: 10%;
+    cursor: pointer;
+  }
+
 
   .search{
       display: none;
@@ -88,7 +98,45 @@
       margin-top: -20px;
   }
 
+.btn{
+    padding: 5px 10px;
+    background-color : transparent;
+    transition: .3s;
+    cursor: pointer;
+  }
+
+.btn:hover{
+    background-color: #333;
+    color: #fff;
+  }
+
+  .px70{
+    width: 70px;
+  }
+
+  .px100{
+    width: 100px;
+  }
+
+  .px150{
+    width: 150px;
+  }
+
+  .px200{
+    width: 200px;
+  }
+
+  .px350{
+    width: 350px;
+  }
+
   #nav{display: none;}
+footer{
+  width: 100%;
+  height: 200px;
+  background-color: #333;
+  margin-top: 50px;
+}
 </style>
 <body>
   <div id="admin-container">
@@ -108,6 +156,9 @@
 
 
     {% endblock %}
+    <footer id="footer">
+      푸터
+    </footer>
   </div>
 </body>
 </html>
