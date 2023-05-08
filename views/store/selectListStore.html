@@ -9,7 +9,19 @@
 <li class="region" data-id="{{region.r_no}}">{{region.r_name}}</li>
 {% endfor %}
 </ul>
-<div id="regionStore"></div>
+<div id="regionStore">
+    <h5>서울</h5>
+    {% for seoul in seoulStore %}
+    <div class="store">
+        <a href="/store/detail/{{seoul.s_no}}">
+            <p class="store-name">{{seoul.s_name}}</p>
+            <img class="store-img" src="images/{{seoul.s_img}}">
+            <p>{{seoul.s_addr}}</p>
+            <p>{{seoul.s_tel}}</p>
+        </a>
+    </div>
+    {% endfor %}
+</div>
 </div>
 <!--<div id="map" style="width:400px;height:350px;"></div>-->
 {% endblock %}
