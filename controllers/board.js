@@ -105,6 +105,7 @@ exports.formBoard = (req, res) => {
 };
 
 exports.selectOneBoard = async (req, res) => {
+    const {bt_no} = req.query;
     const boards = await board.findOne({
         where: {
             b_no: req.params.no
@@ -122,7 +123,7 @@ exports.selectOneBoard = async (req, res) => {
             b_no: req.params.no
         }
     })
-    res.render("board/selectOneBoard", {boards, commentList})
+    res.render("board/selectOneBoard", {boards, commentList,bt_no})
 }
 // selectListBoard.html / 게시글 처음에서 댓글달기(comments)----------
 exports.CommentView = async (req, res) => {
@@ -159,15 +160,53 @@ exports.CommentAdd = async (req, res) => {
 // 게시판 글 삭제 버튼
 exports.deleteBoard = async (req, res)=>{
     try{
+        console.log('query : ',req.query);
+        const {bt_no} = req.query;
+        console.log('bt_no : ',bt_no);
         const { b_no } = req.params;
         await board.destroy({
             where:{
                 b_no
             }
         });
-        res.redirect('/qna');
+        res.redirect(`/board/list/${bt_no}`);
     }catch (e) {
         console.error(e);
         res.status(400).json(e);
+    }
+}
+
+exports.modifyFormBoard = async (req, res)=>{
+    const {b_no} = req.params;
+    console.log('b_no : ', b_no);
+    try{
+        const boards = await board.findOne({
+            where:{
+                b_no
+            }
+        });
+        res.render('board/modifyForm',{boards});
+    }catch (err) {
+        console.error(err);
+        res.json({err});
+    }
+}
+
+exports.modifyBoard = async (req,res)=>{
+    const{b_title, b_content,bt_no, b_no} = req.body;
+    try{
+        await board.update({
+            b_title,
+            b_content,
+            b_mod_dt:Sequelize.Sequelize.literal('now()')
+        },{
+            where:{
+                b_no
+            }
+        });
+        res.redirect(`/board/view/${b_no}?bt_no=${bt_no}`);
+    }catch (err) {
+        console.error(err);
+        res.json({err});
     }
 }

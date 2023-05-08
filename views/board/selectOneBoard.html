@@ -56,7 +56,8 @@
     <ul class="pageContent"></ul>
 </div><br>
 {% if (boards.u_no === user.u_no) or (user.u_grade === '관리자') %}
-<button id="delete" value="{{i.b_no}}"><a href="/board/delete/{{boards.b_no}}">게시물삭제</a></button>
+<button id="delete" value="{{i.b_no}}"><a href="/board/delete/{{boards.b_no}}?bt_no={{bt_no}}">게시물삭제</a></button>
+<!--<button onclick="deleteOneBoardList(${comment.b_no})">게시물삭제</button></td>-->
 <button id="modify" value="{{i.b_no}}"><a href="/board/modify/{{boards.b_no}}">게시물수정</a></button>
 {% endif %}
 <br><br>
@@ -71,7 +72,7 @@
         <div class="input-group">
             <!--        로그인 구현 후 u_id value에 {{user.u_id}}}-->
             <label></label>
-            <input name="bt_no" value="2" size="3" type="hidden"><br>
+            <input name="bt_no" value="{{bt_no}}" size="3" type="hidden"><br>
             <h1 class="commentFormTitle">댓글쓰기</h1><br>
             <label>작성자 </label><span>{{user.u_id}}</span>
             <input type="hidden" name="u_no" value="{{user.u_no}}"><br><br>
@@ -241,5 +242,26 @@
     }
 
     listRender();
+
+// // board/view/ - 게시물 삭제 구현 ------구현 안되면 아래부분 삭제하기-------------------------------
+//     const deleteOneBoardList = async (no)=> {
+//         console.log(no);
+//         await axios.post(`/admin/board/view`,{b_no:no})
+//             .then((response)=>{
+//                 console.log('성공');
+//                 console.log(response.data);
+//             })
+//             .catch((err)=>{
+//                 console.log('실패');
+//                 console.log(err);
+//             })
+//         listRender();
+//     }
+//
+//     listRender();
+//
+// // board/view/ - 게시물 삭제 구현 -----------------------------------
+
+
 </script>
 {% endblock %}
