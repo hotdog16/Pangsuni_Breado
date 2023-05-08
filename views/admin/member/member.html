@@ -17,6 +17,7 @@
   #admin-member .member-title li{
     text-align: center;
     padding: 15px 0;
+    font-weight: 500;
   }
 
   #admin-member .member-list ul {
@@ -34,18 +35,6 @@
     width: 80%;
   }
 
-  .px100{
-    width: 100px;
-  }
-
-  .px150{
-    width: 150px;
-  }
-
-  .px200{
-    width: 200px;
-  }
-
   #admin-member .btn{
     padding: 5px 10px;
     background-color : transparent;
@@ -55,13 +44,8 @@
 
   #admin-member .btn:hover{
     background-color: #333;
-  }
-
-  #admin-member .btn:hover a{
     color: #fff;
   }
-
-
 
 </style>
 {% endblock %} {% block body %}
@@ -129,7 +113,7 @@
                                          <li class="px150">${users.u_id}</li>
                                          <li class="px150">${users.u_name}</li>
                                          <li class="px200">${users.u_reg_dt}</li>
-                                         <li class="px150"><button class="btn"><a href="#" onclick="window.open('/admin/member/detail/${users.u_no}','detail','width=900 height=800 resizable=no toolbars=no menubar=no')">상세보기</a></button></li>
+                                         <li class="px150"><button class="btn" onclick="window.open('/admin/member/detail/${users.u_no}','detail','width=900 height=800 resizable=no toolbars=no menubar=no')">상세보기</button></li>
                                         `;
           list.append(member_con);
         }
@@ -170,7 +154,6 @@
   }
 
   function deleteMember(u_no) {
-    //b_no를 받아서
     console.log('삭제버튼 클릭');
     // console.log(this);
     console.log('삭제 대상 : ', u_no);

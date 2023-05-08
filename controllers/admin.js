@@ -108,7 +108,7 @@ exports.member = async (req,res) =>{
     const memberList = await users.findAndCountAll({ // 검색결과와 전체 count를 같이 보기 위해 사용
       limit: 10,
       offset: offset,
-      order: [['u_id', 'desc']], // 최신부터 보여주기 위해 역순으로 정렬
+      order: [['u_no', 'desc']], // 최신부터 보여주기 위해 역순으로 정렬
     })
     let navCheck = Math.ceil(memberList.count / 10) * 10; // 페이지 네비게이션을 체크하기 위한 변수로 초기화
     navCheck = navCheck / 10; // 초기화 후 쉽게 체크하기 위해 재할당
@@ -127,6 +127,11 @@ exports.member = async (req,res) =>{
     return res.status(500).json(e);
   }}
 
+  exports.memberdetail = (req, res) => {
+
+    res.render("admin/member/member_detail", { u_no:req.params.u_no, title: "회원관리" });
+  };
+  
   exports.DetailMember = async(req,res) =>{
     try{
     const u_no = Number(req.params.u_no);
@@ -134,28 +139,37 @@ exports.member = async (req,res) =>{
       console.log('유저번호 : ', req.params.u_no);
       console.log('유저번호 : ', u_no);
       const memberdetail = await users.findOne({
-        // raw:true,
+        raw:true,
         where:{
           u_no
         }
       });
   
-      const userdetailorder = await orders.findAll({
-        raw: true,
+      const userdetailorderAndCountAll = await orders.findAndCountAll({
+        order:[['o_no', 'desc']],
+        // raw: true,
+        where :{
+          u_no
+        },
         include : [{
+          nest: true,
           model: products,
           as : 'p_no_product',
+          paranoid: true,
+          required: false,
         },{
+          nest: true,
           model:users,
           as:'u_no_user',
+          paranoid: true,
+          required: false,
         }]
       })
+
+      const {count, rows: userdetailorder} = userdetailorderAndCountAll;
       console.log("userdetail=======>",userdetailorder);
       console.log('user----->',memberdetail)
       return res.status(200).json({users:memberdetail,order:userdetailorder})
-      // if(userdetailorder){
-      //   res.status(200).json({userdetailorder});
-      // }
     }catch (e) {
         console.error(e);
         return res.status(500).json({msg:'실패!'});
@@ -181,9 +195,6 @@ exports.deleteMember = async (req, res)=>{
 }
 
 
-exports.memberdetail = (req, res) => {
-  res.render("admin/member/member_detail", { title: "회원관리" });
-};
 
 exports.deleteComment = async (req, res) => {
   try {
