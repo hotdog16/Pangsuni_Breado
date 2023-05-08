@@ -46,6 +46,28 @@
         margin: 0 auto;
     }
 
+    .productPickup {
+        position: relative;
+        left: -170px;
+        top: 400px;
+    }
+
+    .productSum {
+        position: relative;
+        left: -140px;
+        top: 400px;
+    }
+
+    .productRes {
+        position: relative;
+        left: -130px;
+        top: 400px;
+    }
+
+    .productWarp {
+        display: flex;
+        margin: 0 auto;
+    }
     .productItem img{
         width: 250px;
         height: 250px;
@@ -76,23 +98,23 @@
         <div class="storeDesc">{{stores.s_desc}}</div>
         <div class="s_addr"><i class="fa fa-map-marker" aria-hidden="true"></i> {{stores.s_addr}}</div><br><br>
         <div class="productContent">
-            <form method="post" action="/order/add">
+            <form class="productWarp" method="post" action="/order/add">
                 <div class="productItem">
-                    {% for p in products %}
-                    <div>
-                        <input type="hidden" value="{{p.p_no}}" name="p_no">
-                        <p>{{p.p_name}}</p>
-                        <p><img src="../../images/{{p.p_img}}" alt="메뉴 이미지"></p>
-                        <p>
-                            <span class="p_price">{{p.p_price}}</span>원
-                            <input type="number" max="100" min="0" class="productCnt" name="o_cnt">
-                        </p>
-                        <p><label>총 금액 : </label><input class="p_result" type="number" readonly></p>
-                    </div>
+                            {% for p in products %}
+                            <div>
+                                <input type="hidden" value="{{p.p_no}}" name="p_no">
+                                <p class>{{p.p_name}}</p>
+                                <p><img src="../../images/{{p.p_img}}" alt="메뉴 이미지"></p>
+                                <p>
+                                    <span class="p_price">{{p.p_price}}</span>원
+                                    <input type="number" max="100" min="0" class="productCnt" name="o_cnt">
+                                </p>
+                                <p><label>총 금액 : </label><input class="p_result" type="number" readonly></p>
+                            </div>
 <!--                    <hr>-->
                     {% endfor %}
                 </div> <br><br>
-                <div>
+                <div class="productPickup">
                     픽업 가능 날짜
                     <select name="o_pickup_dt">
                         <option value="1"> + 1일</option>
@@ -104,15 +126,15 @@
                         <option value="7"> + 7일</option>
                     </select>
                 </div>
-                <div>
+                <div class="productSum">
                     <label>총 금액 : </label>
                     <input type="number" id="totalSum" readonly><br><br>
                 </div>
-                <div>
+                <div class="productRes">
                     <button type="submit" >예약하기</button><br><br>
                 </div>
             </form>
-        </div>
+        </div> <br><br><br>
         <div id="map" style="width: 80%; height: 400px"></div>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey={{mapAPI}}&libraries=services"></script>
