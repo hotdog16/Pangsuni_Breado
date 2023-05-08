@@ -32,17 +32,24 @@
 }
 
 #content .best {
-  width: 1200px;
+  width: 1440px;
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
 }
 
-#content .best-bread {
+#content .best .bread{
   width: 23%;
-  height: 300px;
+  height: auto;
   background-color: #333;
   margin: 10px 10px;
+  background-image: url('../images/bread-slide.jpg');
+  display: flex;
+}
+
+#content .store-img{
+  width: 1000px;
+  overflow: hidden;
 }
 
 #content .review {

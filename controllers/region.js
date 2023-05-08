@@ -1,19 +1,10 @@
-const {stores, users, orders, products, regions} = require("../models");
+const {regions,stores} = require("../models");
 
 exports.selectListRegions = async (req, res) => {
     try{
-        // const store = await stores.findAll({
-        //     include:{
-        //         model:regions,
-        //         as: 'r_no_region',
-        //         required:true
-        //     }
-        // });
         const regionList = await regions.findAll();
-        const mapAPI = process.env.KAKAO_MAP;
-        // res.json(store);
-        // res.render('store/list', {stores: store, mapAPI});
-        res.render('store/selectListStore', {regions:regionList});
+        const seoulStore = await stores.findAll({where:{r_no:1}})
+        res.render('store/selectListStore', {regions:regionList, seoulStore});
     }catch (e) {
         console.error(e);
     }

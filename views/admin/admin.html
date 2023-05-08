@@ -24,7 +24,8 @@
   body{
     position: relative;
   }
-
+ 
+  
   #admin-container {
     max-width: 90%;
   }
@@ -79,6 +80,15 @@
     display: block;
   }
 
+  .pageContent{
+    display: flex;
+    align-items: center;
+    margin-bottom: 200px;
+    margin-top: 50px;
+    width: 10%;
+    cursor: pointer;
+  }
+
 
   .search{
       display: none;
@@ -88,14 +98,52 @@
       margin-top: -20px;
   }
 
+.btn{
+    padding: 5px 10px;
+    background-color : transparent;
+    transition: .3s;
+    cursor: pointer;
+  }
+
+.btn:hover{
+    background-color: #333;
+    color: #fff;
+  }
+
+  .px70{
+    width: 70px;
+  }
+
+  .px100{
+    width: 100px;
+  }
+
+  .px150{
+    width: 150px;
+  }
+
+  .px200{
+    width: 200px;
+  }
+
+  .px350{
+    width: 350px;
+  }
+
   #nav{display: none;}
+footer{
+  width: 100%;
+  height: 200px;
+  background-color: #333;
+  margin-top: 50px;
+}
 </style>
 <body>
   <div id="admin-container">
     <div class="home"><a href="/">홈페이지가기</a></div>
     <h2 class="admin-title">admin</h2>
     <ul class="admin-category">
-      <li class="category category1" data-tab="tab-1"><a href="/admin/product">상품등록</a></li>
+      <li class="category category1" data-tab="tab-1"><a href="/admin/product">상품관리</a></li>
       <li class="category category2" data-tab="tab-2"><a href="/admin/member">회원관리</a></li>
       <li class="category category3" data-tab="tab-3"><a href="/admin/order">주문내역</a></li>
       <li class="category category4" data-tab="tab-4"><a href="/admin/board">게시판관리</a></li>
@@ -108,6 +156,9 @@
 
 
     {% endblock %}
+    <footer id="footer">
+      푸터
+    </footer>
   </div>
 </body>
 </html>

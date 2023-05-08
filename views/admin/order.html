@@ -7,27 +7,54 @@
   .category3 a {
     color: #fff;
   }
+
+  #amdin-order{
+    width: 80%;
+  }
+
+  #amdin-order .order-title{
+    display: flex;
+    border-bottom: 2px solid #333;
+    margin-top: 30px;
+  }
+
+  #amdin-order .order-title li{
+    text-align: center;
+    padding: 15px 0;
+    font-weight: 500;
+  }
+
+  #amdin-order .orderList ul{
+    display: flex;
+    border-bottom: 1px solid #888;
+  }
+
+  #amdin-order .orderList ul li{
+    text-align: center; 
+    padding: 10px 0;
+    line-height: 35px;
+  }
 </style>
 {% endblock %}
 {% block body %}
+<div id="amdin-order">
 <h2>주문내역</h2>
-<table>
-    <thead>
-    <tr>
-        <th>주문번호</th>
-        <th>유저아이디</th>
-        <th>가게</th>
-        <th>제품명</th>
-        <th>주문시간</th>
-        <th>픽업시간</th>
-        <th>갯수</th>
-    </tr>
-    </thead>
-    <tbody class="orderList">
-    </tbody>
+
+    <ul class="order-title">
+        <li class="px100">주문번호</li>
+        <li class="px100">유저아이디</li>
+        <li class="px100">가게</li>
+        <li class="px150">제품명</li>
+        <li class="px100">주문시간</li>
+        <li class="px100">픽업시간</li>
+        <li class="px100">갯수</li>
+    </ul>
+
+    <div class="orderList">
+    </div>
     <tfoot class='orderPage'></tfoot>
-</table>
 <ul class="pageContent"></ul>
+</div>
 {% endblock %}
 {% block script%}
 <script>
@@ -48,15 +75,15 @@
                     console.log('게시글 번호 : ', order.o_no);
                     const regDate = new Date(order.o_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
                     const pickupDate = new Date(order.o_pickup_dt).toLocaleDateString();
-                    const qna_con = document.createElement('tr');
+                    const qna_con = document.createElement('ul');
                     qna_con.className = 'qna-con';
-                    qna_con.innerHTML = `<td>${order.o_no}</td>
-                                         <td>${order.u_no_user.u_id}</td>
-                                         <td>${order.p_no_product.s_no_store.s_name}</td>
-                                         <td>${order.p_no_product.p_name}</td>
-                                         <td>${regDate}</td>
-                                         <td>${pickupDate}</td>
-                                         <td>${order.o_cnt}</td>`;
+                    qna_con.innerHTML = `<li class="px100">${order.o_no}</li>
+                                         <li class="px100">${order.u_no_user.u_id}</li>
+                                         <li class="px100">${order.p_no_product.s_no_store.s_name}</li>
+                                         <li class="px150">${order.p_no_product.p_name}</li>
+                                         <li class="px100">${regDate}</li>
+                                         <li class="px100">${pickupDate}</li>
+                                         <li class="px100">${order.o_cnt}</li>`;
                     list.append(qna_con);
                 }
                 pageNavigation(response.data);
