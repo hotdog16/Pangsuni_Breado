@@ -13,7 +13,7 @@ router.get("/", function (req, res, next) {
 router.get("/mypage", isLoggedIn, mypage);
 
 router.get("/mypage/modify", isLoggedIn, modifyMypage);
-router.post("/mypage/modify", isLoggedIn, modifyAddMypage);
+router.post("/mypage/", isLoggedIn, modifyAddMypage);
 
 router.get("/mypage/delete", isLoggedIn)
 router.get("/mypage/delete", isLoggedIn, deleteUser)

@@ -127,8 +127,6 @@ exports.addStore2 = async (req, res)=>{
 }
 
 exports.modifyStore = async (req,res)=>{
-    console.log('modifyStore!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
-    console.log('req.file : ',req.file);
     const {s_no, s_name, s_desc, s_tel, r_no, s_addr} = req.body;
     try {
         let store;
@@ -167,6 +165,6 @@ exports.modifyStore = async (req,res)=>{
         }
     }catch (err) {
         console.error(err);
-        res.status(500).json({msg: err})
+        res.status(500).json({msg: err});
     }
 }

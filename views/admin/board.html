@@ -123,7 +123,7 @@
                                          <li class="px200">${board.b_reg_dt}</li>
                                          <li class="px50">${board.b_cnt}</li>
                                          <li class="px80"><button class="btn">수정</button></li>
-                                         <li class="px80"><button class="btn" onclick="deleteBoard(${board.b_no})">삭제</button></li>`;
+                                         <li class="px80"><button class="btn" onclick="deleteProduct(${board.b_no})">삭제</button></li>`;
                     list.append(qna_con);
                 }
                 pageNavigation(response.data);
@@ -160,7 +160,7 @@
             pageContent.append(next);
         }
     }
-    function deleteBoard (b_no){
+    function deleteProduct (b_no){
         //b_no를 받아서
         console.log('삭제버튼 클릭');
         // console.log(this);

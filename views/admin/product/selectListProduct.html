@@ -34,6 +34,7 @@
     .px50{width: 50px;}
     .px80{width: 80px;}
     .px100{width: 100px;}
+    .px120{width: 120px;}
     .px150{width: 150px;}
     .px200{width: 200px;}
     #admin-board .btn{padding: 5px 10px;}
@@ -45,11 +46,12 @@
 
 
 <ul class="product-title">
-    <li class=".px150"><button>빵번호</button></li>
-    <li class=".px150"><button>지역</button></li>
-    <li class=".px150"><button>가게이름</button></li>
+    <li class=".px120"><button>빵번호</button></li>
+    <li class=".px120"><button>지역</button></li>
+    <li class=".px120"><button>가게이름</button></li>
     <li class=".px150"><button>빵이름</button></li>
-    <li class=".px150">삭제</li>
+    <li class=".px120">수정</li>
+    <li class=".px120">삭제</li>
 </ul>
 <div class="list"></div>
 <ul class="pageContent"></ul>
@@ -82,11 +84,12 @@
                     // console.log('게시글 번호 : ', store.b_no);
                     const qna_con = document.createElement('ul');
                     qna_con.className = 'qna-con';
-                    qna_con.innerHTML = `<li class="px150">${product.p_no}</li>
-                                         <li class="px150">${product.s_no_store.r_no_region.r_name}</li>
-                                         <li class="px150">${product.s_no_store.s_name}</li>
+                    qna_con.innerHTML = `<li class="px120">${product.p_no}</li>
+                                         <li class="px120">${product.s_no_store.r_no_region.r_name}</li>
+                                         <li class="px120">${product.s_no_store.s_name}</li>
                                          <li class="px150">${product.p_name}</li>
-                                         <li class="px150"><button class="btn" onclick="deleteBoard(${product.p_no})">삭제</button></li>`;
+                                         <li class="px120"><button class="btn" onclick="window.open('/admin/product/modify/${product.p_no}','상품 수정','width=900 height=800 resizable=no toolbar=no menubar=no')">수정</button></li>
+                                         <li class="px120"><button class="btn" onclick="deleteProduct(${product.p_no})">삭제</button></li>`;
                     list.append(qna_con);
                 }
                 pageNavigation(response.data);
@@ -103,6 +106,7 @@
         if(response.num[0]> 10){
             const prev = document.createElement('li');
             prev.setAttribute('data-page',`${(response.checkNum-9)}`);
+            prev.setAttribute('onclick', `listRender(${(response.checkNum-9)})`);
             prev.className = 'page';
             prev.innerHTML = 'prev';
             pageContent.append(prev);
@@ -118,28 +122,33 @@
         if((currentPage+10 < response.products.count)&& (num.length == 10)){
             const next =document.createElement('li');
             next.setAttribute('data-page',`${(response.checkNum+11)}`);
+            next.setAttribute('onclick', `listRender(${(response.checkNum+11)})`);
             next.className = 'page';
-            next.innerHTML = 'prev';
+            next.innerHTML = 'next';
             pageContent.append(next);
         }
     }
-    // function deleteBoard (b_no){
-    //     //b_no를 받아서
-    //     console.log('삭제버튼 클릭');
-    //     // console.log(this);
-    //     console.log('삭제 대상 : ',b_no);
-    //     axios.post('/admin/board/delete',{b_no})
-    //         .then((response)=>{
-    //             console.log('성공');
-    //             console.log(response.data);
-    //             listRender();
-    //         })
-    //         .catch((err)=>{
-    //             console.log('실패');
-    //             console.log(err);
-    //             listRender();
-    //         })
-    // }
+    const deleteProduct = async (p_no)=>{
+        //b_no를 받아서
+        console.log('삭제버튼 클릭');
+        // console.log(this);
+        console.log('삭제 대상 : ',p_no);
+        await axios.post('/admin/product/delete',{p_no})
+            .then((response)=>{
+                console.log('성공');
+                console.log(response.data);
+                listRender();
+            })
+            .catch((err)=>{
+                console.log('실패');
+                console.log(err);
+                listRender();
+            })
+    }
+
+    const modifyForm = async (p_no)=>{
+        window.open('modifyPopupProduct.html', '제품 수정창');
+    }
     listRender();
 </script>
 {% endblock %}

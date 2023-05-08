@@ -48,7 +48,68 @@ exports.selectListProduct = async (req, res) => {
         return res.status(500).json(e);
     }
 };
+exports.deleteProduct = async (req, res)=>{
+    try {
+        const {p_no} = req.body;
+        await products.destroy({
+            where: {
+                p_no
+            }
+        });
+        res.status(200).json({msg: 'success'});
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({msg: err});
+    }
+}
 
+exports.modifyFormProduct = async (req,res)=>{
+    const p_no = req.params.p_no;
+    const product = await products.findOne({where:{p_no}});
+    const store = await stores.findAll();
+    res.render('admin/product/modifyPopupProduct', {product,stores:store});
+}
+
+exports.modifyProduct = async (req,res)=>{
+    const {p_no, p_name, p_price, p_desc, s_no} = req.body;
+    try{
+        let product;
+        if(typeof req.file == 'undefined'){
+            product = await products.update({
+              p_name,
+              p_price,
+              p_desc,
+              s_no
+            },{
+                where:{
+                    p_no
+                }
+            });
+        }else{
+            product = await products.update({
+                p_name,
+                p_price,
+                p_desc,
+                s_no,
+                s_img:req.file.filename
+            },{
+                where:{
+                    p_no
+                }
+            });
+        }
+        if(product === null){
+            console.error('게시물 등록 에러');
+            res.status(400).json({msg : 'uploadError'});
+        }else{
+            console.log('게시물 등록 완료');
+            res.status(200).json({msg: 'uploadSuccess'});
+        }
+    }catch (err) {
+        console.error(err);
+        res.status(500).json({msg: err});
+    }
+}
 // exports.selectListOrder = async (req, res) => {
 //     try {
 //         let limit = 10; // sql select 쿼리문의 order by limit 부분
