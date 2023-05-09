@@ -111,13 +111,22 @@ exports.selectOneBoard = async (req, res) => {
             b_no: req.params.no
         }
     });
-    await board.update({
-        b_cnt : boards.b_cnt + 1
-    }, {
-        where: {
-            b_no: req.params.no
-        }
-    });
+    console.log('cookies : ', req.cookies);
+    if (req.cookies.hasOwnProperty('userIp')) {
+
+    }else{
+        const addr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+        res.cookie('userIp', addr, {
+            maxAge: 30000
+        })
+        await board.update({
+            b_cnt : boards.b_cnt + 1
+        }, {
+            where: {
+                b_no: req.params.no
+            }
+        });
+    }
     const commentList = await comments.findAll({
         where: {
             b_no: req.params.no
