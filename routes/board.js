@@ -12,8 +12,11 @@ const {
     deleteBoard,
     test2,
     modifyFormBoard,
-    modifyBoard
+    modifyBoard,
+    adminModifyBoard
 } = require("../controllers/board");
+const {modifyFormProduct, modifyProduct} = require("../controllers/admin/adminProduct");
+const {upload} = require("../middlewares/uploads");
 // 여기는 주소가 http://localhost:3000/board/ get방식 qnaList
 // 여기는 주소가 http://localhost:3000/board/ poet방식 addBoard
 router.get("/list/:bt_no", selectListBoard); // 게시판 리스트로이동
@@ -39,5 +42,7 @@ router.post("/commentsview/:no", CommentAdd);
 // router.post("/listpaging", qnaListPaging);
 // router.get("/test", test); // 게시판 리스트로이동
 router.get("/test2/:bt_no", test2); // 게시판 리스트로이동
+
+// router.get('/board/:b_no', adminModifyBoard);
 
 module.exports = router;

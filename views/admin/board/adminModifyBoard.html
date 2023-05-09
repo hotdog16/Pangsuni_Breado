@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block style %}
+<style>
+
+
+
+</style>
+{% endblock %}
+
+{% block body %}
+<h1>게시판수정창</h1>
+<form method="post">
+    <input type="hidden" name="b_no" value="{{board.b_no}}">
+    <p><label>제목 : </label><input name="b_title" value="{{board.b_title}}"></p>
+    <p><label>내용 : </label><input name="b_content" type="text" value="{{board.b_content}}"></p>
+    <p><button type="submit">수정</button></p>
+</form>
+{% endblock %}
+{% block script %}
+
+
+{% endblock %}
