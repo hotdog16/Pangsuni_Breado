@@ -1,18 +1,49 @@
 const {regions,users,products,stores} = require("../../models");
+const {Op} = require("sequelize");
 
 
 exports.product = async (req, res) => {
     res.render('admin/product/selectListProduct')
 };
 exports.formProduct = async (req, res) => {
-
+    const store = await stores.findAll();
+    res.render('admin/product/addProduct',{store});
 };
 exports.addProduct = async (req, res) => {
 
 };
 exports.selectListProduct = async (req, res) => {
-    console.log('selectListProduct???????????????');
     try{
+        let where = {};
+        // if (req.query.keyword) {
+        //     const {searchType, keyword} = req.query;
+        //     if (searchType === 'p_name') {
+        //         // where = {
+        //         //     bt_no,
+        //         //     [Op.or]: [
+        //         //         {b_content:{[Op.like]:[`%${keyword}%`]}},
+        //         //         {b_title:{[Op.like]:[`%${keyword}%`]}},
+        //         //     ]
+        //         // }
+        //         where ={
+        //             p_name :{[Op.like]:[`%${keyword}%`]}
+        //         }
+        //     } else if (searchType === 'store') {
+        //         where = {
+        //             s_no_store.s_name:{[Op.like]:[`%${keyword}%`]}
+        //         }
+        //     } else if (searchType === 'region') {
+        //         where = {
+        //             bt_no,
+        //             b_content:{[Op.like]:[`%${keyword}%`]}
+        //         }
+        //     } else if (searchType === 'any') {
+        //         where = {
+        //             bt_no,
+        //             b_title:{[Op.like]:[`%${keyword}%`]}
+        //         }
+        //     }
+        // }
         let limit = 10;
         let offset = 0 + Number((req.query.page ? req.query.page : 1) - 1) * limit;
         let checkNum = (req.query.page ? req.query.page : 1);

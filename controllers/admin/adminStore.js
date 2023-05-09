@@ -2,7 +2,6 @@ const {stores,regions} = require("../../models");
 const {Op, where} = require("sequelize");
 
 exports.adminStore = async (req, res) => {
-    console.log('adminStore Router');
     try {
         res.render('admin/store/adminSelectListStore');
     } catch (err) {
@@ -91,6 +90,7 @@ exports.selectOneStore = async (req,res)=>{
 }
 
 exports.addStore = async (req,res)=>{
+    console.log('들어오는가');
     try{
         const region = await regions.findAll();
         res.render('admin/store/adminAddStore',{regions:region});

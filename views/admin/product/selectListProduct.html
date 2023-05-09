@@ -56,15 +56,15 @@
 <div class="list"></div>
 <ul class="pageContent"></ul>
 <div>
-    <button>추가</button>
-    <select name="">
+    <button class="addBtn"><a href="/admin/product/add">추가</a></button>
+    <select name="searchType">
         <option value="any">전체</option>
-        <option value="product">빵이름</option>
+        <option value="p_name">빵이름</option>
         <option value="store">가게이름</option>
         <option value="region">지역</option>
     </select>
-    <input placeholder="검색">
-    <button>검색</button>
+    <input placeholder="검색" class="keyword">
+    <button class="searchBtn">검색</button>
 </div>
 </div>
 {% endblock %}
@@ -72,16 +72,18 @@
 <script>
     const list = document.querySelector('.list');
     const pageContent = document.querySelector('.pageContent');
-    function listRender(page) { // 리스트를 출력하기 위한 function
+    const searchBtn = document.querySelector('.searchBtn');
+    function listRender(page, keyword, type) { // 리스트를 출력하기 위한 function
         list.innerHTML = '';
         const currentPage = (page ? page : 1);
+        const searchKeyword = (keyword ? keyword : '');
+        const searchType = (type ? type : '');
         return axios
-            .get(`/admin/product/selectList/?page=${currentPage}`) // 실행부분
+            .get(`/admin/product/selectList/?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`) // 실행부분
             .then((response) => { // 성공했을시 수행됨
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
                 for (let product of response.data.products.rows) {
-                    // console.log('게시글 번호 : ', store.b_no);
                     const qna_con = document.createElement('ul');
                     qna_con.className = 'qna-con';
                     qna_con.innerHTML = `<li class="px120">${product.p_no}</li>
@@ -146,9 +148,12 @@
             })
     }
 
-    const modifyForm = async (p_no)=>{
-        window.open('modifyPopupProduct.html', '제품 수정창');
-    }
+    searchBtn.addEventListener('click', () => {
+        const keyword = document.querySelector('.keyword').value;
+        const searchType =document.querySelector('.searchType').value;
+        listRender(null, keyword, searchType);
+    })
+
     listRender();
 </script>
 {% endblock %}
