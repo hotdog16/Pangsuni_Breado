@@ -13,7 +13,7 @@ exports.selectListBoard = async (req, res) => {
     }
 }
 
-exports.test2 = async (req, res) => {
+exports.selectListBoard2 = async (req, res) => {
     try {
         const bt_no = req.params.bt_no;
         // console.log('bt_no : ', bt_no);

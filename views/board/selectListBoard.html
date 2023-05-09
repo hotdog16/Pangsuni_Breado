@@ -83,7 +83,7 @@
         const searchKeyword = (keyword ? keyword : '');
         const searchType = (type ? type : '');
         return axios
-            .get(`/board/test2/${bt_no}?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`)
+            .get(`/board/selectList2/${bt_no}?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`)
             .then((response) => {
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
