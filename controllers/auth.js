@@ -131,20 +131,22 @@ exports.findUser =(req, res) => {
   res.render("finduser", { title: "아이디/비밀번호 찾기" });
 };
 
-exports.findPwd = (async function (req, res) {
-  const emailOptions = {
-      from: "alxo9974@naver.com",
-      to: "보내고자 하는 이메일",
-      subject: "이메일 제목",
-      text: "이메일 본문"
-  };
+exports.findUsers = async (req, res, next) => {
+  const { email, name } = req.body;
+  console.log("email--------1>", req.body);
 
-  await smtpTransport.sendMail(emailOptions, (err, response) => {
-      if (err) {
-          // 에러 처리
-      } else {
-          // 정상 동작
-      }
-      smtpTransport.close();
-  })
-});
+  const findId = await users.findOne({
+    paranoid : true,
+    where: {
+          u_email:email,
+          u_name:name
+    },
+  });
+
+  console.log("email--------2>", findId);
+  if (findId) {
+    return res.status(200).json({ msg: "사용자 있음",findId });
+  } else if(findId === null){
+    return res.status(400).json({ msg: "사용자 없음" });
+  }
+};
