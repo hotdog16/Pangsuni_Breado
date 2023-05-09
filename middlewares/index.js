@@ -1,10 +1,11 @@
 const {next} = require("lodash/seq");
+const requestIp = require('request-ip');
+
 exports.isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
   } else {
     res.redirect(`/login`);
-    // return res.redirect('/login?path='+req.originalUrl);
   }
 };
 
@@ -24,3 +25,21 @@ exports.whoisAdmin = (req, res, next)=>{
     res.redirect(`/`);
   }
 }
+
+// exports.getuserIp = (req)=>{
+//   const addr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+//   return addr;
+// }
+
+// exports.getUserIp = async (req, res) => {
+//   let ip = requestIp.getClientIp(req);
+//   if (req.cookies[b_no] == undefined) {
+//     const addr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+//     res.cookie(b_no, addr, {
+//       maxAge: 30000
+//     })
+//     await board.update({
+//
+//     })
+//   }
+// }
