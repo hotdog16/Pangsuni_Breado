@@ -1,11 +1,24 @@
 {% extends 'layout.html' %}
 {% block style %}
 
+<style>
+    qna-bg{
+        background-color: #c56f6f;
+    }
+    tr{
+        background-color: whitesmoke;
+    }
+    th, td{
+        border: 2px solid steelblue;
+    }
+</style>
+
 {% endblock %}
 {% block body %}
+
 <input type="hidden" class="bt_no" value="{{bt_no}}">
-<div>
-    <table>
+<div class="pna-bg">
+    <table class="pna-bg">
         <thead>
         <tr>
             <th>No</th>

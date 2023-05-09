@@ -113,7 +113,7 @@
             pageNav.innerHTML=`${Number(no)}`;
             pageContent.append(pageNav);
         }
-        if((currentPage+10 < response.board.count)&& (num.length == 10)){
+        if((currentPage+10 < response.orders.count)&& (num.length == 10)){
             const next =document.createElement('li');
             next.setAttribute('data-page',`${(response.checkNum+11)}`);
             next.className = 'page';

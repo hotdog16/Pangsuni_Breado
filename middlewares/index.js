@@ -1,10 +1,11 @@
 const {next} = require("lodash/seq");
+const requestIp = require('request-ip');
+
 exports.isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
   } else {
     res.redirect(`/login`);
-    // return res.redirect('/login?path='+req.originalUrl);
   }
 };
 
@@ -24,3 +25,4 @@ exports.whoisAdmin = (req, res, next)=>{
     res.redirect(`/`);
   }
 }
+

@@ -11,6 +11,7 @@ const passport = require("passport");
 const fs = require("fs");
 const multer = require("multer");
 const axios = require("axios");
+const requestIp = require('request-ip');
 dotenv.config();
 
 const noticeRouter = require("./routes/notice");
@@ -31,8 +32,6 @@ passportConfig(); // 패스포트 설정
 
 const app = express();
 
-// view engin setup
-
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "html");
 let env = nunjucks.configure("views", {
@@ -41,14 +40,6 @@ let env = nunjucks.configure("views", {
 });
 nunjucksDate.setDefaultFormat("YYYY-MM-DD");
 env.addFilter("date", nunjucksDate); // 넌적스 템플릿 엔진에 date format을 위해 적용
-
-// app.listen(3000, () => {
-//   const dir = "./public/images";
-//   if (!fs.existsSync(dir)) {
-//     fs.mkdirSync(dir);
-//   }
-//   console.log("서버실행");
-// });
 
 app.use(morgan("dev"));
 app.use(express.static(path.join(__dirname, "public")));
@@ -87,8 +78,6 @@ app.use("/admin", adminRouter);
 app.use("/admin/store", adminStoreRouter);
 app.use("/admin/order", adminOrderRouter);
 app.use("/admin/product", adminProductRouter);
-
-
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
   error.status = 404;
@@ -101,4 +90,5 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render("error");
 });
+
 module.exports = app;

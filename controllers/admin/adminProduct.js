@@ -65,9 +65,10 @@ exports.deleteProduct = async (req, res)=>{
 
 exports.modifyFormProduct = async (req,res)=>{
     const p_no = req.params.p_no;
+    const page = req.query.page;
     const product = await products.findOne({where:{p_no}});
     const store = await stores.findAll();
-    res.render('admin/product/modifyPopupProduct', {product,stores:store});
+    res.render('admin/product/modifyPopupProduct', {product,stores:store, page});
 }
 
 exports.modifyProduct = async (req,res)=>{

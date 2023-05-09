@@ -46,10 +46,10 @@
 
 
 <ul class="product-title">
-    <li class=".px120"><button>빵번호</button></li>
-    <li class=".px120"><button>지역</button></li>
-    <li class=".px120"><button>가게이름</button></li>
-    <li class=".px150"><button>빵이름</button></li>
+    <li class=".px120">빵번호</li>
+    <li class=".px120">지역</li>
+    <li class=".px120">가게이름</li>
+    <li class=".px150">빵이름</li>
     <li class=".px120">수정</li>
     <li class=".px120">삭제</li>
 </ul>
@@ -88,8 +88,8 @@
                                          <li class="px120">${product.s_no_store.r_no_region.r_name}</li>
                                          <li class="px120">${product.s_no_store.s_name}</li>
                                          <li class="px150">${product.p_name}</li>
-                                         <li class="px120"><button class="btn" onclick="window.open('/admin/product/modify/${product.p_no}','상품 수정','width=900 height=800 resizable=no toolbar=no menubar=no')">수정</button></li>
-                                         <li class="px120"><button class="btn" onclick="deleteProduct(${product.p_no})">삭제</button></li>`;
+                                         <li class="px120"><button class="btn" onclick="window.open('/admin/product/modify/${product.p_no}?page=${currentPage}','상품 수정','width=900 height=800 resizable=no toolbar=no menubar=no')">수정</button></li>
+                                         <li class="px120"><button class="btn" onclick="deleteProduct(${product.p_no},${currentPage})">삭제</button></li>`;
                     list.append(qna_con);
                 }
                 pageNavigation(response.data);
@@ -128,7 +128,7 @@
             pageContent.append(next);
         }
     }
-    const deleteProduct = async (p_no)=>{
+    const deleteProduct = async (p_no,page)=>{
         //b_no를 받아서
         console.log('삭제버튼 클릭');
         // console.log(this);
@@ -137,12 +137,12 @@
             .then((response)=>{
                 console.log('성공');
                 console.log(response.data);
-                listRender();
+                listRender(page);
             })
             .catch((err)=>{
                 console.log('실패');
                 console.log(err);
-                listRender();
+                listRender(page);
             })
     }
 
