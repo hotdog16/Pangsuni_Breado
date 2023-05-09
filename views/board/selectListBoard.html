@@ -6,23 +6,32 @@
     *{
         margin: 0 auto;
     }
-    qna-bg{
-        background-color: #6DA9E4;
-    }
-    tr{
-        background-color: whitesmoke;
-    }
-    th, td{
-        border: 2px solid steelblue;
+
+    /*tr{*/
+    /*    background-color: #ffffe4;*/
+    /*}*/
+    /*th, td{*/
+    /*    !*border: 2px solid #6DA9E4;*!*/
+    /*    border: 1px solid white;*/
+    /*}*/
+
+    .qna-head {
+        background-color: rgba(217, 255, 0, 0.6);
     }
 
     .qna-bg {
-        /*display: flex;*/
         text-align: center;
         margin: 0 auto;
-        /*width: 20%;*/
-        /*cursor: pointer;*/
-        background-color: #6DA9E4;
+    }
+
+    .qna-table-size {
+        width: 750px;
+        padding: 20px;
+    }
+
+    .pageContent {
+        display: flex;
+        width: 5%;
     }
 
 
@@ -34,9 +43,9 @@
 <input type="hidden" class="bt_no" value="{{bt_no}}">
 <div class="qna-bg">
     <br>
-    <table>
+    <table class="qna-table-size">
         <thead>
-        <tr>
+        <tr class="qna-head">
             <th>No</th>
             <th>작성자</th>
             <th>제목</th>
@@ -46,7 +55,7 @@
         </thead>
         <tbody class="list"></tbody>
     </table>
-        <ul class="pageContent"></ul>
+        <ul class="pageContent"></ul> <br>
     <div>
         {% if bt_no != 1 %}
         <button class="write"><a href="/board/qnaadd/{{bt_no}}">글쓰기</a></button>
@@ -57,7 +66,7 @@
             <option value="b_content">내용</option>
         </select>
         <input class="keyword">
-        <button class="searchBtn">검색</button>
+        <button class="searchBtn">검색</button><br><br>
     </div>
 </div>
 {% endblock %}
