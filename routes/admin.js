@@ -11,7 +11,7 @@ const {
   member,
   deleteComment
 } = require("../controllers/admin");
-const {addFormBoard} = require('../controllers/admin/adminBoard');
+const {addFormBoard,adminModifyBoard, adminModifyBoardPost} = require('../controllers/admin/adminBoard');
 const {isLoggedIn, whoisAdmin} = require("../middlewares");
 
 
@@ -41,6 +41,10 @@ router.get("/board2", adminBoard2); // axios를 이용한 비동기 (이름 바�
 router.get("/board/add", isLoggedIn, whoisAdmin, addFormBoard);
 
 router.post("/board/delete", deleteBoard);
+
+router.get("/board/modify/:b_no", adminModifyBoard);
+router.post("/board/modify", adminModifyBoardPost);
+
 
 router.post('/comment/delete', deleteComment);
 
