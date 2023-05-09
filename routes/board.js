@@ -12,8 +12,10 @@ const {
     deleteBoard,
     test2,
     modifyFormBoard,
-    modifyBoard
+    modifyBoard,
 } = require("../controllers/board");
+const {modifyFormProduct, modifyProduct} = require("../controllers/admin/adminProduct");
+const {upload} = require("../middlewares/uploads");
 // 여기는 주소가 http://localhost:3000/board/ get방식 qnaList
 // 여기는 주소가 http://localhost:3000/board/ poet방식 addBoard
 router.get("/list/:bt_no", selectListBoard); // 게시판 리스트로이동

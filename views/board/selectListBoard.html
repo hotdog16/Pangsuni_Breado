@@ -2,8 +2,12 @@
 {% block style %}
 
 <style>
+
+    *{
+        margin: 0 auto;
+    }
     qna-bg{
-        background-color: #c56f6f;
+        background-color: #6DA9E4;
     }
     tr{
         background-color: whitesmoke;
@@ -11,14 +15,26 @@
     th, td{
         border: 2px solid steelblue;
     }
+
+    .qna-bg {
+        /*display: flex;*/
+        text-align: center;
+        margin: 0 auto;
+        /*width: 20%;*/
+        /*cursor: pointer;*/
+        background-color: #6DA9E4;
+    }
+
+
 </style>
 
 {% endblock %}
 {% block body %}
 
 <input type="hidden" class="bt_no" value="{{bt_no}}">
-<div class="pna-bg">
-    <table class="pna-bg">
+<div class="qna-bg">
+    <br>
+    <table>
         <thead>
         <tr>
             <th>No</th>
