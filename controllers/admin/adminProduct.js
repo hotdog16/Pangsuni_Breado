@@ -14,7 +14,7 @@ exports.addProduct = async (req, res) => {
 };
 exports.selectListProduct = async (req, res) => {
     try{
-        let where = {};
+        // let where = {};
         // if (req.query.keyword) {
         //     const {searchType, keyword} = req.query;
         //     if (searchType === 'p_name') {
@@ -29,8 +29,13 @@ exports.selectListProduct = async (req, res) => {
         //             p_name :{[Op.like]:[`%${keyword}%`]}
         //         }
         //     } else if (searchType === 'store') {
+        //         const store = stores.findAll({
+        //             where:{
+        //                 s_name:{[Op.like]:[`%${keyword}%`]}
+        //             }
+        //         });
         //         where = {
-        //             s_no_store.s_name:{[Op.like]:[`%${keyword}%`]}
+        //             // s_no_store.s_name:{[Op.like]:[`%${keyword}%`]}
         //         }
         //     } else if (searchType === 'region') {
         //         where = {

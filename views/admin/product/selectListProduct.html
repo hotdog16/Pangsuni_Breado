@@ -57,14 +57,14 @@
 <ul class="pageContent"></ul>
 <div>
     <button class="addBtn"><a href="/admin/product/add">추가</a></button>
-    <select name="searchType">
-        <option value="any">전체</option>
-        <option value="p_name">빵이름</option>
-        <option value="store">가게이름</option>
-        <option value="region">지역</option>
-    </select>
-    <input placeholder="검색" class="keyword">
-    <button class="searchBtn">검색</button>
+<!--    <select name="searchType">-->
+<!--        <option value="any">전체</option>-->
+<!--        <option value="p_name">빵이름</option>-->
+<!--        <option value="store">가게이름</option>-->
+<!--        <option value="region">지역</option>-->
+<!--    </select>-->
+<!--    <input placeholder="검색" class="keyword">-->
+<!--    <button class="searchBtn">검색</button>-->
 </div>
 </div>
 {% endblock %}
@@ -79,7 +79,8 @@
         const searchKeyword = (keyword ? keyword : '');
         const searchType = (type ? type : '');
         return axios
-            .get(`/admin/product/selectList/?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`) // 실행부분
+            // .get(`/admin/product/selectList/?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`) // 실행부분
+            .get(`/admin/product/selectList/?page=${currentPage}`) // 실행부분
             .then((response) => { // 성공했을시 수행됨
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
