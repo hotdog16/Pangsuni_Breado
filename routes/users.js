@@ -4,11 +4,15 @@ const { users } = require("../models");
 
 const { mypage, modifyMypage, modifyAddMypage,deleteUser } = require("../controllers/mypage");
 const { isLoggedIn } = require("../middlewares");
+const {findPwd,findUser} = require("../controllers/auth")
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send("respond with a resource");
 });
+
+router.get('/findpwd',findUser);
+router.post('/findpwd',findPwd);
 
 router.get("/mypage", isLoggedIn, mypage);
 

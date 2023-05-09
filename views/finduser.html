@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        text-decoration: none;
+        list-style: none;
+        color: #333;
+        margin: 0 auto;
+        overflow: hidden;
+        padding: 0;
+        margin:0;
+    }
+    .find-tab{
+        display: flex;
+        justify-content: space-around;
+        margin-top: 30px;
+        width: 100%;
+    }
+
+    .find-tab li{
+        border: 1px solid rgba(172, 172, 172, 0.663);
+        height: 50px;
+        width: 50%;
+        border-radius: 30px 30px 0 0;
+        color: #333;
+        text-align: center;
+        line-height: 50px;
+        cursor: pointer;
+    }
+    .find-tab li.active{
+        background-color:rgba(172, 172, 172, 0.459);
+    }
+
+    .find-con{
+        text-align: center;
+        margin-top: 70px;
+        font-size: 20px;
+    }
+
+    .find-con .find{
+        display: none;
+    }
+
+    .find-con .find input{
+        padding: 10px 20px;
+        margin-left: 20px;
+        font-size: 20px;
+        margin-top: 30px;
+    }
+
+    .find-con .find.active{
+        display: block;
+    }
+
+    .find-con .btn{
+        padding: 5px 20px;
+        border: 1px solid #333;
+        display: inline-block;
+        margin-top: 40px;
+        cursor: pointer;
+        transition: .3s;
+        background-color: rgba(172, 172, 172, 0.463);
+    }
+
+    .find-con .btn:hover{
+        background-color: #333;
+        color: #fff;
+    }
+
+    
+</style>
+<body onresize="parent.resizeTo(700,700)" onload="parent.resizeTo(700,700)">
+    <ul class="find-tab">
+        <li class="active" data-tab="tab1"><a href="#">아이디 찾기</a></li>
+        <li data-tab="tab2"><a href="#">비밀번호 찾기</a></li>
+    </ul>
+
+    <div class="find-con">
+        <div class="find active" id="tab1">
+            <form action="/finduser">
+            <h3>아이디 찾기</h3>
+            <div class="input-name"><label>이름</label> <input type="text" placeholder="이름을 입력해주세요"></div>
+            <div class="input-email"><label>이메일</label> <input type="email" placeholder="이메일을 입력해주세요"></div>
+            <div class="btn findid-btn">아이디 찾기</div>
+        </form>
+
+
+        </div>
+        
+        <div class="find" id="tab2">
+            <form action="/finduser">
+                <h3>비밀번호 찾기</h3>
+                <div class="input-name"><label>이름</label> <input type="text" placeholder="이름을 입력해주세요"></div>
+                <div class="input-id"><label>아이디</label> <input type="text" placeholder="아이디를 입력해주세요"></div>
+                <div class="input-email"><label>이메일</label> <input type="email" placeholder="이메일을 입력해주세요"></div>
+                <div class="btn findpwd-btn">비밀번호 찾기</div>
+            </form>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+
+            	$('.find-tab li').click(function() {
+				var activeTab = $(this).attr('data-tab');
+				$('.find-tab li').removeClass('active');
+				$('.find').removeClass('active');
+				$(this).addClass('active');
+				$('#' + activeTab).addClass('active');
+			})
+        </script>
+    </div>
+</body>
+</html>
