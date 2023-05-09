@@ -91,7 +91,7 @@ exports.modifyProduct = async (req,res)=>{
                 p_price,
                 p_desc,
                 s_no,
-                s_img:req.file.filename
+                p_img:req.file.filename
             },{
                 where:{
                     p_no

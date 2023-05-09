@@ -33,7 +33,7 @@ exports.main = async(req,res,next) => {
     // const r_no = req.params.r_no;
     const s_no = req.body.s_no;
     const storemain = await stores.findAll({
-      order:Sequelize.literal('rand()'), limit:8,
+      order:Sequelize.literal('rand()'), limit:6,
       paranoid: true,
       required: false,
       nest:true
@@ -45,3 +45,4 @@ exports.main = async(req,res,next) => {
     return res.status(500).json({store:e});
 }
 }
+

@@ -2,6 +2,8 @@ const bcrypt = require("bcrypt");
 const passport = require("passport");
 const { users } = require("../models");
 const { Sequelize } = require("sequelize");
+const smtpTransport = require('../config/mailinfo');
+
 
 exports.join = async (req, res, next) => {
   const { u_id, u_pwd, u_name, u_tel, u_email } = req.body;
@@ -124,3 +126,25 @@ exports.logout = (req, res) => {
     res.redirect("/");
   });
 };
+
+exports.findUser =(req, res) => {
+  res.render("finduser", { title: "아이디/비밀번호 찾기" });
+};
+
+exports.findPwd = (async function (req, res) {
+  const emailOptions = {
+      from: "alxo9974@naver.com",
+      to: "보내고자 하는 이메일",
+      subject: "이메일 제목",
+      text: "이메일 본문"
+  };
+
+  await smtpTransport.sendMail(emailOptions, (err, response) => {
+      if (err) {
+          // 에러 처리
+      } else {
+          // 정상 동작
+      }
+      smtpTransport.close();
+  })
+});
