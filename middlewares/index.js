@@ -26,20 +26,3 @@ exports.whoisAdmin = (req, res, next)=>{
   }
 }
 
-// exports.getuserIp = (req)=>{
-//   const addr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-//   return addr;
-// }
-
-// exports.getUserIp = async (req, res) => {
-//   let ip = requestIp.getClientIp(req);
-//   if (req.cookies[b_no] == undefined) {
-//     const addr = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-//     res.cookie(b_no, addr, {
-//       maxAge: 30000
-//     })
-//     await board.update({
-//
-//     })
-//   }
-// }
