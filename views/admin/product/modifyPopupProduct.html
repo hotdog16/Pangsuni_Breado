@@ -68,6 +68,7 @@
                 },
             });
             if(response.data.msg === 'uploadSuccess'){
+                opener.parent.listRender();
                 window.close();
             }
         }catch (err) {
