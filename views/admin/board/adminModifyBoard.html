@@ -1,14 +1,20 @@
 {% extends 'layout.html' %}
 {% block style %}
 <style>
+h1 {
+    color: #4b907a;
+}
 
+p {
+
+}
 
 
 </style>
 {% endblock %}
 
 {% block body %}
-<h1>게시판수정창</h1>
+<h1>게시판 수정창</h1>
 <!--<form method="post">-->
     <input type="hidden" name="b_no" value="{{board.b_no}}">
     <p><label>제목 : </label><input name="b_title" value="{{board.b_title}}"></p>
