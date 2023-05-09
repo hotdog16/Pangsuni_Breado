@@ -1,7 +1,7 @@
 const express = require("express");
 const passport = require("passport")
 
-const { mail,join, login, logout, idCheck, emailCheck, telCheck, loginCheck } = require("../controllers/auth");
+const { join, login, logout, idCheck, emailCheck, telCheck } = require("../controllers/auth");
 const { renderJoin, renderMain, renderLogin, main } = require("../controllers/page");
 
 const { isLoggedIn, isNotLoggedIn } = require("../middlewares");
