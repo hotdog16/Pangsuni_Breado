@@ -10,7 +10,7 @@ const {
     CommentWrite,
     CommentAdd,
     deleteBoard,
-    test2,
+    selectListBoard2,
     modifyFormBoard,
     modifyBoard,
 } = require("../controllers/board");
@@ -40,6 +40,6 @@ router.post("/commentswrite", CommentWrite);
 router.post("/commentsview/:no", CommentAdd);
 // router.post("/listpaging", qnaListPaging);
 // router.get("/test", test); // 게시판 리스트로이동
-router.get("/test2/:bt_no", test2); // 게시판 리스트로이동
+router.get("/selectList2/:bt_no", selectListBoard2); // 게시판 리스트로이동
 
 module.exports = router;
