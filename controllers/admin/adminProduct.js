@@ -72,6 +72,10 @@ exports.modifyFormProduct = async (req,res)=>{
 
 exports.modifyProduct = async (req,res)=>{
     const {p_no, p_name, p_price, p_desc, s_no} = req.body;
+    console.log('상품 수정 컨트롤러');
+    console.log(req.file);
+    console.log(req.file.length);
+    console.log('수행되는지 확인');
     try{
         let product;
         if(typeof req.file == 'undefined'){
@@ -91,7 +95,7 @@ exports.modifyProduct = async (req,res)=>{
                 p_price,
                 p_desc,
                 s_no,
-                s_img:req.file.filename
+                p_img:req.file.filename
             },{
                 where:{
                     p_no
