@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>수정창</h1>
+    <input type="hidden" name="page" value="{{page}}">
     <form method="post" enctype="multipart/form-data">
         <input type="hidden" name="p_no" value="{{product.p_no}}">
         <p><label>제품 명 : </label><input name="p_name" value="{{product.p_name}}"></p>
@@ -68,7 +69,8 @@
                 },
             });
             if(response.data.msg === 'uploadSuccess'){
-                opener.parent.listRender();
+                const page = document.querySelector('input[name="page"]').value;
+                opener.parent.listRender(page);
                 window.close();
             }
         }catch (err) {

@@ -65,17 +65,14 @@ exports.deleteProduct = async (req, res)=>{
 
 exports.modifyFormProduct = async (req,res)=>{
     const p_no = req.params.p_no;
+    const page = req.query.page;
     const product = await products.findOne({where:{p_no}});
     const store = await stores.findAll();
-    res.render('admin/product/modifyPopupProduct', {product,stores:store});
+    res.render('admin/product/modifyPopupProduct', {product,stores:store, page});
 }
 
 exports.modifyProduct = async (req,res)=>{
     const {p_no, p_name, p_price, p_desc, s_no} = req.body;
-    console.log('상품 수정 컨트롤러');
-    console.log(req.file);
-    console.log(req.file.length);
-    console.log('수행되는지 확인');
     try{
         let product;
         if(typeof req.file == 'undefined'){
