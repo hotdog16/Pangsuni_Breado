@@ -1,5 +1,10 @@
 {% extends 'layout.html' %}
 {% block style %}
+<style>
+    .clicked{
+        background-color: steelblue;
+    }
+</style>
 {% endblock %}
 {% block body %}
 <div id="store">
@@ -10,7 +15,7 @@
 {% endfor %}
 </ul>
 <div id="regionStore">
-    <h5>서울</h5>
+<!--    <h5>서울</h5>-->
     {% for seoul in seoulStore %}
     <div class="store">
         <a href="/store/detail/{{seoul.s_no}}">
@@ -29,16 +34,25 @@
 <script>
     const regions = document.querySelectorAll('.region');
     const regionStore = document.querySelector('#regionStore');
+    regions[0].style.backgroundColor ='black';
+    regions[0].style.color ='white';
     regions.forEach((region) => {
         region.addEventListener('click', function () {
+            const liLength = this.parentNode.childElementCount;
+            for(let i=0; i< liLength; i++){
+                this.parentNode.children[i].style.backgroundColor = 'white';
+                this.parentNode.children[i].style.color = 'black';
+            }
+            this.style.backgroundColor = 'black';
+            this.style.color = 'white';
             const r_no = this.dataset.id;
             try {
                 axios.post(`/store`, {r_no: r_no})
                     .then((result) => {
                         regionStore.innerHTML = '';
-                        const regionName = document.createElement('h5');
-                        regionName.innerHTML = this.textContent;
-                        regionStore.append(regionName);
+                        // const regionName = document.createElement('h5');
+                        // regionName.innerHTML = this.textContent;
+                        // regionStore.append(regionName);
                         for (let item of result.data.stores) {
                             const store = document.createElement('div');
                             store.className = 'store'
@@ -56,5 +70,8 @@
             }
         })
     })
+    const bgChange = (r_name)=>{
+        console.log(r_name);
+    }
 </script>
 {% endblock %}

@@ -5,7 +5,7 @@
         border-collapse: collapse;
     }
     table td{
-        border: 2px solid #FF6D28;
+        border: 2px solid #3330E4;
     }
 </style>
 {% endblock %}
@@ -55,9 +55,7 @@
                                          <td class="pickupDate">${pickupDate}</td>
                                          <td>${order.o_cnt}</td>`;
                     if(today === pickupDate){
-                        qna_con.firstChild.style.backgroundColor = '#EA047E';
-                    }else{
-                        qna_con.firstChild.style.backgroundColor = '#FCE700';
+                        qna_con.style.backgroundColor = '#EA047E';
                     }
                     qna_con.firstChild.style.textAlign = 'center';
                     qna_con.lastChild.style.textAlign = 'center';
