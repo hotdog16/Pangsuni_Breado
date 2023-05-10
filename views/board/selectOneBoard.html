@@ -39,7 +39,7 @@
 </div>
 {% if bt_no == 2 %}
 <div>
-    <h1>댓글 list</h1>
+    <h3>댓글</h3>
     <table>
         <thead>
         <tr>
@@ -70,7 +70,7 @@
         <div class="input-group">
             <input name="bt_no" value="{{bt_no}}" size="3" type="hidden"><br>
             <h1 class="commentFormTitle">댓글쓰기</h1><br>
-            <label>작성자 </label><span>{{user.u_id}}</span>
+            <label>작성자: </label><span>{{user.u_id}}</span>
             <input type="hidden" name="u_no" value="{{user.u_no}}"><br><br>
         </div>
         <div class="input-group">
