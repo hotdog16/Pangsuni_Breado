@@ -1,41 +1,39 @@
 {% extends 'layout.html' %}
 {% block style %}
 <style>
-    table{
-        border-collapse: collapse;
+
+    .pageHead {
+        background-color: #dfdfdf;
     }
-    table td{
-        border: 2px solid #5F9DF7;
-    }
-    .titleContent h1{
+    .pageBg {
         text-align: center;
+        margin: 0 auto;
     }
-    .listContent table{
-        display: block;
-        width: 500px;
-        margin: auto;
+    .orderTableSize {
+        width: 750px;
+        padding: 20px;
     }
-    .pageContent{
-        display: block;
-        width: 500px;
-        margin: auto;
+    .pageContent {
+        display: flex;
+        width: 5%;
     }
-    .pageContent li{
-        display: inline-block;
-        margin: 10px;
-    }
+.orderList {
+    text-align: center;
+    margin: 0 auto;
+}
+
 </style>
 {% endblock %}
 {% block body %}
-<div>
-    <div class="titleContent"><br>
+<div class="pageBg">
+    <div><br>
         <h1>{{user.u_id}}님 예약조회</h1>
     </div>
-    <div class="listContent">
-        <table>
+    <div>
+        <table class="orderTableSize">
             <br>
             <thead>
-            <tr>
+            <tr class="pageHead">
                 <th>주문번호</th>
                 <th>가게이름</th>
                 <th>제품명</th>
