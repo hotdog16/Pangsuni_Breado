@@ -9,28 +9,25 @@ const {
     adminBoard2,
     deleteBoard,
     member,
-    deleteComment
+    deleteComment,
+    adminHome
 } = require("../controllers/admin");
 const {addFormBoard, adminModifyBoard, adminModifyBoardPost} = require('../controllers/admin/adminBoard');
 const {isLoggedIn, whoisAdmin} = require("../middlewares");
-
 
 router.use((req, res, next) => {
     res.locals.user = req.user;
     next();
 });
 
-// router.get("/order", adminOrder);
-// router.get("/order/selectList", selectListOrder);
-// router.get("/product", selectOneProduct);
-// router.get("/product/selectList", selectListProduct);
+router.get("/", isLoggedIn,whoisAdmin, adminHome);
 
 router.get("/member", isLoggedIn, whoisAdmin, adminMember);
 router.get("/member/select", isLoggedIn, whoisAdmin, member);
-// router.get("/member/detail/:u_no", memberdetail);
+
 router.get("/member/detail/:u_no", isLoggedIn, whoisAdmin, memberdetail);
 router.post("/member/detail/:u_no", isLoggedIn, whoisAdmin, DetailMember);
-// router.get("/memberDetailOrder/:id", DetailOrderMember);
+
 router.post("/member/delete", isLoggedIn, whoisAdmin, deleteMember)
 
 // board

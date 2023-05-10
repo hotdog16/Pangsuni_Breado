@@ -33,9 +33,7 @@ router.post("/telCheck", telCheck);
 router.get("/logout", isLoggedIn, logout);
 // router.post("/logout", isLoggedIn, logout);
 
-router.get("/admin", (req, res) => {
-  res.render("admin/admin", { title: "Express" });
-});
+
 // 지도 테스트 중
 router.get("/map", (req, res) => {
   const mapAPI = process.env.KAKAO_MAP;

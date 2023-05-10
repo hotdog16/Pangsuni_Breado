@@ -1,6 +1,10 @@
 const { Sequelize, Op} = require("sequelize");
 const { users,orders,products,board,comments } = require("../models");
 
+exports.adminHome = async (req, res) => {
+  res.render("admin/admin", { title: "Express" });
+}
+
 exports.adminOrder = async (req, res) => {
   res.render("admin/order", {title: "주문관리", user: req.user});
 };
