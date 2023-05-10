@@ -108,10 +108,11 @@
           console.log('회원번호 : ', users.u_no);
           const member_con = document.createElement('ul');
           member_con.className = 'member-con';
+            const regDate = new Date(users.u_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
           member_con.innerHTML = `<li class="px100">${users.u_no}</li>
                                          <li class="px100">${users.u_id}</li>
                                          <li class="px100">${users.u_name}</li>
-                                         <li class="px125">${users.u_reg_dt}</li>
+                                         <li class="px125">${regDate}</li>
                                          <li class="px125"><button class="btn" onclick="window.open('/admin/member/detail/${users.u_no}','detail','width=900 height=800 resizable=no toolbars=no menubar=no')">상세보기</button></li>
                                          <li class="100"><button onclick="window.open('/admin/member/modify/${users.u_no}?page=${currentPage}', 'modify', 'width=900 height=800 resizable=no toolbars=no menubar=no')"><i class="fa-solid fa-user-plus fa-bounce"></i></button></li>
                                          <li class="100"><a onclick="deleteMember(${users.u_no})"><i class="fa-sharp fa-solid fa-user-minus fa-fade"></i></a></li>`;
