@@ -5,7 +5,8 @@ const {
   deleteMember,
   DetailMember,
   adminMember,
-  member
+  member,
+  adminHome
 } = require("../controllers/admin");
 const {isLoggedIn, whoisAdmin} = require("../middlewares");
 
@@ -24,6 +25,4 @@ router.post("/member/detail/:u_no", isLoggedIn, whoisAdmin, DetailMember);
 
 router.post("/member/delete", isLoggedIn, whoisAdmin, deleteMember)
 
-// router.get("/store", adminStore);
-// router.get('/store/selectList', selectListStore);
 module.exports = router;
