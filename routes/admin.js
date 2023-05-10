@@ -8,6 +8,7 @@ const {
   member,
   adminHome
 } = require("../controllers/admin");
+const {modifyFormUser, modifyUser}=require('../controllers/admin/adminUsers');
 const {isLoggedIn, whoisAdmin} = require("../middlewares");
 
 router.use((req, res, next) => {
@@ -24,5 +25,8 @@ router.get("/member/detail/:u_no", isLoggedIn, whoisAdmin, memberdetail);
 router.post("/member/detail/:u_no", isLoggedIn, whoisAdmin, DetailMember);
 
 router.post("/member/delete", isLoggedIn, whoisAdmin, deleteMember)
+
+router.get("/member/modify/:u_no", isLoggedIn, whoisAdmin, modifyFormUser);
+router.post("/member/modify", isLoggedIn, whoisAdmin, modifyUser);
 
 module.exports = router;
