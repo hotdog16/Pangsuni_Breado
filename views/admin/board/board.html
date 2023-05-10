@@ -120,12 +120,10 @@
         list.innerHTML = '';
         const currentPage = (page ? page : 1);
         return axios
-            .get(`/admin/board2/?page=${currentPage}`) // 실행부분
+            .get(`/admin/board/selectList/?page=${currentPage}`) // 실행부분
             .then((response) => { // 성공했을시 수행됨
-                console.log('result : ', response.data);
                 pageContent.innerHTML='';
                 for (let board of response.data.board.rows) {
-                    console.log('게시글 번호 : ', board.b_no);
                     const qna_con = document.createElement('ul');
                     qna_con.className = 'qna-con';
                     qna_con.innerHTML = `<li class="px80">${board.b_no}</li>

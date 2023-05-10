@@ -26,6 +26,7 @@ const adminRouter = require("./routes/admin");
 const adminStoreRouter = require("./routes/admin/adminStore");
 const adminOrderRouter = require("./routes/admin/adminOrder");
 const adminProductRouter = require("./routes/admin/adminProduct");
+const adminBoardRouter = require("./routes/admin/adminBoard");
 const { sequelize } = require("./models");
 const passportConfig = require("./passport");
 passportConfig(); // 패스포트 설정
@@ -78,6 +79,7 @@ app.use("/admin", adminRouter);
 app.use("/admin/store", adminStoreRouter);
 app.use("/admin/order", adminOrderRouter);
 app.use("/admin/product", adminProductRouter);
+app.use("/admin/board", adminBoardRouter);
 app.use((req, res, next) => {
   const error = new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
   error.status = 404;
