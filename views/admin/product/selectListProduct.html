@@ -38,6 +38,17 @@
     .px150{width: 150px;}
     .px200{width: 200px;}
     #admin-board .btn{padding: 5px 10px;}
+
+    .write-btn {
+        background-color: orange;
+        padding: 8px 15px;
+        border-radius: 5px;
+        color: black;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+    }
+
 </style>
 {% endblock %}
 {% block body %}
@@ -56,7 +67,7 @@
 <div class="list"></div>
 <ul class="pageContent"></ul>
 <div>
-    <button class="addBtn"><a href="/admin/product/add">추가</a></button>
+    <button class="write-btn"><a href="/admin/product/add">추가</a></button>
 </div>
 </div>
 {% endblock %}
