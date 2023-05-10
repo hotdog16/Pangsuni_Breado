@@ -1,45 +1,27 @@
 {% extends 'layout.html' %}
 {% block style %}
-
 <style>
-
     *{
         margin: 0 auto;
     }
-
-    /*tr{*/
-    /*    background-color: #ffffe4;*/
-    /*}*/
-    /*th, td{*/
-    /*    !*border: 2px solid #6DA9E4;*!*/
-    /*    border: 1px solid white;*/
-    /*}*/
-
     .qna-head {
         background-color: rgba(216, 218, 203, 0.6);
     }
-
     .qna-bg {
         text-align: center;
         margin: 0 auto;
     }
-
     .qna-table-size {
         width: 750px;
         padding: 20px;
     }
-
     .pageContent {
         display: flex;
         width: 5%;
     }
-
-
 </style>
-
 {% endblock %}
 {% block body %}
-
 <input type="hidden" class="bt_no" value="{{bt_no}}">
 <div class="qna-bg">
     <br>
@@ -58,7 +40,7 @@
         <ul class="pageContent"></ul> <br>
     <div>
         {% if bt_no != 1 %}
-        <button class="write"><a href="/board/qnaadd/{{bt_no}}">글쓰기</a></button>
+        <button class="write-btn"><a href="/board/qnaadd/{{bt_no}}">글쓰기</a></button><br><br>
         {% endif %}
         <select class="searchType">
             <option value="any">제목 + 내용</option>
@@ -88,7 +70,6 @@
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
                 for (let store of response.data.board.rows) {
-                    console.log('게시글 번호 : ', store.b_no);
                     const regDate = new Date(store.b_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
                     const qna_con = document.createElement('tr');
                     qna_con.className = 'qna-con';
@@ -111,7 +92,6 @@
     function pageNavigation(response){
         const currentPage = Number(response.currentPage);
         const num = response.num;
-        console.log('페이지네이션 확인 :', num);
         if(response.num[0]> 10){
             const prev = document.createElement('li');
             prev.setAttribute('data-page',`${(response.checkNum-9)}`);
@@ -138,13 +118,9 @@
     searchBtn.addEventListener('click', function () {
         const keyword = document.querySelector('.keyword').value;
         const searchType = document.querySelector('.searchType').value;
-        console.log('keyword : ', keyword);
-        console.log('searchType : ', searchType);
         listRender(null, keyword, searchType);
     })
-    // function selectOneBoard(b_no){
-    //     window.location.href = `/board/view/${b_no}`;
-    // }
+
 </script>
 {% endblock %}
 

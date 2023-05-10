@@ -9,7 +9,6 @@ const dotenv = require("dotenv");
 const passport = require("passport");
 dotenv.config();
 
-const noticeRouter = require("./routes/notice");
 const productRouter = require("./routes/product");
 const orderRouter = require("./routes/order");
 const indexRouter = require("./routes/index");
@@ -56,7 +55,6 @@ app.use(passport.session());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/notice", noticeRouter);
 app.use("/product", productRouter);
 app.use("/order", orderRouter);
 app.use("/comment", commentRouter);

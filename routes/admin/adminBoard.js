@@ -1,7 +1,6 @@
 const express = require("express");
 const {deleteComment} = require("../../controllers/admin");
 const router = express.Router();
-
 const {
     addFormBoard,
     adminModifyBoard,
@@ -10,7 +9,6 @@ const {
     adminSelectListBoard,
     deleteBoard
 } = require('../../controllers/admin/adminBoard');
-
 const {isLoggedIn, whoisAdmin} = require("../../middlewares");
 
 router.use((req, res, next) => {
