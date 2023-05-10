@@ -21,7 +21,6 @@
     text-align: center;
     margin: 0 auto;
 }
-
 </style>
 {% endblock %}
 {% block body %}
@@ -56,7 +55,7 @@
 <script>
     const list = document.querySelector('.orderList');
     const pageContent = document.querySelector('.pageContent');
-    function listRender(page, keyword, type) { // 게시물 리스트를 출력하는 function
+    function listRender(page) { // 게시물 리스트를 출력하는 function
         list.innerHTML = '';
         const currentPage = (page ? page : 1);
         return axios
@@ -65,12 +64,9 @@
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
                 for (let order of response.data.orders.rows) {
-                    console.log('게시글 번호 : ', order.o_no);
                     const today = new Date().toLocaleDateString();
-                    console.log('오늘 : ', today);
                     const regDate = new Date(order.o_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
                     const pickupDate = new Date(order.o_pickup_dt).toLocaleDateString();
-                    console.log((today < pickupDate? '맞아':'아니야'));
                     const qna_con = document.createElement('tr');
                     qna_con.className = 'qna-con';
                     qna_con.innerHTML = `<td>${order.o_no}</td>
@@ -78,7 +74,8 @@
                                          <td>${order.p_no_product.p_name}</td>
                                          <td>${regDate}</td>
                                          <td class="pickupDate">${pickupDate}</td>
-                                         <td>${order.o_cnt}</td>`;
+                                         <td>${order.o_cnt}</td>
+                                         <td class="deleteOrder"><i class="fa-solid fa-trash-can" onclick="deleteOrder(${order.o_no},${currentPage})"></i></td>`;
                     if(today === pickupDate){
                         qna_con.style.backgroundColor = '#FC4F00';
                     }
@@ -95,7 +92,6 @@
     function pageNavigation(response){
         const currentPage = Number(response.currentPage);
         const num = response.num;
-        console.log('페이지네이션 확인 :', num);
         if(response.num[0]> 10){
             const prev = document.createElement('li');
             prev.setAttribute('data-page',`${(response.checkNum-9)}`);
@@ -118,6 +114,21 @@
             next.innerHTML = 'next';
             pageContent.append(next);
         }
+    }
+
+    const deleteOrder =  async (o_no,page)=>{
+        console.log('o_no', o_no);
+        console.log('안되는가');
+        await axios.post(`/order/delete`,{o_no})
+            .then((response)=>{
+                if(response.data.msg === 'success'){
+                    listRender(page);
+                }
+            })
+            .catch((err)=>{
+                console.error(err);
+                listRender(page);
+            })
     }
     listRender();
 </script>

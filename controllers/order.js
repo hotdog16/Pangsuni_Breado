@@ -61,3 +61,19 @@ exports.selectListOrder = async (req, res)=>{
         return res.status(500).json(e);
     }
 }
+
+exports.deleteOrder = async (req, res) =>{
+    console.log('컨트롤러');
+    const o_no = req.body.o_no;
+    try{
+        await orders.destroy({
+            where:{
+                o_no
+            }
+        });
+        return res.json({msg:'success'});
+    }catch (err) {
+        console.error(err);
+        return res.status(500).json({msg: err});
+    }
+}

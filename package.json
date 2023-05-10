@@ -36,6 +36,7 @@
     "sequelize-cli": "^6.6.0",
     "sequelize-cursor-pagination": "^3.4.0",
     "twig": "~0.10.3",
+    "twilio": "^4.11.0",
     "validate": "^5.2.0"
   },
   "devDependencies": {
