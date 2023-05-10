@@ -1,7 +1,7 @@
 const {orders,users,products,stores} = require("../../models");
 
 exports.adminOrder = async (req, res) => {
-    res.render("admin/order", {title: "주문관리", user: req.user});
+    res.render("admin/order/listOrder", {title: "주문관리", user: req.user});
 };
 
 exports.selectListOrder = async (req, res) => {
@@ -45,3 +45,7 @@ exports.selectListOrder = async (req, res) => {
         return res.status(500).json(e);
     }
 };
+
+exports.searchForm = async (req, res)=>{
+    res.render('admin/order/searchFormOrder');
+}

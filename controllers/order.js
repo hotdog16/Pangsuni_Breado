@@ -1,5 +1,5 @@
 const {stores, orders, products, users} = require("../models");
-const {Sequelize} = require("sequelize");
+const {Sequelize, Op, NOW} = require("sequelize");
 
 exports.addOrder = async (req, res) => {
     try {
@@ -76,4 +76,29 @@ exports.deleteOrder = async (req, res) =>{
         console.error(err);
         return res.status(500).json({msg: err});
     }
+}
+
+exports.todayOrder = async (req,res)=>{
+    const u_no = req.params.u_no;
+    try{
+
+    }catch (err) {
+        console.error(err);
+    }
+    const todayOrder = await orders.findAll({
+        where:{
+            [Op.and]:[
+                {u_no},
+                {[Op.eq]:[{o_pickup_dt:NOW}]}
+            ]
+        },
+        include:[{
+            model:products,
+            as:'p_no_product',
+            include:[{
+                model:stores,
+                as: 's_no_store'
+            }]
+        }]
+    })
 }

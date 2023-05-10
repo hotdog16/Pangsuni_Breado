@@ -64,20 +64,27 @@
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
                 for (let order of response.data.orders.rows) {
-                    const today = new Date().toLocaleDateString();
+                    let today = new Date();
                     const regDate = new Date(order.o_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
-                    const pickupDate = new Date(order.o_pickup_dt).toLocaleDateString();
+                    let pickupDate = new Date(order.o_pickup_dt);
                     const qna_con = document.createElement('tr');
                     qna_con.className = 'qna-con';
                     qna_con.innerHTML = `<td>${order.o_no}</td>
                                          <td>${order.p_no_product.s_no_store.s_name}</td>
                                          <td>${order.p_no_product.p_name}</td>
                                          <td>${regDate}</td>
-                                         <td class="pickupDate">${pickupDate}</td>
-                                         <td>${order.o_cnt}</td>
-                                         <td class="deleteOrder"><i class="fa-solid fa-trash-can" onclick="deleteOrder(${order.o_no},${currentPage})"></i></td>`;
-                    if(today === pickupDate){
+                                         <td class="pickupDate">${pickupDate.toLocaleDateString()}</td>
+                                         <td>${order.o_cnt}</td>`;
+                    if(today.getTime() === pickupDate.getTime()){
                         qna_con.style.backgroundColor = '#FC4F00';
+                    } else if(today.getTime() < pickupDate.getTime()) {
+                        const deleteBtn = document.createElement('td');
+                        deleteBtn.className='deleteOrder';
+                        deleteBtn.innerHTML = `<i class="fa-solid fa-trash-can" onclick="deleteOrder(${order.o_no},${currentPage})"></i>`;
+                        qna_con.append(deleteBtn);
+                    }
+                    else {
+
                     }
                     qna_con.firstChild.style.textAlign = 'center';
                     qna_con.lastChild.style.textAlign = 'center';

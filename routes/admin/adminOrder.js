@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {selectListOrder, adminOrder} = require('../../controllers/admin/adminOrder')
+const {selectListOrder, adminOrder, searchForm} = require('../../controllers/admin/adminOrder')
 const {isLoggedIn, whoisAdmin} = require('../../middlewares');
 
 router.use((req, res, next) => {
@@ -11,5 +11,7 @@ router.use((req, res, next) => {
 router.get("/", isLoggedIn, whoisAdmin, adminOrder);
 
 router.get('/selectList', isLoggedIn, whoisAdmin, selectListOrder);
+
+router.get('/search', isLoggedIn, whoisAdmin, searchForm);
 
 module.exports = router;

@@ -54,12 +54,16 @@
     </div>
     <tfoot class='orderPage'></tfoot>
 <ul class="pageContent"></ul>
+<!--    <div>-->
+<!--        <button class="searchBtn">검색창 열기</button>-->
+<!--    </div>-->
 </div>
 {% endblock %}
 {% block script%}
 <script>
     const list = document.querySelector('.orderList');
     const pageContent = document.querySelector('.pageContent');
+    const searchBtn = document.querySelector('.searchBtn');
     function listRender(page, keyword, type) { // 게시물 리스트를 출력하는 function
         list.innerHTML = '';
         // const bt_no = document.querySelector('.bt_no').value;
@@ -123,5 +127,9 @@
             pageContent.append(next);
         }
     }
+
+    // searchBtn.addEventListener('click', ()=>{
+    //     window.open('/admin/order/search','검색','width=300 height=200 resizable=no toolbar=no menubar=no');
+    // })
 </script>
 {% endblock %}
