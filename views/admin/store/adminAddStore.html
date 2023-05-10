@@ -1,22 +1,33 @@
 {% extends 'admin/admin.html' %}
+{% block style %}
+<style>
+    .b_content {
+        width: 500px;
+        height: 150px;
+    }
+    .b_title {
+        width: 500px;
+    }
+</style>
+{% endblock %}
 {% block body %}
-
+<h2>관리자 store 추가</h2><br>
 <form enctype="multipart/form-data" method="post" action="/admin/store/add">
-    <p><label>가게이름 : </label><input name="s_name"></p>
+    <p><label>가게이름 : </label><input name="s_name" class="b_title"></p><br>
     <p><label>지역 : </label>
         <select name="r_no">
             {% for region in regions %}
             <option value="{{region.r_no}}">{{region.r_name}}</option>
             {% endfor %}
-        </select></p>
-    <p><label>설명 : </label><textarea name="s_desc" cols="50" rows="10"></textarea></p>
-    <p><label>주소 : </label><input name="s_addr"></p>
+        </select></p><br>
+    <p><label>설명 : </label><textarea name="s_desc" cols="50" rows="10" class="b_content"></textarea></p><br>
+    <p><label>주소 : </label><input name="s_addr" class="b_title"></p><br>
     <p><label>전화번호 : </label>
         <input type="number" maxlength="4" name="s_tel">-
         <input type="number" maxlength="4" name="s_tel">-
-        <input type="number" maxlength="4" name="s_tel"></p>
-    <p><label>이미지 : </label><input type="file" name="s_img"></p>
-    <p><button type="submit">전송</button></p>
+        <input type="number" maxlength="4" name="s_tel"></p><br>
+    <p><label>이미지 : </label><input type="file" name="s_img"></p><br>
+    <p><button type="submit" class="write-btn">전송</button></p>
 </form>
 <div class="preview-images">
     <img id="preview">
