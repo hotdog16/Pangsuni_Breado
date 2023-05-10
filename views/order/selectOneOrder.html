@@ -7,25 +7,50 @@
     table td{
         border: 2px solid #5F9DF7;
     }
+    .titleContent h1{
+        text-align: center;
+    }
+    .listContent table{
+        display: block;
+        width: 500px;
+        margin: auto;
+    }
+    .pageContent{
+        display: block;
+        width: 500px;
+        margin: auto;
+    }
+    .pageContent li{
+        display: inline-block;
+        margin: 10px;
+    }
 </style>
 {% endblock %}
 {% block body %}
-<h1>{{user.u_name}}님 예약조회</h1>
-<table>
-    <thead>
-    <tr>
-        <th>주문번호</th>
-        <th>가게이름</th>
-        <th>제품명</th>
-        <th>주문날짜</th>
-        <th>픽업날짜</th>
-        <th>갯수</th>
-    </tr>
-    </thead>
-    <tbody class="orderList">
-    </tbody>
-</table>
-<ul class="pageContent"></ul>
+<div>
+    <div class="titleContent">
+        <h1>{{user.u_id}}님 예약조회</h1>
+    </div>
+    <div class="listContent">
+        <table>
+            <thead>
+            <tr>
+                <th>주문번호</th>
+                <th>가게이름</th>
+                <th>제품명</th>
+                <th>주문날짜</th>
+                <th>픽업날짜</th>
+                <th>갯수</th>
+            </tr>
+            </thead>
+            <tbody class="orderList">
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <ul class="pageContent"></ul>
+    </div>
+</div>
 {% endblock %}
 {% block script %}
 <script>
@@ -55,7 +80,7 @@
                                          <td class="pickupDate">${pickupDate}</td>
                                          <td>${order.o_cnt}</td>`;
                     if(today === pickupDate){
-                        qna_con.style.backgroundColor = '#1746A2';
+                        qna_con.style.backgroundColor = '#FC4F00';
                     }
                     qna_con.firstChild.style.textAlign = 'center';
                     qna_con.lastChild.style.textAlign = 'center';

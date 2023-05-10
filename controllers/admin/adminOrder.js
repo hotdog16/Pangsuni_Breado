@@ -1,6 +1,5 @@
 const {orders,users,products,stores} = require("../../models");
 
-
 exports.adminOrder = async (req, res) => {
     res.render("admin/order", {title: "주문관리", user: req.user});
 };

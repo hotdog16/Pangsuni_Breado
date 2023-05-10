@@ -5,7 +5,8 @@ const {
   deleteMember,
   DetailMember,
   adminMember,
-  member
+  member,
+  adminHome
 } = require("../controllers/admin");
 const {isLoggedIn, whoisAdmin} = require("../middlewares");
 
@@ -14,19 +15,14 @@ router.use((req, res, next) => {
   next();
 });
 
-// router.get("/order", adminOrder);
-// router.get("/order/selectList", selectListOrder);
-// router.get("/product", selectOneProduct);
-// router.get("/product/selectList", selectListProduct);
+router.get("/", isLoggedIn,whoisAdmin, adminHome);
 
-router.get("/member", adminMember);
-router.get("/member/select", member);
-// router.get("/member/detail/:u_no", memberdetail);
-router.get("/member/detail/:u_no", memberdetail);
-router.post("/member/detail/:u_no", DetailMember);
-// router.get("/memberDetailOrder/:id", DetailOrderMember);
-router.post("/member/delete", deleteMember)
+router.get("/member", isLoggedIn, whoisAdmin, adminMember);
+router.get("/member/select", isLoggedIn, whoisAdmin, member);
 
-// router.get("/store", adminStore);
-// router.get('/store/selectList', selectListStore);
+router.get("/member/detail/:u_no", isLoggedIn, whoisAdmin, memberdetail);
+router.post("/member/detail/:u_no", isLoggedIn, whoisAdmin, DetailMember);
+
+router.post("/member/delete", isLoggedIn, whoisAdmin, deleteMember)
+
 module.exports = router;
