@@ -106,6 +106,7 @@ exports.member = async (req,res) =>{
     }
 
 exports.deleteMember = async (req, res)=>{
+  console.log('삭제 컨트롤러');
   try{
     const {u_no} = req.body;
     await users.destroy({

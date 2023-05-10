@@ -1,0 +1,37 @@
+{% extends 'admin/admin.html' %}
+{% block body %}
+<div>
+  <input type="hidden" name="page" value="{{page}}">
+  <p><label>유저 번호 : </label><input name="u_no" value="{{user.u_no}}" readonly></p>
+  <p><label>유저 아이디 : </label><input name="u_id" value="{{user.u_id}}" readonly></p>
+  <p><label>유저 이름 : </label><input name="u_name" value="{{user.u_name}}"></p>
+  <p><label>유저 전화번호 : </label><input name="u_tel" value="{{user.u_tel}}"></p>
+  <p><label>유저 이메일 : </label><input name="u_email" value="{{user.u_email}}" readonly></p>
+  <p><label>유저 등급 : </label>
+    <select name="u_grade">
+  <option>일반회원</option>
+  <option>관리자</option>
+  </select></p>
+  <p><button class="modifyBtn">수정</button></p>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+  const modifyBtn = document.querySelector('.modifyBtn');
+  modifyBtn.addEventListener('click', async ()=>{
+    const u_no = document.querySelector('input[name="u_no"]').value;
+    const u_name = document.querySelector('input[name="u_name"]').value;
+    const u_tel = document.querySelector('input[name="u_tel"]').value;
+    const u_email = document.querySelector('input[name="u_email"]').value;
+    const u_grade = document.querySelector('select[name="u_grade"]').value;
+    await axios.post('/admin/member/modify',{u_no,u_name,u_tel,u_grade,u_email})
+            .then((response)=>{
+              if(response.data.msg === 'success'){
+                const page = document.querySelector('input[name="page"]').value;
+                opener.parent.listRender(page);
+                window.close();
+              }
+            })
+  })
+</script>
+{% endblock %}
