@@ -11,4 +11,5 @@ router.use((req, res, next) => {
 router.get("/", isLoggedIn, whoisAdmin, adminOrder);
 
 router.get('/selectList', isLoggedIn, whoisAdmin, selectListOrder);
+
 module.exports = router;

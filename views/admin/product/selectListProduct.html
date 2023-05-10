@@ -57,14 +57,6 @@
 <ul class="pageContent"></ul>
 <div>
     <button class="addBtn"><a href="/admin/product/add">추가</a></button>
-<!--    <select name="searchType">-->
-<!--        <option value="any">전체</option>-->
-<!--        <option value="p_name">빵이름</option>-->
-<!--        <option value="store">가게이름</option>-->
-<!--        <option value="region">지역</option>-->
-<!--    </select>-->
-<!--    <input placeholder="검색" class="keyword">-->
-<!--    <button class="searchBtn">검색</button>-->
 </div>
 </div>
 {% endblock %}
@@ -73,15 +65,13 @@
     const list = document.querySelector('.list');
     const pageContent = document.querySelector('.pageContent');
     const searchBtn = document.querySelector('.searchBtn');
-    function listRender(page, keyword, type) { // 리스트를 출력하기 위한 function
+    function listRender(page) { // 리스트를 출력하기 위한 function
         list.innerHTML = '';
         const currentPage = (page ? page : 1);
-        const searchKeyword = (keyword ? keyword : '');
-        const searchType = (type ? type : '');
         return axios
-            // .get(`/admin/product/selectList/?page=${currentPage}&keyword=${searchKeyword}&searchType=${searchType}`) // 실행부분
+
             .get(`/admin/product/selectList/?page=${currentPage}`) // 실행부분
-            .then((response) => { // 성공했을시 수행됨
+            .then((response) => {
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
                 for (let product of response.data.products.rows) {
@@ -92,12 +82,12 @@
                                          <li class="px120">${product.s_no_store.s_name}</li>
                                          <li class="px150">${product.p_name}</li>
                                          <li class="px120"><button class="btn" onclick="window.open('/admin/product/modify/${product.p_no}?page=${currentPage}','상품 수정','width=900 height=800 resizable=no toolbar=no menubar=no')">수정</button></li>
-                                         <li class="px120"><button class="btn" onclick="deleteProduct(${product.p_no},${currentPage})">삭제</button></li>`;
+                                         <li class="px120"><button class="btn" onclick="deleteProduct(${product.p_no},${currentPage})"><i class="fa-solid fa-trash"></i></button></li>`;
                     list.append(qna_con);
                 }
                 pageNavigation(response.data);
             })
-            .catch((err) => { // 실패했을시 수행됨
+            .catch((err) => {
                 pageContent.innerHTML='검색결과가 없어요';
                 console.error(err);
             })
@@ -111,7 +101,7 @@
             prev.setAttribute('data-page',`${(response.checkNum-9)}`);
             prev.setAttribute('onclick', `listRender(${(response.checkNum-9)})`);
             prev.className = 'page';
-            prev.innerHTML = 'prev';
+            prev.innerHTML = `<i class="fa-solid fa-left-long"></i>`;
             pageContent.append(prev);
         }
         for(let no of num){
@@ -127,15 +117,11 @@
             next.setAttribute('data-page',`${(response.checkNum+11)}`);
             next.setAttribute('onclick', `listRender(${(response.checkNum+11)})`);
             next.className = 'page';
-            next.innerHTML = 'next';
+            next.innerHTML = `<i class="fa-solid fa-right-long"></i>`;
             pageContent.append(next);
         }
     }
     const deleteProduct = async (p_no,page)=>{
-        //b_no를 받아서
-        console.log('삭제버튼 클릭');
-        // console.log(this);
-        console.log('삭제 대상 : ',p_no);
         await axios.post('/admin/product/delete',{p_no})
             .then((response)=>{
                 console.log('성공');
@@ -148,12 +134,6 @@
                 listRender(page);
             })
     }
-
-    searchBtn.addEventListener('click', () => {
-        const keyword = document.querySelector('.keyword').value;
-        const searchType =document.querySelector('.searchType').value;
-        listRender(null, keyword, searchType);
-    })
 
     listRender();
 </script>

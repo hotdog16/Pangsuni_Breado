@@ -18,16 +18,16 @@ router.use((req, res, next) => {
     next();
 });
 
-router.get("/", adminBoard); // 화면이동
+router.get("/", isLoggedIn, whoisAdmin,adminBoard); // 화면이동
 
-router.get("/selectList", adminSelectListBoard); // axios를 이용한 비동기 (이름 바꿔야함)
+router.get("/selectList", isLoggedIn, whoisAdmin,adminSelectListBoard); // axios를 이용한 비동기 (이름 바꿔야함)
 
 router.get("/add", isLoggedIn, whoisAdmin, addFormBoard);
 
-router.post("/delete", deleteBoard);
+router.post("/delete", isLoggedIn, whoisAdmin,deleteBoard);
 
-router.get("/modify/:b_no", adminModifyBoard);
-router.post("/modify", adminModifyBoardPost);
+router.get("/modify/:b_no", isLoggedIn, whoisAdmin,adminModifyBoard);
+router.post("/modify", isLoggedIn, whoisAdmin,adminModifyBoardPost);
 
 router.post('/comment/delete', deleteComment);
 
