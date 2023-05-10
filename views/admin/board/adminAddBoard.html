@@ -1,20 +1,30 @@
 {% extends 'admin/admin.html' %}
+{% block style %}
+<style>
+  .b_title {
+    width: 500px;
+  }
+
+  .b_content {
+    width: 500px;
+    height: 150px;
+  }
+</style>
+{% endblock %}
+
 {% block body %}
 <div id="qna-write">
   <form id ="board_form" action="/board/add" method="post"><br><br>
-
     <div class="input-group">
-      <label></label>
-      <h1>글쓰기</h1><br>
-<!--      <input name="bt_no" value="{{bt_no}}"><br><br><br>-->
-      <select name="bt_no">
+      <h1>관리자 글쓰기창</h1><br>
+      선택: <select name="bt_no">
         <option value="1">1.공지사항</option>
         <option value="2">2.QNA</option>
-      </select>
+      </select><br><br>
     </div>
     <div class="input-group">
       <label>작성자</label>
-      <input name="u_id" value="{{user.u_id}}" readonly><br><br>
+      <input name="u_id" value="{{user.u_id}}" class="b_title" readonly><br>
     </div>
     <div class="input-group">
       <label>제&nbsp&nbsp&nbsp목</label>

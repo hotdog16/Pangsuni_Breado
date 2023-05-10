@@ -1,5 +1,5 @@
 const {stores, orders, products, users} = require("../models");
-const {Sequelize} = require("sequelize");
+const {Sequelize, Op, NOW} = require("sequelize");
 
 exports.addOrder = async (req, res) => {
     try {
@@ -39,37 +39,66 @@ exports.selectListOrder = async (req, res)=>{
         const list = await orders.findAndCountAll({
             limit,
             offset,
-            order:[
-                ['o_pickup_dt', 'desc'],
-                ['o_no', 'desc']
-            ],
-            where:{
-                u_no
-            },
+            order:[['o_pickup_dt', 'desc'], ['o_no', 'desc']],
+            where:{u_no},
             include:[{
                 model:products,
                 as:'p_no_product',
                 required: true,
-                include:{
-                    model:stores,
-                    as:'s_no_store'
-                }
+                include:{model:stores, as:'s_no_store'}
             }]
         });
         let navCheck = Math.ceil(list.count / 10) * 10; // 페이지 네비게이션을 체크하기 위한 변수로 초기화
         navCheck = navCheck / 10; // 초기화 후 쉽게 체크하기 위해 재할당
         const num = []; // 페이지 네비게이션에 나올 숫자들을 담을 배열을 선언
         for (let i = checkNum; i < checkNum + 10; i++) { // checkNum 변수를 이용해서 10개씩 담기 위한 반복문 사용
-            if (i < navCheck) {
-                num.push(i + 1);
-            }
+            if (i < navCheck) num.push(i + 1);
         }
-        if (Number.isNaN(req.query.page) || req.query.page > navCheck) {
-            return res.status(400).json('숫자만 눌러주세요! 현재 페이지는 없습니다!');
-        }
+        if (Number.isNaN(req.query.page) || req.query.page > navCheck) return res.status(400).json('숫자만 눌러주세요! 현재 페이지는 없습니다!');
         return res.json({orders: list, currentPage: offset, num, checkNum, user: req.user});
     } catch (e) {
         console.error(e);
         return res.status(500).json(e);
     }
+}
+
+exports.deleteOrder = async (req, res) =>{
+    console.log('컨트롤러');
+    const o_no = req.body.o_no;
+    try{
+        await orders.destroy({
+            where:{
+                o_no
+            }
+        });
+        return res.json({msg:'success'});
+    }catch (err) {
+        console.error(err);
+        return res.status(500).json({msg: err});
+    }
+}
+
+exports.todayOrder = async (req,res)=>{
+    const u_no = req.params.u_no;
+    try{
+
+    }catch (err) {
+        console.error(err);
+    }
+    const todayOrder = await orders.findAll({
+        where:{
+            [Op.and]:[
+                {u_no},
+                {[Op.eq]:[{o_pickup_dt:NOW}]}
+            ]
+        },
+        include:[{
+            model:products,
+            as:'p_no_product',
+            include:[{
+                model:stores,
+                as: 's_no_store'
+            }]
+        }]
+    })
 }

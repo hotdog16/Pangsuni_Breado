@@ -54,12 +54,16 @@
     </div>
     <tfoot class='orderPage'></tfoot>
 <ul class="pageContent"></ul>
+<!--    <div>-->
+<!--        <button class="searchBtn">검색창 열기</button>-->
+<!--    </div>-->
 </div>
 {% endblock %}
 {% block script%}
 <script>
     const list = document.querySelector('.orderList');
     const pageContent = document.querySelector('.pageContent');
+    const searchBtn = document.querySelector('.searchBtn');
     function listRender(page, keyword, type) { // 게시물 리스트를 출력하는 function
         list.innerHTML = '';
         // const bt_no = document.querySelector('.bt_no').value;
@@ -101,8 +105,9 @@
         if(response.num[0]> 10){
             const prev = document.createElement('li');
             prev.setAttribute('data-page',`${(response.checkNum-9)}`);
+            prev.setAttribute('onclick', `listRender(${(response.checkNum-9)})`);
             prev.className = 'page';
-            prev.innerHTML = 'prev';
+            prev.innerHTML = `<i class="fa-solid fa-arrow-left" style="color: #be6b1e;"></i>`;
             pageContent.append(prev);
         }
         for(let no of num){
@@ -116,10 +121,15 @@
         if((currentPage+10 < response.orders.count)&& (num.length == 10)){
             const next =document.createElement('li');
             next.setAttribute('data-page',`${(response.checkNum+11)}`);
+            next.setAttribute('onclick', `listRender(${(response.checkNum+11)})`);
             next.className = 'page';
-            next.innerHTML = 'prev';
+            next.innerHTML = `<i class="fa-solid fa-arrow-right" style="color: #be6b1e;"></i>`;
             pageContent.append(next);
         }
     }
+
+    // searchBtn.addEventListener('click', ()=>{
+    //     window.open('/admin/order/search','검색','width=300 height=200 resizable=no toolbar=no menubar=no');
+    // })
 </script>
 {% endblock %}

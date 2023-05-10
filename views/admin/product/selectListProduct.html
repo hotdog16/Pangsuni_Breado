@@ -38,6 +38,17 @@
     .px150{width: 150px;}
     .px200{width: 200px;}
     #admin-board .btn{padding: 5px 10px;}
+
+    .write-btn {
+        background-color: orange;
+        padding: 8px 15px;
+        border-radius: 5px;
+        color: black;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+    }
+
 </style>
 {% endblock %}
 {% block body %}
@@ -56,15 +67,7 @@
 <div class="list"></div>
 <ul class="pageContent"></ul>
 <div>
-    <button>추가</button>
-    <select name="">
-        <option value="any">전체</option>
-        <option value="product">빵이름</option>
-        <option value="store">가게이름</option>
-        <option value="region">지역</option>
-    </select>
-    <input placeholder="검색">
-    <button>검색</button>
+    <button class="write-btn"><a href="/admin/product/add">추가</a></button>
 </div>
 </div>
 {% endblock %}
@@ -72,16 +75,17 @@
 <script>
     const list = document.querySelector('.list');
     const pageContent = document.querySelector('.pageContent');
+    const searchBtn = document.querySelector('.searchBtn');
     function listRender(page) { // 리스트를 출력하기 위한 function
         list.innerHTML = '';
         const currentPage = (page ? page : 1);
         return axios
+
             .get(`/admin/product/selectList/?page=${currentPage}`) // 실행부분
-            .then((response) => { // 성공했을시 수행됨
+            .then((response) => {
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
                 for (let product of response.data.products.rows) {
-                    // console.log('게시글 번호 : ', store.b_no);
                     const qna_con = document.createElement('ul');
                     qna_con.className = 'qna-con';
                     qna_con.innerHTML = `<li class="px120">${product.p_no}</li>
@@ -89,12 +93,12 @@
                                          <li class="px120">${product.s_no_store.s_name}</li>
                                          <li class="px150">${product.p_name}</li>
                                          <li class="px120"><button class="btn" onclick="window.open('/admin/product/modify/${product.p_no}?page=${currentPage}','상품 수정','width=900 height=800 resizable=no toolbar=no menubar=no')">수정</button></li>
-                                         <li class="px120"><button class="btn" onclick="deleteProduct(${product.p_no},${currentPage})">삭제</button></li>`;
+                                         <li class="px120"><button class="btn" onclick="deleteProduct(${product.p_no},${currentPage})"><i class="fa-solid fa-trash"></i></button></li>`;
                     list.append(qna_con);
                 }
                 pageNavigation(response.data);
             })
-            .catch((err) => { // 실패했을시 수행됨
+            .catch((err) => {
                 pageContent.innerHTML='검색결과가 없어요';
                 console.error(err);
             })
@@ -108,7 +112,7 @@
             prev.setAttribute('data-page',`${(response.checkNum-9)}`);
             prev.setAttribute('onclick', `listRender(${(response.checkNum-9)})`);
             prev.className = 'page';
-            prev.innerHTML = 'prev';
+            prev.innerHTML = `<i class="fa-solid fa-left-long"></i>`;
             pageContent.append(prev);
         }
         for(let no of num){
@@ -124,15 +128,11 @@
             next.setAttribute('data-page',`${(response.checkNum+11)}`);
             next.setAttribute('onclick', `listRender(${(response.checkNum+11)})`);
             next.className = 'page';
-            next.innerHTML = 'next';
+            next.innerHTML = `<i class="fa-solid fa-right-long"></i>`;
             pageContent.append(next);
         }
     }
     const deleteProduct = async (p_no,page)=>{
-        //b_no를 받아서
-        console.log('삭제버튼 클릭');
-        // console.log(this);
-        console.log('삭제 대상 : ',p_no);
         await axios.post('/admin/product/delete',{p_no})
             .then((response)=>{
                 console.log('성공');
@@ -146,9 +146,6 @@
             })
     }
 
-    const modifyForm = async (p_no)=>{
-        window.open('modifyPopupProduct.html', '제품 수정창');
-    }
     listRender();
 </script>
 {% endblock %}

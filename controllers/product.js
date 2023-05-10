@@ -8,17 +8,8 @@ exports.selectOneProduct = (req, res) => {
 }
 
 exports.addProduct = async (req, res, next) => {
-    // 상품등록시 null값 허용 컬럼에 null 값이 들어가도록 하기 위함
-    if (req.body.p_desc === '') {
-        req.body.p_desc = null;
-    }
-    if (req.body.p_img === '') {
-        req.body.p_img = null;
-    }
-    console.log('addProduct!!!!!!!!!!!!!!!!!!!!!');
-    console.log('req : ', req);
-    console.log('req.body : ', req.body);
-    console.log('req.file : ', req.file);
+    if (req.body.p_desc === '') req.body.p_desc = null;
+    if (req.body.p_img === '') req.body.p_img = null;
     try {
         await products.create({
             p_no: null,
@@ -54,16 +45,8 @@ exports.listProduct = async (req, res) => {
             let navCheck = Math.ceil(productList.count/10)*10; // 페이지 네비게이션을 체크하기 위한 변수로 초기화
             navCheck = navCheck/10; // 초기화 후 쉽게 체크하기 위해 재할당
             const num = []; // 페이지 네비게이션에 나올 숫자들을 담을 배열을 선언
-            for(let i = checkNum; i < checkNum+10; i++){ // checkNum 변수를 이용해서 10개씩 담기 위한 반복문 사용
-                if(i < navCheck){
-                    num.push(i+1);
-                }
-            }
-            console.log('navCheck : ',navCheck);
-            console.log('page : ',req.query.page);
-            if(Number.isNaN(req.query.page) || req.query.page > navCheck){
-                res.status(400).json('버튼 눌러서 사용해주세용 없는 페이지에요!');
-            }
+            for(let i = checkNum; i < checkNum+10; i++) if(i < navCheck) num.push(i+1);
+            if(Number.isNaN(req.query.page) || req.query.page > navCheck) res.status(400).json('버튼 눌러서 사용해주세용 없는 페이지에요!');
             res.render('product/list',{products:productList, currentPage: offset, num, checkNum});
         })
         .catch((err) => {
@@ -85,12 +68,8 @@ exports.modProduct = async (req, res) => {
 }
 
 exports.editProduct = async (req, res, next) => {
-    if (req.body.p_desc === '') {
-        req.body.p_desc = null;
-    }
-    if (req.body.p_img === '') {
-        req.body.p_img = null;
-    }
+    if (req.body.p_desc === '') req.body.p_desc = null;
+    if (req.body.p_img === '') req.body.p_img = null;
     try {
         await products.update({
             p_name: req.body.p_name,
@@ -112,7 +91,6 @@ exports.editProduct = async (req, res, next) => {
 
 exports.deleteProduct = async (req, res)=>{
     try{
-        // console.log(req.params);
         await products.destroy({
             where:{
                 p_no : req.params.p_no
@@ -126,7 +104,7 @@ exports.deleteProduct = async (req, res)=>{
 }
 
 exports.testAxios = async (req, res)=>{
-    const {p_no, p_name, p_price, p_desc, s_no, p_img}= req.body;
+    const {p_name, p_price, p_desc, s_no}= req.body;
     try{
         const product = await products.create({
             p_no: null,

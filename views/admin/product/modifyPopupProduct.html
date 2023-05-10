@@ -5,15 +5,26 @@
     <title>Title</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
+<style>
+    .write-btn {
+        background-color: orange;
+        padding: 8px 15px;
+        border-radius: 5px;
+        color: black;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+    }
+</style>
 <body>
-    <h1>수정창</h1>
+    <h1>상품관리 수정</h1>
     <input type="hidden" name="page" value="{{page}}">
     <form method="post" enctype="multipart/form-data">
         <input type="hidden" name="p_no" value="{{product.p_no}}">
-        <p><label>제품 명 : </label><input name="p_name" value="{{product.p_name}}"></p>
-        <p><label>가격 : </label><input name="p_price" type="number" value="{{product.p_price}}"></p>
-        <p><label>설명 : </label><textarea cols="50" rows="5" name="p_desc">{{product.p_desc}}</textarea></p>
-        <p><label>가게 : </label>
+        <p><label>제품명 : </label><input name="p_name" value="{{product.p_name}}"></p>
+        <p><label>가&nbsp&nbsp&nbsp&nbsp격 : </label><input name="p_price" type="number" value="{{product.p_price}}"></p>
+        <p><label>설&nbsp&nbsp&nbsp&nbsp명 : </label><textarea cols="50" rows="5" name="p_desc">{{product.p_desc}}</textarea></p>
+        <p><label>가&nbsp&nbsp&nbsp&nbsp게 : </label>
             <select name="s_no">
                 {% for store in stores %}
                 {% if (store.s_no == product.s_no) %}
@@ -25,7 +36,7 @@
             </select>
         </p>
         <p><label>이미지 : </label><input type="file" name="p_img" class="previewBtn"></p>
-        <p><button type="submit">수정</button></p>
+        <p><button type="submit" class="write-btn">수정</button></p>
     </form>
 <div>
     <img src="../../../images/{{product.p_img}}" class="preview">

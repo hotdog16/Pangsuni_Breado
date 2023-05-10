@@ -4,20 +4,25 @@
     table{
         border-collapse: collapse;
     }
+
     .list{
         background-color: #e2c2f6;
     }
+
     .list tr{
         width: 1000px;
     }
+
     .list td{
         border: 2px solid white;
         text-align: center;
         padding: 0;
     }
+
     .list td:nth-child(3){
         text-align: left;
     }
+
     .list button{
         color: whitesmoke;
         background-color: mediumpurple;
@@ -95,7 +100,6 @@
     if(commentBtn){
         commentBtn.addEventListener('click', function () {
             const commentFormTitle = document.querySelector('.commentFormTitle');
-            // console.log(this);
             if (commentFormTitle.textContent === '댓글쓰기') {
                 addComment();
             } else {
@@ -115,7 +119,6 @@
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
                 for (let comment of response.data.comments.rows) {
-                    console.log('게시글 번호 : ', comment.c_no);
                     const regDate = new Date(comment.c_reg_dt).toLocaleString(); // date 값을 보기 좋게 format하기 위함
                     let modDate = null;
                     if(comment.c_mod_dt){
@@ -151,7 +154,6 @@
     function pageNavigation(response){
         const currentPage = Number(response.currentPage);
         const num = response.num;
-        console.log('페이지네이션 확인 :', num);
         if(response.num[0]> 10){
             const prev = document.createElement('li');
             prev.setAttribute('data-page',`${(response.checkNum-9)}`);
@@ -182,13 +184,11 @@
         console.log(`b_no : ${b_no} / u_no: ${u_no} / c_content : ${c_content}`);
         axios.post('/comment/add2',{b_no, u_no, c_content})
             .then((response)=>{
-                console.log('성공');
                 const commentContent = document.querySelector('.b_content');
                 commentContent.value = '';
                 listRender();
             })
             .catch((err)=>{
-                console.log('실패');
                 console.error(err);
             })
     }
@@ -207,10 +207,8 @@
             })
     }
     const modifyComment = async (c_no,c_content)=>{
-        console.log('c_no : ',c_no);
         await axios.post(`/comment/modify`,{c_no,c_content})
             .then((response)=>{
-                console.log('수정 성공');
                 listRender();
             })
             .catch((err)=>{
@@ -218,14 +216,11 @@
             })
     }
     const deleteComment = async (no)=> {
-        console.log(no);
         await axios.post(`/admin/comment/delete`,{c_no:no})
             .then((response)=>{
-                console.log('성공');
                 console.log(response.data);
             })
             .catch((err)=>{
-                console.log('실패');
                 console.log(err);
             })
         listRender();
