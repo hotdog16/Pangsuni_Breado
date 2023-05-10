@@ -1,8 +1,6 @@
 const {board, comments,users,board_type} = require("../models");
 const {Sequelize, Op} = require("sequelize");
 
-
-
 exports.selectListBoard = async (req, res) => {
     try {
         const bt_no = req.params.bt_no;
@@ -75,7 +73,6 @@ exports.selectListBoard2 = async (req, res) => {
 }
 
 exports.addBoard = async (req, res, next) => {
-    console.log("컨트롤러에 들어옴");
     console.log(req.body);
     const u_no = req.user.u_no;
     const {bt_no, u_id, b_title, b_content} = req.body;
@@ -168,9 +165,7 @@ exports.CommentAdd = async (req, res) => {
 // 게시판 글 삭제 버튼
 exports.deleteBoard = async (req, res)=>{
     try{
-        console.log('query : ',req.query);
         const {bt_no} = req.query;
-        console.log('bt_no : ',bt_no);
         const { b_no } = req.params;
         await board.destroy({
             where:{
@@ -186,7 +181,6 @@ exports.deleteBoard = async (req, res)=>{
 
 exports.modifyFormBoard = async (req, res)=>{
     const {b_no} = req.params;
-    console.log('b_no : ', b_no);
     try{
         const boards = await board.findOne({
             where:{

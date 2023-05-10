@@ -2,7 +2,6 @@ const {comments, board, users} = require("../models");
 const {Sequelize} = require("sequelize");
 
 exports.selectListComment = async (req, res) => {
-    console.log('selectListComment!!!!!!!!!!!!!!!!!1');
     const b_no = req.params.b_no;
     try {
         let limit = 10; // sql select 쿼리문의 order by limit 부분
