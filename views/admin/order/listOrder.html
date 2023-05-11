@@ -54,24 +54,30 @@
     </div>
     <tfoot class='orderPage'></tfoot>
 <ul class="pageContent"></ul>
-<!--    <div>-->
-<!--        <button class="searchBtn">검색창 열기</button>-->
-<!--    </div>-->
+    <div>
+        <select class="searchType">
+            <option value="o_no">주문 번호</option>
+            <option value="u_id">유저 아이디</option>
+            <option value="s_name">가게 이름</option>
+            <option value="p_name">제품 이름</option>
+        </select>
+        <input class="keyword" placeholder="일치하는 결과만 보여줍니다.">
+        <button class="searhBtn">검색</button>
+    </div>
 </div>
 {% endblock %}
 {% block script%}
 <script>
     const list = document.querySelector('.orderList');
     const pageContent = document.querySelector('.pageContent');
-    const searchBtn = document.querySelector('.searchBtn');
+    const searchBtn = document.querySelector('.searhBtn');
     function listRender(page, keyword, type) { // 게시물 리스트를 출력하는 function
         list.innerHTML = '';
-        // const bt_no = document.querySelector('.bt_no').value;
         const currentPage = (page ? page : 1);
-        // const searchKeyword = (keyword ? keyword : '');
-        // const searchType = (type ? type : '');
+        const searchKeyword = (keyword ? keyword : '');
+        const searchType = (type ? type : '');
         return axios
-            .get(`/admin/order/selectList?page=${currentPage}`)
+            .get(`/admin/order/selectList?page=${currentPage}&searchType=${searchType}&keyword=${searchKeyword}`)
             .then((response) => {
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
@@ -128,8 +134,10 @@
         }
     }
 
-    // searchBtn.addEventListener('click', ()=>{
-    //     window.open('/admin/order/search','검색','width=300 height=200 resizable=no toolbar=no menubar=no');
-    // })
+    searchBtn.addEventListener('click', ()=>{
+        const searchType = document.querySelector('.searchType').value;
+        const searchKeyword = document.querySelector('.keyword').value;
+        listRender(null, searchKeyword, searchType);
+    })
 </script>
 {% endblock %}
