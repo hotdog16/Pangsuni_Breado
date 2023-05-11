@@ -46,6 +46,7 @@
     background-color: #333;
     color: #fff;
   }
+  
 
 </style>
 {% endblock %} {% block body %}
@@ -114,7 +115,7 @@
                                          <li class="px100">${users.u_name}</li>
                                          <li class="px125">${regDate}</li>
                                          <li class="px125"><button class="btn" onclick="window.open('/admin/member/detail/${users.u_no}','detail','width=900 height=800 resizable=no toolbars=no menubar=no')">상세보기</button></li>
-                                         <li class="px100"><button onclick="window.open('/admin/member/modify/${users.u_no}?page=${currentPage}', 'modify', 'width=900 height=800 resizable=no toolbars=no menubar=no')"><i class="fa-solid fa-user-plus fa-bounce"></i></button></li>
+                                         <li class="px100"><button onclick="window.open('/admin/member/modify/${users.u_no}?page=${currentPage}', 'modify', 'width=700 height=700 resizable=no toolbars=no menubar=no')"><i class="fa-solid fa-user-plus fa-bounce"></i></button></li>
                                          <li class="px100"><a onclick="deleteMember(${users.u_no})"><i class="fa-sharp fa-solid fa-user-minus fa-fade"></i></a></li>`;
           list.append(member_con);
         }
