@@ -7,7 +7,8 @@ const {
     adminModifyBoardPost,
     adminBoard,
     adminSelectListBoard,
-    deleteBoard
+    deleteBoard,
+    selectOneBoard
 } = require('../../controllers/admin/adminBoard');
 const {isLoggedIn, whoisAdmin} = require("../../middlewares");
 
@@ -19,6 +20,8 @@ router.use((req, res, next) => {
 router.get("/", isLoggedIn, whoisAdmin,adminBoard); // 화면이동
 
 router.get("/selectList", isLoggedIn, whoisAdmin,adminSelectListBoard); // axios를 이용한 비동기 (이름 바꿔야함)
+
+router.get("/selectOne/:b_no", isLoggedIn, whoisAdmin,selectOneBoard); // axios를 이용한 비동기 (이름 바꿔야함)
 
 router.get("/add", isLoggedIn, whoisAdmin, addFormBoard);
 
