@@ -28,6 +28,9 @@
         /*text-align: center;*/
         /*margin: 0 auto;*/
     }
+    .clickedPage{
+        color: red;
+    }
 </style>
 {% endblock %}
 {% block body %}
@@ -86,14 +89,12 @@
                                          <td>${order.o_cnt}</td>`;
                     if(today2 === pickupDate2){
                         qna_con.style.backgroundColor = '#FC4F00';
-                    } else if(today2 < pickupDate2) {
+                    }
+                    if(today2 < pickupDate2) {
                         const deleteBtn = document.createElement('td');
                         deleteBtn.className='deleteOrder';
                         deleteBtn.innerHTML = `<i class="fa-solid fa-trash-can" onclick="deleteOrder(${order.o_no},${currentPage})"></i>`;
                         qna_con.append(deleteBtn);
-                    }
-                    else {
-
                     }
                     qna_con.firstChild.style.textAlign = 'center';
                     qna_con.lastChild.style.textAlign = 'center';
@@ -116,6 +117,7 @@
             pageContent.append(prev);
         }
         for(let no of num){
+            console.log('no : ', no);
             const pageNav = document.createElement('li');
             pageNav.setAttribute('data-page', `${no}`);
             pageNav.setAttribute('onclick', `listRender(${no})`);
@@ -146,6 +148,11 @@
                 listRender(page);
             })
     }
+
+    const selectedPage = (page) =>{
+
+    }
+
     listRender();
 </script>
 {% endblock %}
