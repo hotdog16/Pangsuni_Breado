@@ -90,6 +90,9 @@
         padding: 5px;
         border: none;
         margin-top: 10px;
+        font-size: 30px;
+        text-align: center;
+        width: 100px;
     }
 
     .p_price{
@@ -152,7 +155,7 @@
                                 <p class="store-text">{{p.p_name}}</p>
                                 <p><img src="../../images/{{p.p_img}}" alt="메뉴 이미지"></p>
                                 <p class="p_desc">{{p.p_desc}}</p>
-                                <p class="p_price">{{p.p_price}}원</p>
+                                <p class="p_price"><span>{{p.p_price}}</span>원</p>
                                 <p>수량<input type="number" max="100" min="0" class="productCnt" name="o_cnt"></p>
 
                                 <p><label>총 금액 </label><input class="p_result" type="number" readonly></p>
@@ -175,7 +178,7 @@
                 </div>
                 <div class="productSum">
                     <label class="total-price">총 금액 </label>
-                    <p><input type="number" id="totalSum" readonly></p>
+                    <p><input type="number" id="totalSum" readonly>원</p>
                 </div>
                 <div class="productRes">
                     <button type="submit" class="order-btn">예약하기</button><br><br>
@@ -193,7 +196,7 @@
     const p_cnt = document.querySelectorAll('.productCnt');
     p_cnt.forEach((target) => {
         target.addEventListener('change', function () {
-            const price = this.previousSibling.previousSibling.textContent;
+            const price = this.parentNode.previousSibling.previousSibling.firstChild.textContent;
             const result = this.parentNode.nextSibling.nextSibling.firstChild.nextSibling;
             result.value = Number(this.value * price);
             const priceArr = document.querySelectorAll('.p_result');
