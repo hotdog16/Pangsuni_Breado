@@ -34,7 +34,7 @@
 <script>
     const regions = document.querySelectorAll('.region');
     const regionStore = document.querySelector('#regionStore');
-    regions[0].style.backgroundColor ='black';
+    regions[0].style.backgroundColor ='var(--sub-bg-color)';
     regions[0].style.color ='white';
     regions.forEach((region) => {
         region.addEventListener('click', function () {
@@ -43,7 +43,7 @@
                 this.parentNode.children[i].style.backgroundColor = 'white';
                 this.parentNode.children[i].style.color = 'black';
             }
-            this.style.backgroundColor = 'black';
+            this.style.backgroundColor = 'var(--sub-bg-color)';
             this.style.color = 'white';
             const r_no = this.dataset.id;
             try {

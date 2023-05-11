@@ -8,7 +8,7 @@
     text-align: center;
 }
 
-.write-btn {
+.admin-board .write-btn {
     background-color: orange;
     padding: 8px 15px;
     border-radius: 5px;
