@@ -64,20 +64,22 @@
                 console.log('result : ', response.data);
                 pageContent.innerHTML='';
                 for (let order of response.data.orders.rows) {
-                    let today = new Date();
+                    const today = new Date().toLocaleDateString();
+                    const today2 = new Date(today).getTime();
                     const regDate = new Date(order.o_reg_dt).toLocaleDateString(); // date 값을 보기 좋게 format하기 위함
-                    let pickupDate = new Date(order.o_pickup_dt);
+                    const pickupDate = new Date(order.o_pickup_dt).toLocaleDateString();
+                    const pickupDate2 = new Date(pickupDate).getTime();
                     const qna_con = document.createElement('tr');
                     qna_con.className = 'qna-con';
                     qna_con.innerHTML = `<td>${order.o_no}</td>
                                          <td>${order.p_no_product.s_no_store.s_name}</td>
                                          <td>${order.p_no_product.p_name}</td>
                                          <td>${regDate}</td>
-                                         <td class="pickupDate">${pickupDate.toLocaleDateString()}</td>
+                                         <td class="pickupDate">${pickupDate}</td>
                                          <td>${order.o_cnt}</td>`;
-                    if(today.getTime() === pickupDate.getTime()){
+                    if(today2 === pickupDate2){
                         qna_con.style.backgroundColor = '#FC4F00';
-                    } else if(today.getTime() < pickupDate.getTime()) {
+                    } else if(today2 < pickupDate2) {
                         const deleteBtn = document.createElement('td');
                         deleteBtn.className='deleteOrder';
                         deleteBtn.innerHTML = `<i class="fa-solid fa-trash-can" onclick="deleteOrder(${order.o_no},${currentPage})"></i>`;
