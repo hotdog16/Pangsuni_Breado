@@ -63,13 +63,15 @@
 }
 
 .qna-home-btn {
-  background-color: #fdf4e3;
+  background-color: #fff;
+  border: 1px solid #333;
   padding: 8px 15px;
   border-radius: 5px;
   color: white;
   font-size: 15px;
   font-weight: 600;
-  border: none;
+  margin-top: 30px;
+  cursor: pointer;
 }
 
 .qna-paging-align {
@@ -79,14 +81,20 @@
 /*----- 2.boardDetail.html의 스타일속성 ---- */
 
 .qna-boardDetail-con {
-  background-color: #fdf4e3;
-  padding: 5px;
-  display: flex;
+  /* background-color: #fdf4e3; */
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid rgba(102, 101, 101, 0.519);
+}
 
-  /*width: 1000px;*/
-  /*border: 1px solid #173395;*/
-  /*padding: 15px*/
-  /*0px;*/
+.qna-boardDetail-con.desc-con{
+  height: 150px;
+}
+
+.title{
+  margin-top: 30px;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .qna-comment-border {
@@ -94,12 +102,7 @@
   padding: 5px;
 }
 
-. list {
-  background-color: #e2c2f6;
-}
-
 .qna-comment-list {
-  background-color: #e2c2f6;
   border: 2px solid white;
   padding: 5px;
   display: block;
@@ -109,7 +112,6 @@
 #qna-comments-bg {
   /*width: 1000px;*/
   text-align: center;
-  background-color: #fdf4e3;
   /*opacity: 0.5;*/
 }
 
@@ -133,13 +135,16 @@
 }
 
 .comments-btn {
-  background-color: #cf8afd;
+  background-color: var(--main-bg-color);
   padding: 8px 15px;
   border-radius: 5px;
   color: black;
   font-size: 15px;
   font-weight: 600;
   border: none;
+  margin-top: 30px;
+  margin-left: 10px;
+  cursor: pointer;
 }
 
 #qna-comments .b_content {
@@ -190,11 +195,49 @@
 }
 
 .write-btn {
-  background-color: orange;
+  background-color: var(--main-bg-color);
   padding: 8px 15px;
   border-radius: 5px;
   color: black;
   font-size: 15px;
   font-weight: 600;
   border: none;
+  transition: .4s;
+  cursor: pointer;
+}
+
+.write-btn:hover{
+  background-color: var(--sub-bg-color);
+}
+
+
+/* qna 글쓰기 */
+
+#qna-write{
+  width: 80%;
+  margin: 0 auto;
+}
+
+#qna-write input{
+  padding:  10px 10px;
+  width: 30%;
+  font-size: 16px;
+  margin-left:10px;
+}
+
+#qna-write label{
+  font-weight: 500;
+}
+
+.write-box{
+  margin-top: 20px;
+}
+
+#qna-write .b_content{
+  margin-top: 20px;
+  width: 80%;
+  height: 300px;
+  padding:20px;
+  text-align: center;
+  font-size: 16px;
 }

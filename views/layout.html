@@ -56,10 +56,10 @@
             {% if user and user.u_id %}
             <div class="logout">
                 <div class="header-profile">환영합니다!<br><span>{{ user.u_name +  '님'}}</span></div>
-                {% if user.u_grade === '관리자' %}
-                <a href="/admin">관리자 페이지</a>
-                {% endif %}
                 <ul class="logout-category">
+                    {% if user.u_grade === '관리자' %}
+                    <a href="/admin" class="admin-page">관리자 페이지</a>
+                    {% endif %}
                     <li><a href="/logout">로그아웃</a></li>
                     <li class="mypage"><a href="/users/mypage">마이페이지</a></li>
                 </ul>
