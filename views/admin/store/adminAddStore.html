@@ -1,6 +1,21 @@
 {% extends 'admin/admin.html' %}
 {% block style %}
 <style>
+    input,select,textarea{
+        padding: 10px;
+        font-size: 16px;
+        text-align: left;
+        margin-left:10px;
+    }
+
+    textarea{
+        display: block;
+        margin: 0 auto;
+        margin-top: 10px;
+    }
+    input[type="number"]{
+        width: 100px;
+    }
     .b_content {
         width: 500px;
         height: 150px;
@@ -16,6 +31,12 @@
         font-size: 15px;
         font-weight: 600;
         border: none;
+        transition: .3s;
+        cursor: pointer;
+    }
+
+    .write-btn:hover{
+        background-color: #f7d060;
     }
 
 </style>
@@ -23,20 +44,20 @@
 {% block body %}
 <h2>관리자 store 추가</h2><br>
 <form enctype="multipart/form-data" method="post" action="/admin/store/add">
-    <p><label>가게이름 : </label><input name="s_name" class="b_title"></p><br>
-    <p><label>지역 : </label>
+    <p><label>상호명</label><input name="s_name" class="b_title"></p><br>
+    <p><label>지역</label>
         <select name="r_no">
             {% for region in regions %}
             <option value="{{region.r_no}}">{{region.r_name}}</option>
             {% endfor %}
         </select></p><br>
-    <p><label>설명 : </label><textarea name="s_desc" cols="50" rows="10" class="b_content"></textarea></p><br>
-    <p><label>주소 : </label><input name="s_addr" class="b_title"></p><br>
-    <p><label>전화번호 : </label>
+    <p><label>설명</label><textarea name="s_desc" cols="50" rows="10" class="b_content"></textarea></p><br>
+    <p><label>주소</label><input name="s_addr" class="b_title"></p><br>
+    <p><label>전화번호</label>
         <input type="number" maxlength="4" name="s_tel">-
         <input type="number" maxlength="4" name="s_tel">-
         <input type="number" maxlength="4" name="s_tel"></p><br>
-    <p><label>이미지 : </label><input type="file" name="s_img"></p><br>
+    <p><label>이미지</label><input type="file" name="s_img"></p><br>
     <p><button type="submit" class="write-btn">전송</button></p>
 </form>
 <div class="preview-images">
