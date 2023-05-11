@@ -12,6 +12,6 @@ router.get('/selectList/:u_no', selectListOrder);
 
 router.post('/delete', deleteOrder);
 
-router.get('/todayOrder/:u_no', todayOrder);
+// router.get('/todayOrder/:u_no', todayOrder);
 
 module.exports = router;

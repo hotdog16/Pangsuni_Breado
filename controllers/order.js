@@ -78,27 +78,30 @@ exports.deleteOrder = async (req, res) =>{
     }
 }
 
-exports.todayOrder = async (req,res)=>{
-    const u_no = req.params.u_no;
-    try{
-
-    }catch (err) {
-        console.error(err);
-    }
-    const todayOrder = await orders.findAll({
-        where:{
-            [Op.and]:[
-                {u_no},
-                {[Op.eq]:[{o_pickup_dt:NOW}]}
-            ]
-        },
-        include:[{
-            model:products,
-            as:'p_no_product',
-            include:[{
-                model:stores,
-                as: 's_no_store'
-            }]
-        }]
-    })
-}
+// exports.todayOrder = async (req,res)=>{
+//     const u_no = req.params.u_no;
+//     try{
+//         const todayOrder = await orders.findAll({
+//             where:{
+//                 [Op.and]:[
+//                     // {u_no},
+//                     {o_pickup_dt:{[Op.eq]:NOW()}}
+//                     // {[Op.eq]:[{o_pickup_dt:NOW()}]}
+//                 ]
+//             },
+//             // include:[{
+//             //     model:products,
+//             //     as:'p_no_product',
+//             //     include:[{
+//             //         model:stores,
+//             //         as: 's_no_store'
+//             //     }]
+//             // }
+//             // ]
+//         });
+//         res.json({todayOrder:todayOrder});
+//     }catch (err) {
+//         console.error(err);
+//         res.json({err:err});
+//     }
+// }
