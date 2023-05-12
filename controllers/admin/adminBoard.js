@@ -90,6 +90,7 @@ exports.adminSelectListBoard = async (req, res) => {
 
 exports.selectOneBoard = async (req, res)=>{
     const b_no = req.params.b_no;
+    const {bt_no} = req.query;
     console.log('b_no : ',b_no);
     try{
        const selectOneBoard = await board.findOne({
@@ -97,7 +98,7 @@ exports.selectOneBoard = async (req, res)=>{
                 b_no
             }
         });
-        res.render('admin/board/selectOneBoard', {boards:selectOneBoard});
+        res.render('admin/board/selectOneBoard', {boards:selectOneBoard,bt_no});
     }catch (err) {
         console.error(err)
         res.json(err);

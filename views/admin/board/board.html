@@ -131,7 +131,7 @@
                     qna_con.innerHTML = `<li class="px80">${board.b_no}</li>
                                          <li class="px80">${board.bt_no}</li>
                                          <li class="px100">${board.u_no_user.u_id}</li>
-                                         <li class="px150"><a href="/admin/board/selectOne/${board.b_no}">${board.b_title}</a></li>
+                                         <li class="px150"><a href="/admin/board/selectOne/${board.b_no}?bt_no=${board.bt_no}">${board.b_title}</a></li>
                                          <li class="px200">${regDate}</li>
                                          <li class="px50">${board.b_cnt}</li>
                                          <li class="px80"><button class="btn"><a href="/admin/board/modify/${board.b_no}">수정</a></button></li>
