@@ -6,6 +6,12 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <style>
+    body{
+        background-color: steelblue;
+    }
+    *{
+        color: whitesmoke;
+    }
     .modify-container{
         margin: 0 auto;
         text-align: center;
@@ -24,10 +30,23 @@
         border: none;
     }
     input,select,textarea{
+        color: steelblue;
         padding: 10px;
         font-size: 16px;
         text-align: left;
         margin-left:10px;
+        border: 1px solid steelblue;
+        border-radius: 15px;
+    }
+    p{
+        text-align: left;
+    }
+    .imgDiv{
+        text-align: left;
+    }
+    .preview{
+        width: 400px;
+        height: 400px;
     }
 </style>
 <body>
@@ -53,7 +72,7 @@
         <p><label>이미지 </label><input type="file" name="p_img" class="previewBtn"></p>
         <p><button type="submit" class="write-btn">수정</button></p>
     </form>
-<div>
+<div class="imgDiv">
     <img src="../../../images/{{product.p_img}}" class="preview">
 </div>
 </div>
