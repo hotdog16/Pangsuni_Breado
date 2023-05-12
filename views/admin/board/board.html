@@ -152,6 +152,7 @@
         if (response.num[0] > 10) {
             const prev = document.createElement('li');
             prev.setAttribute('data-page', `${(response.checkNum - 9)}`);
+            prev.setAttribute('onclick', `listRender(${(response.checkNum - 9)})`);
             prev.className = 'page';
             prev.innerHTML = 'prev';
             pageContent.append(prev);
@@ -167,8 +168,9 @@
         if ((currentPage + 10 < response.board.count) && (num.length == 10)) {
             const next = document.createElement('li');
             next.setAttribute('data-page', `${(response.checkNum + 11)}`);
+            next.setAttribute('onclick', `listRender(${(response.checkNum + 11)})`);
             next.className = 'page';
-            next.innerHTML = 'prev';
+            next.innerHTML = 'next';
             pageContent.append(next);
         }
     }
